@@ -2,7 +2,7 @@ public interface Login {
     /**
      * Deneme
      */
-    void login();
+    void login2();
 
     /**
      * Deneme
