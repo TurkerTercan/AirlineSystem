@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+
 public class FlightSystem {
-    //Selam
-    //AS krds
-    private String pass;
-    //Esra Emirli
+    ArrayList<Plane> avblPlanes;
+    //Set<PriorityQueue<Flight>> flights;
+    FlightSystem() {
+        avblPlanes = new ArrayList<Plane>();
+    }
 }
