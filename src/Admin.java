@@ -1,4 +1,13 @@
 public class Admin extends User{
     private String pass;
-    private int users;
+
+    @Override
+    public void login() {
+
+    }
+
+    @Override
+    public void menu() {
+
+    }
 }
