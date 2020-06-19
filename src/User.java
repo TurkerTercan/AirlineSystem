@@ -14,4 +14,6 @@ public abstract class User implements Login{
         this.id = id;
         this.password = password;
     }
+
+
 }
