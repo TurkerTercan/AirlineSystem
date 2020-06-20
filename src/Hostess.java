@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Represents hostesses of the airline system.
+ */
 public class Hostess extends User{
     private Scanner input;
     private boolean LogedIn = false;

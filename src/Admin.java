@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Represents admins of the airline system.
+ */
 public class Admin extends User{
     private Scanner input;
     private boolean LogedIn = false;
@@ -49,7 +52,7 @@ public class Admin extends User{
         int choice = -1;
         while (choice!=0){
             System.out.println("\nchoose employee to hire:");
-            System.out.println("0-Up\n1-Pilot\n2-Hostess\n3-Technician\n4-Flight Manger");
+            System.out.println("0-Up\n1-Pilot\n2-Hostess\n3-Technician\n4-Flight Manager");
             System.out.print("\nchoice:");
             choice = input.nextInt();
 

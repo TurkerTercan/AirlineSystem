@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Represents pilots of the airline system.
+ */
 public class Pilot extends User{
     private Scanner input;
     private boolean LogedIn = false;
