@@ -21,4 +21,5 @@ public class CityNode implements Comparable{
     public int compareTo(Object o) {
         return city.compareTo(((CityNode)o).city);
     }
+    ///test
 }
