@@ -5,11 +5,11 @@ import java.util.*;
  *   so that the "smallest" item is at the top.
  *   @author Koffman and Wolfgang
  */
-public class PriorityQueue < E >   extends AbstractQueue < E >  implements Queue < E > {
+public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > {
 
     // Data Fields
     /** The ArrayList to hold the data. */
-    private ArrayList < E > theData;
+    private ArrayList<E> theData;
 
     /** An optional reference to a Comparator object. */
     Comparator< Flight > comparator = null;
@@ -17,7 +17,7 @@ public class PriorityQueue < E >   extends AbstractQueue < E >  implements Queue
     // Methods
     // Constructor
     public PriorityQueue() {
-        theData = new ArrayList < E > ();
+        theData = new ArrayList<E> ();
     }
 
     /** Creates a heap-based priority queue with the specified initial
@@ -27,7 +27,7 @@ public class PriorityQueue < E >   extends AbstractQueue < E >  implements Queue
      @param comp The comparator used to order this priority queue
      @throws IllegalArgumentException if cap is less than 1
      */
-    public PriorityQueue(int cap, Comparator< Flight > comp) {
+    public PriorityQueue(int cap, Comparator<Flight> comp) {
         if (cap < 1)
             throw new IllegalArgumentException();
         theData = new ArrayList < E > (cap + 1);
