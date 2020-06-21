@@ -23,8 +23,6 @@ public class Flight implements Comparable {
     private ArrayList<User> crew;
     /** List of customers */
     private ArrayList<Customer> customers;
-    /** Total count of available seats */
-    private int seatCount;
     /** Total number of remaining seats */
     private int remainingSeats;
 
@@ -43,6 +41,7 @@ public class Flight implements Comparable {
         this.destination = destination;
         this.setOff = setOff;
         this.departTime = departTime;
+        remainingSeats = plane.getCapacity();
     }
 
     //Methods
