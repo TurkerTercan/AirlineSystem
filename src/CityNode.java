@@ -21,5 +21,15 @@ public class CityNode implements Comparable{
     public int compareTo(Object o) {
         return city.compareTo(((CityNode)o).city);
     }
-    ///test
+
+    @Override
+    public int hashCode() {
+        return city.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return city.equals(obj);
+    }
+
 }

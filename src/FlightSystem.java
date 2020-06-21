@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class FlightSystem {
-    ArrayList<Plane> avblPlanes;
+    private ArrayList<Plane> avblPlanes;
+    private TreeSet<CityNode> flights;
 
     //Requires implementation of PriorityQueue
     //Set<PriorityQueue<Flight>> flights;
@@ -12,10 +14,13 @@ public class FlightSystem {
         //flights = new TreeSet<PriorityQueue<Flight>>();
     }
     
-    /* These methods will be completed after the implementation of the priority queue
-        public boolean addFlight() {
 
+    public boolean addFlight(Flight newFlight) {
+        String setoff = newFlight.getSetOff();
+        if (flights.contains(new CityNode(setoff))) {
+            flights.
         }
+    }
 
         public boolean removeFlight() {
 
@@ -24,5 +29,5 @@ public class FlightSystem {
         public void showFlights() {
             
         }
-    */
+
 }

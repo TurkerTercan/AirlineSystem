@@ -69,6 +69,10 @@ public class Flight implements Comparable {
         return remainingSeats;
     }
 
+    public String getSetOff(){
+        return setOff;
+    }
+
     /**
      * Override toString method to represent a String for this class
      * @return returns a String that represents a flight
