@@ -1,29 +1,35 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeSet;
 
 public class FlightSystem {
-    private ArrayList<Plane> avblPlanes;
-    private TreeSet<CityNode> flights;
+    private TreeSet<Plane> availablePlanes;
+    private Map<String, PriorityQueue<Flight>> flight_map;
 
-    //Requires implementation of PriorityQueue
-    //Set<PriorityQueue<Flight>> flights;
-    FlightSystem() {
-        avblPlanes = new ArrayList<Plane>();
-
-        //Requires implementation of PriorityQueue
-        //flights = new TreeSet<PriorityQueue<Flight>>();
+    public FlightSystem() {
+        availablePlanes = new TreeSet<>();
+        flight_map = new HashMap<>();
     }
-    
 
     public boolean addFlight(Flight newFlight) {
-        String setoff = newFlight.getSetOff();
-        if (flights.contains(new CityNode(setoff))) {
-            flights.
+        String setOff = newFlight.getSetOff();
+        PriorityQueue<Flight> temp = flight_map.get(setOff);
+        if (temp != null && temp.contains(newFlight))
+            return false;
+
+        if (temp == null) {
+            temp = new PriorityQueue<>();
+            temp.offer(newFlight);
+            flight_map.put(setOff, temp);
+        } else {
+            temp.offer(newFlight);
         }
+        return true;
     }
 
         public boolean removeFlight() {
-
+            return false;
         }
 
         public void showFlights() {

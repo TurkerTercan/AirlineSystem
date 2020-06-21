@@ -1,4 +1,5 @@
-public class Plane {
+@SuppressWarnings("rawtypes")
+public class Plane implements Comparable{
     //Unique identification for planes
     private static int PLANE_ID = 0;
     
@@ -25,5 +26,10 @@ public class Plane {
 
     public String getId() {
         return id;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.capacity - ((Plane)o).capacity;
     }
 }

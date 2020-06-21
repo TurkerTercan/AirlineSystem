@@ -17,7 +17,7 @@ public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > 
     // Methods
     // Constructor
     public PriorityQueue() {
-        theData = new ArrayList<E> ();
+        theData = new ArrayList<>();
     }
 
     /** Creates a heap-based priority queue with the specified initial
@@ -30,7 +30,7 @@ public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > 
     public PriorityQueue(int cap, Comparator<Flight> comp) {
         if (cap < 1)
             throw new IllegalArgumentException();
-        theData = new ArrayList < E > (cap + 1);
+        theData = new ArrayList<>(cap + 1);
         comparator = comp;
     }
 
@@ -63,12 +63,6 @@ public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > 
         return true;
     }
 
-
-    /** Remove an item from the priority queue
-     pre: The ArrayList theData is in heap order.
-     post: Removed smallest item, theData is in heap order.
-     @return The item with the smallest priority value or null if empty.
-     */
 
     /** Remove an item from the priority queue
      pre: The ArrayList theData is in heap order.
@@ -131,9 +125,8 @@ public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > 
             return comparator.compare(left, right);
         }
         else { // Use left�s compareTo method.
-            int res  =  left.compareTo(right.getDepartTime());
             //  System.out.println(" ?? " + res);
-            return res;
+            return left.compareTo(right.getDepartTime());
         }
     }
 
@@ -142,7 +135,7 @@ public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > 
     }
 
     public Iterator < E > iterator() {
-        return null;
+        return theData.iterator();
     }
 
     public E peek() {
@@ -150,10 +143,15 @@ public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > 
     }
 
     public void printQueue() {
-        for ( int i = 0; i < theData.size(); i++ ) {
-            Flight flight = ( Flight ) theData.get(i);
+        for (E theDatum : theData) {
+            Flight flight = (Flight) theDatum;
             System.out.println(flight.getDepartTime());
         }
     }
-    /**** END EXERCISE ****/
+
+    @Override
+    public boolean contains(Object o) {
+        return theData.contains(o);
+    }
+/* END EXERCISE */
 }

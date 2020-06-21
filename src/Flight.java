@@ -120,4 +120,17 @@ public class Flight implements Comparable {
 
         return total_1 - total_2;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (getClass() != obj.getClass())
+            return false;
+        return setOff.equals(((Flight) obj).setOff) && destination.equals(((Flight) obj).destination)
+                && departTime.equals(((Flight) obj).departTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return setOff.hashCode() + destination.hashCode() + departTime.hashCode();
+    }
 }
