@@ -9,7 +9,6 @@ import java.util.Iterator;
  */
 public interface Graph {
     //Interface methods
-
     /**
      * Return the number of vertices
      * @return the number of vertices
