@@ -8,6 +8,11 @@ public class Plane {
     //Capacity of the plane
     private int capacity;
 
+    public Plane(String id, int capacity) {
+        this.id = id;
+        this.capacity = capacity;
+    }
+
     Plane(int capacity) {
         this.id = String.valueOf(PLANE_ID++); 
         this.capacity = capacity;
