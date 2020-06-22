@@ -217,10 +217,13 @@ public class FlightSystem {
     }
 
     /**
-     *
-     * @param source
-     * @param destination
-     * @return
+     * If there is no flight between source and destination
+     * Customer needs to get shortest path to get to the destination
+     * It searches graph with using Dijkstra's Shortest Path Algorithm
+     * and finds the Flights that are shortest to get to the destination
+     * @param source The customer's setOff String
+     * @param destination The customer's destination String
+     * @return Flight array that is shortest path
      */
     public Flight[] getPath(String source, String destination) {
         int index_source = city.indexOf(source);

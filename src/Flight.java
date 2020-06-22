@@ -132,6 +132,11 @@ public class Flight implements Comparable {
         return total_1 - total_2;
     }
 
+    /**
+     * If two flight's setOff, destination and the departTime is the same returns true
+     * @param obj Object that will be compared
+     * @return If two flight's setOff, destination and the departTime is the same returns true
+     */
     @Override
     public boolean equals(Object obj) {
         if (getClass() != obj.getClass())
@@ -140,28 +145,60 @@ public class Flight implements Comparable {
                 && departTime.equals(((Flight) obj).departTime);
     }
 
+    /**
+     * Need to override hashCode because we changed equals method
+     * @return Flight's hashCode
+     */
     @Override
     public int hashCode() {
         return setOff.hashCode() + destination.hashCode() + departTime.hashCode();
     }
 
+    /**
+     * Getter method for ID
+     * @return Flight's ID
+     */
     public String getID() {
         return ID;
     }
 
+    /**
+     * Getter method for destination
+     * @return Flight's destination
+     */
     public String getDestination() {
         return destination;
     }
 
+    /**
+     * Getter method for crew
+     * @return Flight's crew
+     */
     public ArrayList<User> getCrew(){
         return crew;
     }
 
+    /**
+     * Setter method for destination
+     * @param destination new Destination
+     */
     public void setDestination(String destination){this.destination = destination;}
 
+    /**
+     * Setter method for setOff
+     * @param setOff new SetOff
+     */
     public void setSetOff(String setOff){this.setOff = setOff;}
 
+    /**
+     * Setter method for departTime
+     * @param departTime new DepartTime
+     */
     public void setDepartTime(String departTime){this.departTime = departTime;}
 
+    /**
+     * Setter method for Plane
+     * @param plane new plane
+     */
     public void setPlane(Plane plane){this.plane = plane;}
 }
