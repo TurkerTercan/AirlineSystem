@@ -91,9 +91,9 @@ public class FlightSystem {
         }
         graph.insert(new Edge(city.indexOf(setOff), city.indexOf(destination),
                 distance.get(city.indexOf(setOff)).get(city.indexOf(destination))));
+    
         return true;
     }
-
 
 
     public boolean removeFlight(Flight removed) {
@@ -104,6 +104,7 @@ public class FlightSystem {
             return false;
         if (!temp.containsKey(destination))
             return false;
+
         PriorityQueue<Flight> flight = temp.get(destination);
         return flight.remove(removed);
     }
@@ -130,7 +131,7 @@ public class FlightSystem {
         return availablePlanes;
     }
 
-    public Map<String, PriorityQueue<Flight>> getFlight_map() {
+    public Map<String, Map<String,PriorityQueue<Flight>>> getFlight_map() {
         return flight_map;
     }
 }
