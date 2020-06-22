@@ -74,7 +74,7 @@ public class FlightManager extends User {
         if(!printError(tempFlight, plane,new Pilot("0","0"),new Hostess("0","0"),
                 checkDest,checkSetOff)) {
             Flight newFlight = new Flight(flightID, plane, dest, setOff, depart);
-            createCrew(newFlight);
+            flightSystem.addFlight(createCrew(newFlight));
         }
     }
 
@@ -185,8 +185,9 @@ public class FlightManager extends User {
 
     /** Assign employees to the flight
      * @param flight The flight
+     * @return Updated Flight
      */
-    private void createCrew(Flight flight) {
+    private Flight createCrew(Flight flight) {
         int choice = 1;
         while (choice != 0) {
             System.out.println("\nAdd crew menu:");
@@ -216,6 +217,7 @@ public class FlightManager extends User {
                     break;
             }
         }
+        return flight;
     }
 
     /** Returns required pilot
