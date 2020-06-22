@@ -42,6 +42,7 @@ public class Flight implements Comparable {
         this.setOff = setOff;
         this.departTime = departTime;
         remainingSeats = plane.getCapacity();
+        crew = new ArrayList<>();
     }
 
     //Methods
@@ -132,5 +133,9 @@ public class Flight implements Comparable {
     @Override
     public int hashCode() {
         return setOff.hashCode() + destination.hashCode() + departTime.hashCode();
+    }
+
+    public String getID() {
+        return ID;
     }
 }

@@ -28,7 +28,7 @@ public class FlightSystem {
         return true;
     }
 
-        public boolean removeFlight() {
+        public boolean removeFlight(Flight flight) {
             return false;
         }
 
@@ -36,4 +36,11 @@ public class FlightSystem {
             
         }
 
+    public TreeSet<Plane> getAvailablePlanes() {
+        return availablePlanes;
+    }
+
+    public Map<String, PriorityQueue<Flight>> getFlight_map() {
+        return flight_map;
+    }
 }

@@ -70,7 +70,7 @@ public class Admin extends User{
                 case 3:
                     return new Technician(UN,PW);
                 case 4:
-                    return new FlightManager(UN,PW);
+                    return new FlightManager(UN,PW,null,null);
             }
         }
 

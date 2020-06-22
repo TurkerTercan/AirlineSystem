@@ -1,4 +1,4 @@
-public abstract class User implements Login{
+public abstract class User implements Login, Comparable<User>{
     private String id;
     private String password;
 
@@ -15,5 +15,8 @@ public abstract class User implements Login{
         this.password = password;
     }
 
-
+    @Override
+    public int compareTo(User o) {
+        return id.compareTo(o.id);
+    }
 }
