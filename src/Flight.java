@@ -25,6 +25,11 @@ public class Flight implements Comparable {
     private ArrayList<Customer> customers;
     /** Total number of remaining seats */
     private int remainingSeats;
+
+    public double getPricePerSeat() {
+        return pricePerSeat;
+    }
+
     /** A price for seat */
     private double pricePerSeat;
 

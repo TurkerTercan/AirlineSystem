@@ -124,9 +124,8 @@ public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > 
         if (comparator != null) { // A Comparator is defined.
             return comparator.compare(left, right);
         }
-        else { // Use left�s compareTo method.
-            //  System.out.println(" ?? " + res);
-            return left.compareTo(right.getDepartTime());
+        else {
+            return left.compareTo(right);
         }
     }
 

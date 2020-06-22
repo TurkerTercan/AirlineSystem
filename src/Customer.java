@@ -68,11 +68,32 @@ public class Customer extends User {
         String source = input.next();
         System.out.println("Please enter Destination city:");
         String dest = input.next();
+        //ask by price or time ?
+        System.out.println("1.Sort by time\n2.Sort by price\n");
+        String choise = input.next();
+
         flights = Fsys.getFlights(source,dest);
         int index = 1;
-        for(Flight F : flights){
-            System.out.println(( index++ )+F.toString());
+
+        if(choise.matches("2")) {
+            double[] flightPrice = new double[flights.size()];
+            for ( int i = 0; i < flights.size(); i++ ) {
+                flightPrice[i] = flights.get(i).getPricePerSeat();
+            }
+            //Sort by price
+            QuickSort quickSort = new QuickSort();
+            quickSort.sort(flightPrice);
+            for ( int i = 0; i < flights.size() ; i++ ) {
+            //    @// TODO: 6/23/20 index eklenecek..
+                System.out.println( flightPrice[i]);
+            }
+
+        } else {
+            for(Flight F : flights){
+                System.out.println(( index++ )+F.toString());
+            }
         }
+
         System.out.println("Please choose a flight: ");
         index = input.nextInt();
         Flight chosen = flights.get(index-1);
