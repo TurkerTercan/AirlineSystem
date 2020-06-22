@@ -1,15 +1,31 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeSet;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 
 public class FlightSystem {
     private TreeSet<Plane> availablePlanes;
     private Map<String, PriorityQueue<Flight>> flight_map;
+    private Graph graph;
+    private int[][] distance = new int[50][50];
+    private String[] city = new String[50];
 
-    public FlightSystem() {
+    public FlightSystem() throws FileNotFoundException {
         availablePlanes = new TreeSet<>();
         flight_map = new HashMap<>();
+        scanFromFile("distances.txt", "cities.txt");
+        graph = new ListGraph(50, false);
+    }
+
+    private void scanFromFile(String distanceTxt, String cityTxt) throws FileNotFoundException {
+        Scanner scanDistance = new Scanner(new File(distanceTxt));
+        Scanner scanCities = new Scanner(new File(cityTxt));
+        for (int i = 0; i < 50; i++) {
+            city[i] = scanCities.nextLine();
+            for (int j = 0; j < 50; j++) {
+                distance[i][j] = scanDistance.nextInt();
+            }
+        }
+
     }
 
     public boolean addFlight(Flight newFlight) {
@@ -58,9 +74,9 @@ public class FlightSystem {
         System.out.println(availablePlanes.toString());
     }
 
-        public void showFlights() {
+    public void showFlights() {
             
-        }
+    }
 
     public TreeSet<Plane> getAvailablePlanes() {
         return availablePlanes;
