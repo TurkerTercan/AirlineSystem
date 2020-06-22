@@ -215,4 +215,91 @@ public class FlightSystem {
     public PriorityQueue<Flight> getFlights(String setOff, String destination) {
         return flight_map.get(setOff).get(destination);
     }
+
+    /**
+     *
+     * @param source
+     * @param destination
+     * @return
+     */
+    public Flight[] getPath(String source, String destination) {
+        int index_source = city.indexOf(source);
+        int index_destination = city.indexOf(destination);
+
+        int[] pred = new int[graph.getNumV()];
+        double[] distance = new double[graph.getNumV()];
+        dijkstraAlgorithm(graph, index_source, pred, distance);
+        //If there no path between them
+        if (pred[index_destination] == Double.POSITIVE_INFINITY)
+            return null;
+
+        Stack<Integer> temp = new Stack<>();
+        while(index_destination != index_source) {
+            temp.push(index_destination);
+            index_destination = pred[index_destination];
+        }
+        temp.push(index_source);
+        Flight[] temp_flight = new Flight[temp.size() - 1];
+        int temp_source = temp.pop();
+        int temp_destination;
+        int i = 0;
+        while(!temp.isEmpty()) {
+            temp_destination = temp.pop();
+            temp_flight[i++] = flight_map.get(city.get(temp_source)).get(city.get(temp_destination)).peek();
+            temp_source = temp_destination;
+        }
+        return temp_flight;
+    }
+
+
+    /**
+     * Dijkstra's Shortest Path Algorithm
+     * pre: graph to be searched is a weighted directed graph with only positive weight
+     *      pred and dist are arrays of size V
+     * @param graph The weighted graph to be searched
+     * @param start The start vertex
+     * @param pred Output array to contain the predecessors in the shortest path
+     * @param dist Output array to contain the distance in the shortest path
+     */
+    private static void dijkstraAlgorithm(Graph graph, int start, int[] pred, double[] dist) {
+        int numV = graph.getNumV();
+        HashSet<Integer> vMinusS = new HashSet<>(numV);
+        //Initialize V - S
+        for(int i = 0; i < numV; i++){
+            if(i != start)
+                vMinusS.add(i);
+        }
+        // Initialize pred and dist
+        for(int v : vMinusS){
+            pred[v] = start;
+            dist[v] = graph.getEdge(start, v).getWeight();
+        }
+        //Main loop
+        while(vMinusS.size() != 0){
+            //Find the value u in V - S with the smallest dist[u]
+            double minDist = Double.POSITIVE_INFINITY;
+            int u = -1;
+            for(int v : vMinusS){
+                if(dist[v] < minDist){
+                    minDist = dist[v];
+                    u = v;
+                }
+            }
+            // Remove u from vMinusS
+            vMinusS.remove(u);
+            //Update the distances
+            Iterator<Edge> edgeIter = graph.edgeIterator(u);
+            while(edgeIter.hasNext()){
+                Edge edge = edgeIter.next();
+                int v = edge.getDest();
+                if(vMinusS.contains(v)){
+                    double weight = edge.getWeight();
+                    if(dist[u] + weight < dist[v]){
+                        dist[v] = dist[u] + weight;
+                        pred[v] = u;
+                    }
+                }
+            }
+        }
+    }
 }
