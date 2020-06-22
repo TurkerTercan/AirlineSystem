@@ -40,6 +40,7 @@ public class FlightManager extends User {
             System.out.println("0-Up\n1-Create a flight\n2-Remove a flight\n3-Modify a flight");
             System.out.print("\nchoice:");
             choice = input.nextInt();
+            input.nextLine();// Consume newline left-over
                 switch (choice){
                     case 1:
                         addFlight();
@@ -71,6 +72,7 @@ public class FlightManager extends User {
         Plane plane = findPlane(planeID);
         System.out.println("Please enter price");
         Double price = input.nextDouble();
+        input.nextLine();// Consume newline left-over
         boolean checkDest = checkDestination(dest);
         boolean checkSetOff = checkSetOff(setOff);
         if(!printError(tempFlight, plane,new Pilot("0","0"),new Hostess("0","0"),
@@ -202,6 +204,7 @@ public class FlightManager extends User {
             System.out.println("0-Up\n1-Add a pilot\n2-Add a hostess");
             System.out.print("\nchoice:");
             choice = input.nextInt();
+            input.nextLine();// Consume newline left-over
             Flight tempFlight = new Flight("",new Plane("",0),"","","",0.0);
             switch (choice) {
                 case 1:
@@ -272,6 +275,7 @@ public class FlightManager extends User {
                     "5-set departTime\n6- add crew\n7- remove crew");
             System.out.print("\nchoice:");
             choice = input.nextInt();
+            input.nextLine();// Consume newline left-over
             Flight tempFlight = new Flight("", new Plane("", 0), "", "", "",0.0);
             Plane tempPlane = new Plane("0", 0);
             switch (choice) {
@@ -332,6 +336,7 @@ public class FlightManager extends User {
             System.out.println("0-Up\n1-Remove a crew member");
             System.out.print("\nchoice:");
             choice = input.nextInt();
+            input.nextLine();// Consume newline left-over
             Flight tempFlight = new Flight("",new Plane("",0),"","","",0.0);
             if (choice == 1) {
                 System.out.println("Please enter crew member id");
