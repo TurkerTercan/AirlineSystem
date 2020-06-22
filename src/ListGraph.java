@@ -1,7 +1,6 @@
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
 public class ListGraph extends AbstractGraph{
     //Data Fields
@@ -41,8 +40,19 @@ public class ListGraph extends AbstractGraph{
     public void insert(Edge edge) {
         edges[edge.getSource()].add(edge);
         if (!isDirected()) {
-
             edges[edge.getDest()].add(new Edge(edge.getDest(), edge.getSource(), edge.getWeight()));
+        }
+    }
+
+    /**
+     * Removes an existing edge from the graph
+     * @param edge Edge to be removed
+     */
+    public boolean remove(Edge edge) {
+        if (edges[edge.getSource()].isEmpty()) {
+            return false;
+        } else {
+            return edges[edge.getSource()].remove(edge);
         }
     }
 
@@ -86,36 +96,5 @@ public class ListGraph extends AbstractGraph{
             }
         }
         return sb.toString();
-    }
-
-    @Override
-    public void loadEdgesFromFile(Scanner scan){
-        //System.out.println(edges.length);
-        while (scan.hasNextLine()){
-            //while there are still more edges
-            Edge e = parseFileString(scan.nextLine()); //parse a new Edge
-            edges[e.getSource()].add(e); //Add the edge to the list of its source's edges
-        }
-        scan.close();
-    }
-
-    private Edge parseFileString(String input) {
-        Edge toReturn = null; //initialize an Edge to return
-        Scanner sc = new Scanner(input); //Scan a line as an edge
-        sc.useDelimiter(",");
-        try {
-            // in case we fail to parse anything, such as format didn't work
-            int source = sc.nextInt(); // scan x position of point
-            int dest = sc.nextInt(); // scan y position of point
-            double weight = Edge.UNWEIGHTED_EDGE;
-            if (sc.hasNextDouble())
-                weight = sc.nextDouble(); //parse in the weight if it's there
-            toReturn = new Edge(source, dest, weight);
-        }
-        catch (Exception e) {
-            System.out.println("Failed to parse Edge: " + input);
-        }
-        sc.close();
-        return toReturn;
     }
 }

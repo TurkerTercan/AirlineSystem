@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -102,8 +103,13 @@ public class FlightSystem {
             return false;
         if (!temp.containsKey(destination))
             return false;
+
         PriorityQueue<Flight> flight = temp.get(destination);
-        return flight.remove(removed);
+        if (flight.remove(removed)) {
+            return graph.remove(new Edge(city.indexOf(setOff), city.indexOf(destination)));  
+        } else {
+            return false;
+        }
     }
 
     public void addPlane(Plane plane) {
@@ -118,10 +124,6 @@ public class FlightSystem {
 
     public void ShowAllPlanes() {
         System.out.println(availablePlanes.toString());
-    }
-
-    public void showFlights() {
-
     }
 
     public TreeSet<Plane> getAvailablePlanes() {
