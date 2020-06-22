@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Represents admins of the airline system.
@@ -6,10 +7,12 @@ import java.util.Scanner;
 public class Admin extends User{
     private Scanner input;
     private boolean LogedIn = false;
+    private Set<User> users;
 
-    public Admin(String id, String password) {
+    public Admin(String id, String password, Set<User> users) {
         super(id, password);
         input = new Scanner(System.in);
+        this.users = users;
     }
 
     @Override
@@ -32,14 +35,17 @@ public class Admin extends User{
     public void menu() {
         System.out.println("\nMain menu:");
         System.out.println("please choose an action:");
-        System.out.println("0-Up\n1-Hire an employee\n2-Buy a plane");
+        System.out.println("0-Up\n1-Hire an employee\n2-Remove an employee\n3-Buy a plane");
         System.out.print("\nchoice:");
         int choice = input.nextInt();
         while (choice!=0){
             switch (choice){
                 case 1:
-
-
+                    users.add(hireEmployee());
+                    break;
+                case 2:
+                    removeEmployee();
+                    break;
             }
         }
 
@@ -75,5 +81,34 @@ public class Admin extends User{
         }
 
         return null;
+    }
+
+    private void removeEmployee(){
+        String UN = "";
+        System.out.println("choose employee to remove:");
+        System.out.println("0-Up\n1-Pilot\n2-Hostess\n3-Technician\n4-Flight Manager");
+
+        int choice = input.nextInt();
+        User fired = null;
+        if (choice!=0){
+            System.out.print("Enter UserName: ");
+            UN = input.next();
+        }
+        switch (choice){
+            case 1:
+                fired = new Pilot(UN,"");
+            case 2:
+                fired = new Hostess(UN,"");
+            case 3:
+                fired = new Technician(UN,"");
+            case 4:
+                fired = new FlightManager(UN,"",null,null);
+        }
+
+        for (int i=0; i<users.size(); i++){
+            if(users.contains(fired)){
+                users.remove(fired);
+            }
+        }
     }
 }
