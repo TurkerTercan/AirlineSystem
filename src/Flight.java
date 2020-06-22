@@ -74,6 +74,10 @@ public class Flight implements Comparable {
         return setOff;
     }
 
+    public String getDestination() {
+        return destination;
+    }
+
     /**
      * Override toString method to represent a String for this class
      * @return returns a String that represents a flight

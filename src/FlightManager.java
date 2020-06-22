@@ -1,7 +1,6 @@
 import java.util.Map;
 import java.util.Scanner;
 
-
 public class FlightManager extends User {
     private Scanner input;
     private boolean LogedIn = false;
