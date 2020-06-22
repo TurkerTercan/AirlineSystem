@@ -106,7 +106,11 @@ public class FlightSystem {
             return false;
 
         PriorityQueue<Flight> flight = temp.get(destination);
-        return flight.remove(removed);
+        if (flight.remove(removed)) {
+            return graph.remove(new Edge(city.indexOf(setOff), city.indexOf(destination)));  
+        } else {
+            return false;
+        }
     }
 
     public void addPlane(Plane plane) {
