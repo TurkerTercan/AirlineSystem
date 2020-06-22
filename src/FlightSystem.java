@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -91,7 +92,6 @@ public class FlightSystem {
         }
         graph.insert(new Edge(city.indexOf(setOff), city.indexOf(destination),
                 distance.get(city.indexOf(setOff)).get(city.indexOf(destination))));
-    
         return true;
     }
 
@@ -124,10 +124,6 @@ public class FlightSystem {
 
     public void ShowAllPlanes() {
         System.out.println(availablePlanes.toString());
-    }
-
-    public void showFlights() {
-
     }
 
     public TreeSet<Plane> getAvailablePlanes() {
