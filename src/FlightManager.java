@@ -71,7 +71,7 @@ public class FlightManager extends User {
         String depart = input.nextLine();
         Plane plane = findPlane(planeID);
         System.out.println("Please enter price");
-        Double price = input.nextDouble();
+        double price = input.nextDouble();
         input.nextLine();// Consume newline left-over
         boolean checkDest = checkDestination(dest);
         boolean checkSetOff = checkSetOff(setOff);
@@ -276,7 +276,6 @@ public class FlightManager extends User {
             System.out.print("\nchoice:");
             choice = input.nextInt();
             input.nextLine();// Consume newline left-over
-            Flight tempFlight = new Flight("", new Plane("", 0), "", "", "",0.0);
             Plane tempPlane = new Plane("0", 0);
             switch (choice) {
                 case 1:
@@ -337,7 +336,6 @@ public class FlightManager extends User {
             System.out.print("\nchoice:");
             choice = input.nextInt();
             input.nextLine();// Consume newline left-over
-            Flight tempFlight = new Flight("",new Plane("",0),"","","",0.0);
             if (choice == 1) {
                 System.out.println("Please enter crew member id");
                 String ID = input.nextLine();
