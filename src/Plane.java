@@ -1,6 +1,12 @@
+/**
+ * Plane class represents a plane in our AirlineSystem
+ */
 @SuppressWarnings("rawtypes")
-public class Plane implements Comparable{
+public class Plane implements Comparable<Plane>{
     //Unique identification for planes
+    /**
+     *
+     */
     private static int PLANE_ID = 0;
     
     //Identification number of the plane
@@ -29,7 +35,7 @@ public class Plane implements Comparable{
     }
 
     @Override
-    public int compareTo(Object o) {
-        return this.capacity - ((Plane)o).capacity;
+    public int compareTo(Plane o) {
+        return this.capacity - o.capacity;
     }
 }
