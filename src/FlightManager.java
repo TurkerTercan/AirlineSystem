@@ -257,7 +257,86 @@ public class FlightManager extends User {
      * @param flight The flight
      */
     private void setFlight(Flight flight){
-
+        int choice = 1;
+        while (choice != 0) {
+            System.out.println("\nSet flight menu:");
+            System.out.println("Please choose an action:");
+            System.out.println("0-Up\n1-Set id\n2-set plane\n3-set destination\n4-set set off information\n" +
+                    "5-set departTime\n6- add crew\n7- remove crew");
+            System.out.print("\nchoice:");
+            choice = input.nextInt();
+            Flight tempFlight = new Flight("", new Plane("", 0), "", "", "");
+            Plane tempPlane = new Plane("0", 0);
+            switch (choice) {
+                case 1:
+                    System.out.println("Please enter new id");
+                    String newID = input.nextLine();
+                    Flight newFlight = new Flight(newID, tempPlane, flight.getDestination(),
+                            flight.getSetOff(), flight.getDepartTime()); // update plane later
+                    flightSystem.removeFlight(flight);
+                    flightSystem.addFlight(newFlight);
+                    break;
+                case 2:
+                    System.out.println("Please enter plane ID");
+                    String planeID = input.nextLine();
+                    Plane newPlane = findPlane(planeID);
+                    if (newPlane != null) {
+                        //flight.setPlane(newPlane);
+                    } else
+                        System.out.println("Wrong plane id");
+                    break;
+                case 3:
+                    System.out.println("Please enter destination");
+                    String dest = input.nextLine();
+                    if(checkDestination(dest)){
+                        //flight.setDestination(dest);
+                    }
+                    else{
+                        System.out.println("Wrong destination information");
+                    }
+                    break;
+                case 4:
+                    System.out.println("Please enter destination");
+                    String setOff = input.nextLine();
+                    if(checkSetOff(setOff)){
+                        //flight.setSetOff(setOff);
+                    }
+                    else
+                        System.out.println("Wrong set off information");
+                    break;
+                case 5:
+                    createCrew(flight);
+                    break;
+                case 6:
+                    removeCrew(flight);
+                    break;
+            }
+        }
     }
-    //testTT
+
+    /** Remove employees to the flight
+     * @param flight The flight
+     */
+    private void removeCrew(Flight flight){
+        int choice = 1;
+        while (choice != 0) {
+            System.out.println("\nRemove crew menu:");
+            System.out.println("Please choose an action:");
+            System.out.println("0-Up\n1-Remove a crew member");
+            System.out.print("\nchoice:");
+            choice = input.nextInt();
+            Flight tempFlight = new Flight("",new Plane("",0),"","","");
+            switch (choice) {
+                case 1:
+                    System.out.println("Please enter crew member id");
+                    String ID = input.nextLine();
+                    boolean check = true;
+                    //boolean check = flight.removeCrewMember(ID);
+                    if(!check)
+                        System.out.println("Wrong id");
+                    break;
+            }
+        }
+    }
+
 }
