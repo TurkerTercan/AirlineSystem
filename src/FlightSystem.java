@@ -131,4 +131,8 @@ public class FlightSystem {
     public Map<String,Map<String, PriorityQueue<Flight>>> getFlight_map() {
         return flight_map;
     }
+
+    public PriorityQueue<Flight> getFlights(String setoff, String destination) {
+        return flight_map.get(setoff).get(destination);
+    }
 }
