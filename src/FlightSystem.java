@@ -165,28 +165,53 @@ public class FlightSystem {
         }
     }
 
+    /**
+     * Adds new element to the TreeSet
+     * @param plane The object will be added
+     */
     public void addPlane(Plane plane) {
         availablePlanes.add(plane);
     }
 
-    public Plane peekPlane() {
+    /**
+     * Removes first element in the TreeSet and returns it
+     * @return First Plane of the TreeSet
+     */
+    public Plane popPlane() {
         Plane temp = availablePlanes.first();
         availablePlanes.remove(temp);
         return temp;
     }
 
+    /**
+     * Shows all planes in the TreeSet
+     */
     public void ShowAllPlanes() {
         System.out.println(availablePlanes.toString());
     }
 
+    /**
+     * Getter method for availablePlanes
+     * @return availablePlanes
+     */
     public TreeSet<Plane> getAvailablePlanes() {
         return availablePlanes;
     }
 
+    /**
+     * Getter method for flight_map
+     * @return flight_map
+     */
     public Map<String,Map<String, PriorityQueue<Flight>>> getFlight_map() {
         return flight_map;
     }
 
+    /**
+     * Gets PriorityQueue between setOff and Destination
+     * @param setOff The string that plane's setOff
+     * @param destination The string that flight's destination
+     * @return PriorityQueue that is contains all flights setOff to Destination
+     */
     public PriorityQueue<Flight> getFlights(String setOff, String destination) {
         return flight_map.get(setOff).get(destination);
     }
