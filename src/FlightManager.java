@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -287,7 +288,7 @@ public class FlightManager extends User {
                     String planeID = input.nextLine();
                     Plane newPlane = findPlane(planeID);
                     if (newPlane != null) {
-                        //flight.setPlane(newPlane);
+                        flight.setPlane(newPlane);
                     } else
                         System.out.println("Wrong plane id");
                     break;
@@ -295,7 +296,7 @@ public class FlightManager extends User {
                     System.out.println("Please enter destination");
                     String dest = input.nextLine();
                     if(checkDestination(dest)){
-                        //flight.setDestination(dest);
+                        flight.setDestination(dest);
                     }
                     else{
                         System.out.println("Wrong destination information");
@@ -305,7 +306,7 @@ public class FlightManager extends User {
                     System.out.println("Please enter destination");
                     String setOff = input.nextLine();
                     if(checkSetOff(setOff)){
-                        //flight.setSetOff(setOff);
+                        flight.setSetOff(setOff);
                     }
                     else
                         System.out.println("Wrong set off information");
@@ -332,15 +333,22 @@ public class FlightManager extends User {
             System.out.print("\nchoice:");
             choice = input.nextInt();
             Flight tempFlight = new Flight("",new Plane("",0),"","","",0.0);
-            switch (choice) {
-                case 1:
-                    System.out.println("Please enter crew member id");
-                    String ID = input.nextLine();
-                    boolean check = true;
-                    //boolean check = flight.removeCrewMember(ID);
-                    if(!check)
-                        System.out.println("Wrong id");
-                    break;
+            if (choice == 1) {
+                System.out.println("Please enter crew member id");
+                String ID = input.nextLine();
+                boolean check = false;
+                ArrayList<User> crew = flight.getCrew();
+                int pos = 0;
+                for (int i = 0; i < crew.size(); i++) {
+                    if (crew.get(i).getID().equals(ID)) {
+                        pos = i;
+                        check = true;
+                    }
+                }
+                if (!check)
+                    System.out.println("Wrong id");
+                else
+                    crew.remove(pos);
             }
         }
     }

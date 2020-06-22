@@ -148,6 +148,10 @@ public class Flight implements Comparable {
         return destination;
     }
 
+    public ArrayList<User> getCrew(){
+        return crew;
+    }
+
     public void setDestination(String destination){this.destination = destination;}
 
     public void setSetOff(String setOff){this.setOff = setOff;}
