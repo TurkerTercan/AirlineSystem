@@ -28,6 +28,12 @@ public interface Graph {
     void insert(Edge e);
 
     /**
+     * Removes an existing edge from the graph
+     * @param edge Edge to be removed
+     */
+    boolean remove(Edge edge);
+    
+    /**
      * Determine whether an edge exists
      * @param source The source vertex
      * @param destination The destination vertex
