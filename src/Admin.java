@@ -7,10 +7,10 @@ import java.util.Set;
 public class Admin extends User{
     private Scanner input;
     private boolean LogedIn = false;
-    private Set<User> users;
+    private SkipList<User> users;
     FlightSystem Fsys;
 
-    public Admin(String id, String password, Set<User> users,FlightSystem FSys) {
+    public Admin(String id, String password, SkipList<User> users,FlightSystem FSys) {
         super(id, password);
         input = new Scanner(System.in);
         this.users = users;
@@ -81,7 +81,7 @@ public class Admin extends User{
                 case 3:
                     return new Technician(UN,PW);
                 case 4:
-                    return new FlightManager(UN,PW,null,null);
+                    return new FlightManager(UN,PW,Fsys,users);
             }
         }
 
@@ -110,11 +110,7 @@ public class Admin extends User{
                 fired = new FlightManager(UN,"",null,null);
         }
 
-        for (int i=0; i<users.size(); i++){
-            if(users.contains(fired)){
-                users.remove(fired);
-            }
-        }
+        users.remove(fired);
     }
 
     private void buyPlane(){
