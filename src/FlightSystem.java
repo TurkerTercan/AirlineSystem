@@ -66,7 +66,7 @@ public class FlightSystem {
 		}
 		return parent;
     }
-    
+
     public boolean addFlight(Flight newFlight) {
         String setOff = newFlight.getSetOff();
         String destination = newFlight.getDestination();
@@ -78,7 +78,6 @@ public class FlightSystem {
             temp = new HashMap<>();
             temp.put(destination, flight);
             flight_map.put(setOff, temp);
-            return true;
         }
         if (temp.containsKey(destination)) {
             flight = temp.get(destination);
@@ -90,24 +89,23 @@ public class FlightSystem {
             flight.add(newFlight);
             temp.put(destination, flight);
         }
-        //graph.insert(new Edge(setOff, newFlight.getDestination(), ));
+        graph.insert(new Edge(city.indexOf(setOff), city.indexOf(destination),
+                distance[city.indexOf(setOff)][city.indexOf(destination)]));
         return true;
     }
 
+
+
     public boolean removeFlight(Flight removed) {
         String setOff = removed.getSetOff();
-        PriorityQueue<Flight> temp = flight_map.get(setOff);
+        String destination = removed.getDestination();
+        Map<String, PriorityQueue<Flight>> temp = flight_map.get(setOff);
         if (temp == null)
             return false;
-        if (temp.size() == 1 && temp.contains(removed)) {
-            flight_map.remove(setOff);
-        } else if(temp.contains(removed)) {
-            temp.remove(removed);
-        } else {
+        if (!temp.containsKey(destination))
             return false;
-        }
-        return true;
-
+        PriorityQueue<Flight> flight = temp.get(destination);
+        return flight.remove(removed);
     }
 
     public void addPlane(Plane plane) {
