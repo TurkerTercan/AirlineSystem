@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -134,7 +133,7 @@ public class FlightSystem {
         return flight_map;
     }
 
-    public PriorityQueue<Flight> getFlights(String setoff, String destination) {
-        return flight_map.get(setoff).get(destination);
+    public PriorityQueue<Flight> getFlights(String setOff, String destination) {
+        return flight_map.get(setOff).get(destination);
     }
 }

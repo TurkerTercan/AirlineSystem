@@ -49,7 +49,7 @@ public class Customer extends User {
 
                     break;
                 case 2:
-
+                    buyTicket();
                     break;
                 case 3:
                     cancelTicket();

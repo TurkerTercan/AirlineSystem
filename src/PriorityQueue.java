@@ -12,7 +12,7 @@ public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > 
     private ArrayList<E> theData;
 
     /** An optional reference to a Comparator object. */
-    Comparator< Flight > comparator = null;
+    Comparator<Flight> comparator = null;
 
     // Methods
     // Constructor
@@ -130,18 +130,33 @@ public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > 
         }
     }
 
+    /**
+     * Returns the arrayList's size
+     * @return arrayList.size()
+     */
     public int size() {
         return theData.size();
     }
 
-    public Iterator < E > iterator() {
+    /**
+     * Returns the arrayList's iterator
+     * @return arraylist.iterator()
+     */
+    public Iterator<E> iterator() {
         return theData.iterator();
     }
 
+    /**
+     * Get's first element in the queue
+     * @return first element
+     */
     public E peek() {
         return theData.get(0);
     }
 
+    /**
+     * Prints whole queue
+     */
     public void printQueue() {
         for (E theDatum : theData) {
             Flight flight = (Flight) theDatum;
@@ -149,11 +164,21 @@ public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > 
         }
     }
 
+    /**
+     * Override contains method
+     * @param o object that will be controlled
+     * @return if object is inside of the queue, true; otherwise, false.
+     */
     @Override
     public boolean contains(Object o) {
         return theData.contains(o);
     }
 
+    /**
+     * To get element in the specified position
+     * @param index The element's index
+     * @return element in the specified position
+     */
     public E get(int index) {
         return theData.get(index);
     }
