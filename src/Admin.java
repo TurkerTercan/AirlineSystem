@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -35,12 +36,13 @@ public class Admin extends User{
 
     @Override
     public void menu() {
-        System.out.println("\nMain menu:");
-        System.out.println("please choose an action:");
-        System.out.println("0-Up\n1-Hire an employee\n2-Remove an employee\n3-Buy a plane");
-        System.out.print("\nchoice:");
-        int choice = input.nextInt();
+        int choice = -1;
         while (choice!=0){
+            System.out.println("\nMain menu:");
+            System.out.println("please choose an action:");
+            System.out.println("0-Up\n1-Hire an employee\n2-Remove an employee\n3-Buy a plane");
+            System.out.print("\nchoice:");
+            choice = input.nextInt();
             switch (choice){
                 case 1:
                     users.add(hireEmployee());
@@ -51,10 +53,10 @@ public class Admin extends User{
                 case 3:
                     buyPlane();
                     break;
+                default:
+                    System.out.println("Invalid Input!!\n");
             }
         }
-
-
     }
 
     private User hireEmployee(){
@@ -90,29 +92,32 @@ public class Admin extends User{
 
     private void removeEmployee(){
         String UN = "";
-        System.out.println("choose employee to remove:");
-        System.out.println("0-Up\n1-Pilot\n2-Hostess\n3-Technician\n4-Flight Manager");
+        int choice = -1;
+        while (choice != 0) {
+            System.out.println("choose employee to remove:");
+            System.out.println("0-Up\n1-Pilot\n2-Hostess\n3-Technician\n4-Flight Manager");
 
-        int choice = input.nextInt();
-        User fired = null;
-        if (choice!=0){
-            System.out.print("Enter UserName: ");
-            UN = input.next();
-        }
-        switch (choice){
-            case 1:
-                fired = new Pilot(UN,"");
-            case 2:
-                fired = new Hostess(UN,"");
-            case 3:
-                fired = new Technician(UN,"");
-            case 4:
-                fired = new FlightManager(UN,"",null,null);
-        }
+            choice = input.nextInt();
+            User fired = null;
+            if (choice != 0) {
+                System.out.print("Enter UserName: ");
+                UN = input.next();
+            }
+            switch (choice) {
+                case 1:
+                    fired = new Pilot(UN, "");
+                case 2:
+                    fired = new Hostess(UN, "");
+                case 3:
+                    fired = new Technician(UN, "");
+                case 4:
+                    fired = new FlightManager(UN, "", null, null);
+            }
 
-        for (int i=0; i<users.size(); i++){
-            if(users.contains(fired)){
-                users.remove(fired);
+            for (int i = 0; i < users.size(); i++) {
+                if (users.contains(fired)) {
+                    users.remove(fired);
+                }
             }
         }
     }

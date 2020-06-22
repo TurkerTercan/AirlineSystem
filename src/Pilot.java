@@ -37,9 +37,13 @@ public class Pilot extends User{
             System.out.print("\nchoice:");
             choice = input.nextInt();
             switch (choice){
+                case 0:
+                    break;
                 case 1:
                     showFlight();
                     break;
+                default:
+                    System.out.println("Invalid Input!!\n");
             }
         }
     }

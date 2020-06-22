@@ -15,7 +15,7 @@ public class Hostess extends User{
     @Override
     public void login() {
         while (!LogedIn) {
-            System.out.println("Pilot Login");
+            System.out.println("Hostess Login");
             System.out.println("UserName: ");
             String uName = input.next();
             System.out.println("Password: ");
@@ -38,9 +38,13 @@ public class Hostess extends User{
             System.out.print("\nchoice:");
             choice = input.nextInt();
             switch (choice){
+                case 0:
+                    break;
                 case 1:
                     showFlight();
                     break;
+                default:
+                    System.out.println("Invalid Input!!\n");
             }
         }
     }
