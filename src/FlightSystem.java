@@ -15,7 +15,7 @@ public class FlightSystem {
         availablePlanes = new TreeSet<>();
         flight_map = new HashMap<>();
         scanFromFile("distances.txt", "cities.txt");
-        graph = initGraph(50);
+        graph = new ListGraph(50, false);
     }
 
     private void scanFromFile(String distanceTxt, String cityTxt) throws FileNotFoundException {
@@ -90,7 +90,7 @@ public class FlightSystem {
             temp.put(destination, flight);
         }
         graph.insert(new Edge(city.indexOf(setOff), city.indexOf(destination),
-                distance[city.indexOf(setOff)][city.indexOf(destination)]));
+                distance.get(city.indexOf(setOff)).get(city.indexOf(destination))));
         return true;
     }
 
