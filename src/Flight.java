@@ -52,6 +52,8 @@ public class Flight implements Comparable {
     public void addCrewMember(User user){
         crew.add(user);
     }
+    /** Removes crew member from the arraylist */
+    public boolean removeCrewMember(User user){return crew.remove(user);}
 
     /** Adds new customer in to the list */
     public void addNewCustomer(Customer customer){
@@ -144,4 +146,12 @@ public class Flight implements Comparable {
     public String getDestination() {
         return destination;
     }
+
+    public void setDestination(String destination){this.destination = destination;}
+
+    public void setSetOff(String setOff){this.setOff = setOff;}
+
+    public void setDepartTime(String departTime){this.departTime = departTime;}
+
+    public void setPlane(Plane plane){this.plane = plane;}
 }
