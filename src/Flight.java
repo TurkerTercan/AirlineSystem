@@ -25,6 +25,7 @@ public class Flight implements Comparable {
     private ArrayList<Customer> customers;
     /** Total number of remaining seats */
     private int remainingSeats;
+    private double pricePerSeat;
 
     //Constructors
     /**
@@ -35,13 +36,14 @@ public class Flight implements Comparable {
      * @param setOff Flight's set off place
      * @param departTime Flight's depart time
      */
-    public Flight( String ID, Plane plane, String destination, String setOff, String departTime) {
+    public Flight( String ID, Plane plane, String destination, String setOff, String departTime, double price) {
         this.ID = ID;
         this.plane = plane;
         this.destination = destination;
         this.setOff = setOff;
         this.departTime = departTime;
         remainingSeats = plane.getCapacity();
+        this.pricePerSeat = price;
         crew = new ArrayList<>();
     }
 
@@ -137,5 +139,9 @@ public class Flight implements Comparable {
 
     public String getID() {
         return ID;
+    }
+
+    public String getDestination() {
+        return destination;
     }
 }
