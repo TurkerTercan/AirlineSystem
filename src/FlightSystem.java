@@ -94,8 +94,6 @@ public class FlightSystem {
         return true;
     }
 
-
-
     public boolean removeFlight(Flight removed) {
         String setOff = removed.getSetOff();
         String destination = removed.getDestination();
@@ -123,14 +121,14 @@ public class FlightSystem {
     }
 
     public void showFlights() {
-            
+
     }
 
     public TreeSet<Plane> getAvailablePlanes() {
         return availablePlanes;
     }
 
-    public Map<String, PriorityQueue<Flight>> getFlight_map() {
+    public Map<String,Map<String, PriorityQueue<Flight>>> getFlight_map() {
         return flight_map;
     }
 }
