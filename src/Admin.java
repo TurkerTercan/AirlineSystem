@@ -7,12 +7,14 @@ import java.util.Set;
 public class Admin extends User{
     private Scanner input;
     private boolean LogedIn = false;
-    private Set<User> users;
+    private SkipList<User> users;
+    FlightSystem Fsys;
 
-    public Admin(String id, String password, Set<User> users) {
+    public Admin(String id, String password, SkipList<User> users,FlightSystem FSys) {
         super(id, password);
         input = new Scanner(System.in);
         this.users = users;
+        this.Fsys = FSys;
     }
 
     @Override
@@ -46,6 +48,9 @@ public class Admin extends User{
                 case 2:
                     removeEmployee();
                     break;
+                case 3:
+                    buyPlane();
+                    break;
             }
         }
 
@@ -76,7 +81,7 @@ public class Admin extends User{
                 case 3:
                     return new Technician(UN,PW);
                 case 4:
-                    return new FlightManager(UN,PW,null,null);
+                    return new FlightManager(UN,PW,Fsys,users);
             }
         }
 
@@ -105,9 +110,28 @@ public class Admin extends User{
                 fired = new FlightManager(UN,"",null,null);
         }
 
-        for (int i=0; i<users.size(); i++){
-            if(users.contains(fired)){
-                users.remove(fired);
+        users.remove(fired);
+    }
+
+    private void buyPlane(){
+        int choice = -1;
+        while (choice!=0) {
+            System.out.println("\nchoose a plane to buy:");
+            System.out.println("0-Up\n1-Airbus A220\tCapacity: 150\n2-Airbus A330\tCapacity: 250 \n3-Boeing 747\tCapacity: 400\n");
+            System.out.print("\nchoice:");
+            choice = input.nextInt();
+            while (choice != 0) {
+                switch (choice) {
+                    case 1:
+                        Fsys.addPlane(new Plane(150));
+                        break;
+                    case 2:
+                        Fsys.addPlane(new Plane(250));
+                        break;
+                    case 3:
+                        Fsys.addPlane(new Plane(400));
+                        break;
+                }
             }
         }
     }

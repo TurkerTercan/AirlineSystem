@@ -4,7 +4,7 @@ import java.util.*;
 
 public class FlightSystem {
     private TreeSet<Plane> availablePlanes;
-    private Map<String, PriorityQueue<Flight>> flight_map;
+    private Map<String, Map<String,PriorityQueue<Flight>>> flight_map;
     private Graph graph;
     private ArrayList<List<Integer>> distance;
     private ArrayList<String> city;
@@ -69,16 +69,26 @@ public class FlightSystem {
     
     public boolean addFlight(Flight newFlight) {
         String setOff = newFlight.getSetOff();
-        PriorityQueue<Flight> temp = flight_map.get(setOff);
-        if (temp != null && temp.contains(newFlight))
-            return false;
-
+        String destination = newFlight.getDestination();
+        Map<String, PriorityQueue<Flight>> temp = flight_map.get(setOff);
+        PriorityQueue<Flight> flight;
         if (temp == null) {
-            temp = new PriorityQueue<>();
-            temp.offer(newFlight);
+            flight = new PriorityQueue<>();
+            flight.add(newFlight);
+            temp = new HashMap<>();
+            temp.put(destination, flight);
             flight_map.put(setOff, temp);
+            return true;
+        }
+        if (temp.containsKey(destination)) {
+            flight = temp.get(destination);
+            if (flight.contains(newFlight))
+                return false;
+            flight.add(newFlight);
         } else {
-            temp.offer(newFlight);
+            flight = new PriorityQueue<>();
+            flight.add(newFlight);
+            temp.put(destination, flight);
         }
         //graph.insert(new Edge(setOff, newFlight.getDestination(), ));
         return true;

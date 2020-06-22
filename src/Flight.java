@@ -142,4 +142,8 @@ public class Flight implements Comparable {
     public String getID() {
         return ID;
     }
+
+    public String getDestination() {
+        return destination;
+    }
 }

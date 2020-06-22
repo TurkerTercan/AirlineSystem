@@ -33,9 +33,9 @@ public class Hostess extends User{
         int choice = -1;
         while (choice!=0) {
             System.out.println("\nMain menu:");
-            System.out.println("please choose an action:");
+            System.out.println("Please choose an action:");
             System.out.println("0-Up\n1-Show flight details");
-            System.out.print("\nchoice:");
+            System.out.print("\nChoice:");
             choice = input.nextInt();
             switch (choice){
                 case 1:
