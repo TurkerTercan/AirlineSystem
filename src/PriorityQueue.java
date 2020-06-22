@@ -153,5 +153,9 @@ public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > 
     public boolean contains(Object o) {
         return theData.contains(o);
     }
+
+    public E get(int index) {
+        return theData.get(index);
+    }
 /* END EXERCISE */
 }
