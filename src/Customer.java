@@ -1,15 +1,19 @@
 import java.util.ArrayList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Customer extends User {
     private Scanner input;
     private boolean LogedIn = false;
     private ArrayList<Ticket> tickets;
+    private PriorityQueue<Flight> flights;
+    FlightSystem Fsys;
 
-    public Customer(String id, String password) {
+    public Customer(String id, String password,FlightSystem Fsys) {
         super(id, password);
         input = new Scanner(System.in);
         tickets = new ArrayList<Ticket>();
+        this.Fsys = Fsys;
     }
 
     @Override
@@ -57,6 +61,22 @@ public class Customer extends User {
                     System.out.println("Invalid Input!!\n");
             }
         }
+    }
+
+    private void buyTicket(){
+        System.out.println("Please enter Setoff city:");
+        String source = input.next();
+        System.out.println("Please enter Destination city:");
+        String dest = input.next();
+        flights = Fsys.getFlights(source,dest);
+        int index = 1;
+        for(Flight F : flights){
+            System.out.println(( index++ )+F.toString());
+        }
+        System.out.println("Please choose a flight: ");
+        index = input.nextInt();
+        Flight chosen = flights.get(index-1);
+        tickets.add(new Ticket(chosen.getDepartTime(),String.valueOf(chosen.getRemainingSeats())));
     }
 
     private void cancelTicket(){
