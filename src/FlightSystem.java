@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 
 public class FlightSystem {
     private TreeSet<Plane> availablePlanes;
@@ -28,12 +25,38 @@ public class FlightSystem {
         return true;
     }
 
-        public boolean removeFlight() {
+    public boolean removeFlight(Flight removed) {
+        String setOff = removed.getSetOff();
+        PriorityQueue<Flight> temp = flight_map.get(setOff);
+        if (temp == null)
+            return false;
+        if (temp.size() == 1 && temp.contains(removed)) {
+            flight_map.remove(setOff);
+        } else if(temp.contains(removed)) {
+            temp.remove(removed);
+        } else {
             return false;
         }
+        return true;
 
-        public void showFlights() {
-            
-        }
+    }
+
+    public void addPlane(Plane plane) {
+        availablePlanes.add(plane);
+    }
+
+    public Plane peekPlane() {
+        Plane temp = availablePlanes.first();
+        availablePlanes.remove(temp);
+        return temp;
+    }
+
+    public void ShowAllPlanes() {
+        System.out.println(availablePlanes.toString());
+    }
+
+    public void showFlights() {
+
+    }
 
 }
