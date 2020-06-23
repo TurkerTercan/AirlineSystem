@@ -36,7 +36,7 @@ public class Customer extends User {
         while (choice!=0){
             System.out.println("\nMain menu:");
             System.out.println("please choose an action:");
-            System.out.println("0-Up\n1-Buy a ticket\n2-Postpone a Ticket\n3-Cancel Ticket\n4-Show Tickets");
+            System.out.println("0-Up\n1-Buy a ticket\n2-Cancel Ticket\n3-Show Tickets");
             System.out.print("\nchoice:");
 
             choice = input.nextInt();
@@ -47,12 +47,9 @@ public class Customer extends User {
                     buyTicket();
                     break;
                 case 2:
-
-                    break;
-                case 3:
                     cancelTicket();
                     break;
-                case 4:
+                case 3:
                     showTickets();
                     break;
                 default:
