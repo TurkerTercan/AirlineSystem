@@ -1,5 +1,4 @@
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -28,31 +27,49 @@ public class AirlineSystem {
     }
 
     private static void mainMenu(AirlineSystem system) {
-        int option = -1;
+        final int EXIT = 0;
+        final int STAND = -1;
+        int option = STAND;
         String id;
         String passwd;
-        
-        System.out.print("------Main Menu------");
-        System.out.print("1.Login");
-        System.out.print("2.Customer Registration");
-        System.out.print("3.Exit");
+        String yn;
+        User usr;
+        System.out.println("------Main Menu------");
+        System.out.println("1.Login");
+        System.out.println("2.Customer Registration");
+        System.out.println("3.Exit");
         try {
             Scanner scan = new Scanner(System.in);    
-            while (option == -1) {
+            //Stay in the main menu until user wants to exit
+            while (option == STAND) {
                 option = scan.nextInt();
                 //Read the buffer
-                scan.nextLine();
+                    scan.nextLine();
                 switch (option) {
                     case 1:
-                        option = -1;
-                        while (option == -1) {
-                            System.out.print("ID:");
+                        option = STAND;
+                        while (option == STAND) {
+                            System.out.println("ID:");
                             id = scan.nextLine();
-                            System.out.print("Password: ");
+                            System.out.println("Password: ");
                             passwd = scan.nextLine();
-                            if (system.userSet.find(new User(id, passwd)) == null) {
-                                System.out.print("There is no such registered user in the system!");
-                                option = 0;
+                            usr = system.userSet.find(new User(id, passwd));
+                            if (usr == null) {
+                                System.out.println("There is no such registered user in the system!");
+                                System.out.println("Do you want to use customer registration(Y/N) ?");
+                                    yn = scan.nextLine();
+                                if (yn.charAt(0) == 'Y' || yn.charAt(0) == 'y') {
+                                    //Registration
+                                } else if (yn.charAt(0) == 'N' || yn.charAt(0) == 'n') {
+                                    //Exit from the menu
+                                    option = EXIT;
+                                } else {
+                                    System.out.println("Invalid option.");
+                                    option = EXIT;
+                                }
+                            } else {
+                                usr.menu();
+                                option = STAND;
                             }
                         }
                         break;
@@ -60,11 +77,11 @@ public class AirlineSystem {
                         
                         break;
                     case 3:
-                        //Exit
+                        option = EXIT;
                         break;
                     default:
                         System.out.println("Please select a valid option.");
-                        option = -1;
+                        option = STAND;
                         break;
                 }
             }
