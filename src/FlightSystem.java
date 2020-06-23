@@ -118,9 +118,6 @@ public class FlightSystem {
 
         graph.insert(new Edge(city.indexOf(setOff), city.indexOf(destination),
                 distance.get(city.indexOf(setOff)).get(city.indexOf(destination))));
- 
-        System.out.println(graph.isEdge(city.indexOf(setOff), city.indexOf(destination)));
-        System.out.println(graph.getEdge(city.indexOf(setOff), city.indexOf(destination)).getWeight());
         return true;
     }
 
@@ -148,6 +145,13 @@ public class FlightSystem {
         } else {
             return false;
         }
+    }
+
+    /**
+     * @return Returns cities that are recorded in the system
+     */
+    public ArrayList<String> getCity() {
+        return city;
     }
 
     /**
