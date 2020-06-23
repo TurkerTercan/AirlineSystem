@@ -19,4 +19,8 @@ public abstract class User implements Login, Comparable<User>{
     public int compareTo(User o) {
         return id.compareTo(o.id);
     }
+
+    public boolean equals(User o) {
+        return (o.id.equals(this.id) && o.password.equals(this.password));
+    }
 }

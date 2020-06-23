@@ -18,7 +18,7 @@ public class AirlineSystem {
         scan = new Scanner(System.in);
     }
 
-
+    
 
 
 
