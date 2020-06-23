@@ -4,18 +4,19 @@ import java.util.Queue;
 import java.util.Scanner;
 
 public class Customer extends User {
-    private Scanner input;
+    private static Scanner input;
     private boolean LogedIn = false;
     private ArrayList<Ticket> tickets;
     private PriorityQueue<Flight> flights;
-    private SkipList<User> users;
+    private static SkipList<User> users;
     FlightSystem Fsys;
 
-    public Customer(String id, String password,FlightSystem Fsys) {
+    public Customer(String id, String password,FlightSystem Fsys, SkipList<User> systemUsers) {
         super(id, password);
         input = new Scanner(System.in);
         tickets = new ArrayList<>();
         this.Fsys = Fsys;
+        users = systemUsers;
     }
 
     @Override
@@ -31,11 +32,11 @@ public class Customer extends User {
         menu();
     }
 
-    public void registration() {
+    public static void registration() {
         String id;
         String passwd;
         boolean stand;
-        System.out.println("Customer Registration:");
+        System.out.println("Customer Registration");
         do {
             stand = false;
             System.out.print("Id: ");
