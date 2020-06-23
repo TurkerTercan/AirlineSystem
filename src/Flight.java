@@ -63,6 +63,10 @@ public class Flight implements Comparable {
 
     /** Adds new customer in to the list */
     public void addNewCustomer(Customer customer){
+        if (remainingSeats == 0) {
+            System.err.println("this flight is full");
+            return;
+        }
         customers.add(customer);
         remainingSeats--;
     }
