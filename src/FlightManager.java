@@ -77,8 +77,12 @@ public class FlightManager extends User {
         boolean checkSetOff = checkSetOff(setOff);
         if(!printError(tempFlight, plane,new Pilot("0","0"),new Hostess("0","0"),
                 checkDest,checkSetOff)) {
-            Flight newFlight = new Flight(flightID, plane, dest, setOff, depart,price);
-            flightSystem.addFlight(createCrew(newFlight));
+            if(dest.equals(setOff))
+                System.out.println("Set off and destination cannot be the same");
+            else {
+                Flight newFlight = new Flight(flightID, plane, dest, setOff, depart, price);
+                flightSystem.addFlight(createCrew(newFlight));
+            }
         }
     }
 
@@ -316,7 +320,7 @@ public class FlightManager extends User {
                 case 3:
                     System.out.println("Please enter new destination");
                     String dest = input.nextLine();
-                    if(checkDestination(dest)){
+                    if(checkDestination(dest) && !dest.equals(flight.getSetOff())){
                         Flight newFlight = new Flight(flight.getID(), flight.getPlane(), dest,
                                 flight.getSetOff(), flight.getDepartTime(),flight.getPricePerSeat());
                         flightSystem.removeFlight(flight);
@@ -329,7 +333,7 @@ public class FlightManager extends User {
                 case 4:
                     System.out.println("Please enter new set off information");
                     String setOff = input.nextLine();
-                    if(checkSetOff(setOff)){
+                    if(checkSetOff(setOff) && !setOff.equals(flight.getDestination())){
                         Flight newFlight = new Flight(flight.getID(), flight.getPlane(), flight.getDestination(),
                                 setOff, flight.getDepartTime(),flight.getPricePerSeat());
                         flightSystem.removeFlight(flight);
