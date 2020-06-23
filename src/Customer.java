@@ -47,10 +47,10 @@ public class Customer extends User {
                 case 0:
                     break;
                 case 1:
-
+                    buyTicket();
                     break;
                 case 2:
-                    buyTicket();
+
                     break;
                 case 3:
                     cancelTicket();
