@@ -70,7 +70,7 @@ public class Admin extends User{
     private User hireEmployee(){
         String UN = "";
         String PW = "";
-        boolean exists = true;
+        boolean exists = false;
         int choice = -1;
         while (choice!=0){
             System.out.println("\nchoose employee to hire:");
@@ -83,7 +83,9 @@ public class Admin extends User{
                     UN = input.next();
                     System.out.print("Enter new PassWord: ");
                     PW = input.next();
-                    exists = system.getUserSet().find(new User(UN,"")).compareTo(new User(UN,"")) == 0;
+                    if(!system.getUserSet().isEmpty()) {
+                        exists = system.getUserSet().find(new User(UN, "")).compareTo(new User(UN, "")) == 0;
+                    }
                     if(exists){
                         System.out.println("UserName Taken please try again");
                     }
