@@ -13,7 +13,7 @@ public class Customer extends User {
     public Customer(String id, String password,FlightSystem Fsys) {
         super(id, password);
         input = new Scanner(System.in);
-        tickets = new ArrayList<Ticket>();
+        tickets = new ArrayList<>();
         this.Fsys = Fsys;
     }
 
@@ -76,6 +76,7 @@ public class Customer extends User {
             Flight[] temp = Fsys.getPath(source,dest);
             if (temp.length == 0) {
                 System.out.println("There is no transfer point either. Please try another");
+                return;
             }
             System.out.println("You can transfer from your setOff to your destination with these flights");
             for (int i = 0; i < temp.length; i++) {
@@ -92,12 +93,12 @@ public class Customer extends User {
                     System.out.println("Operation is successful");
                     break;
                 case "N":
-                    System.out.println("");
+                    System.out.println("Backing to the menu");
                     break;
                 default:
                     System.out.println("Wrong Choice!");
             }
-
+            return;
         }
         int index = 1;
 
@@ -108,8 +109,7 @@ public class Customer extends User {
                 flights1.add(flights.get(i));
             }
 
-            QuickSort quickSort = new QuickSort();
-            quickSort.sort(flights1);
+            QuickSort.sort(flights1);
             for ( Flight F : flights1 ) {
                 System.out.println( flights.getIndexOf(F) + F.toString());
             }
