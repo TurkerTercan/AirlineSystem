@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -76,19 +77,20 @@ public class Customer extends User {
         int index = 1;
 
         if(choise.matches("2")) {
-            double[] flightPrice = new double[flights.size()];
+
+            List<Flight> flights1 = new ArrayList<>();
             for ( int i = 0; i < flights.size(); i++ ) {
-                flightPrice[i] = flights.get(i).getPricePerSeat();
-            }
-            //Sort by price
-            QuickSort quickSort = new QuickSort();
-            quickSort.sort(flightPrice);
-            for ( int i = 0; i < flights.size() ; i++ ) {
-            //    @// TODO: 6/23/20 index eklenecek..
-                System.out.println( flightPrice[i]);
+                flights1.add(flights.get(i));
             }
 
-        } else {
+            QuickSort quickSort = new QuickSort();
+            quickSort.sort(flights1);
+            for ( Flight F : flights1 ) {
+                System.out.println( flights.getIndexOf(F) + F.toString());
+            }
+        }
+
+        else {
             for(Flight F : flights){
                 System.out.println(( index++ )+F.toString());
             }

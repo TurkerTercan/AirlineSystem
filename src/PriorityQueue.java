@@ -181,5 +181,17 @@ public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > 
     public E get(int index) {
         return theData.get(index);
     }
-/* END EXERCISE */
+    /**
+     * To get in the position of element
+     * @param item The element's theData
+     * @return index of item on theData
+     */
+    public int getIndexOf(E item) {
+        for ( int i = 0; i < theData.size() ; i++ ) {
+            if( theData.get(i).equals(item) )
+                return i;
+        }
+        return -1;
+    }
+    /* END EXERCISE */
 }
