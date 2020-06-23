@@ -51,6 +51,7 @@ public class FlightManager extends User {
                         break;
                     case 4:
                         printFlight();
+                        break;
             }
         }
     }
@@ -301,10 +302,7 @@ public class FlightManager extends User {
                 case 1:
                     System.out.println("Please enter new id");
                     String newID = input.nextLine();
-                    Flight newFlight = new Flight(newID, flight.getPlane(), flight.getDestination(),
-                            flight.getSetOff(), flight.getDepartTime(),flight.getPricePerSeat());
-                    flightSystem.removeFlight(flight);
-                    flightSystem.addFlight(newFlight);
+                    flight.setID(newID);
                     break;
                 case 2:
                     System.out.println("Please enter new plane ID");
@@ -319,7 +317,10 @@ public class FlightManager extends User {
                     System.out.println("Please enter new destination");
                     String dest = input.nextLine();
                     if(checkDestination(dest)){
-                        flight.setDestination(dest);
+                        Flight newFlight = new Flight(flight.getID(), flight.getPlane(), dest,
+                                flight.getSetOff(), flight.getDepartTime(),flight.getPricePerSeat());
+                        flightSystem.removeFlight(flight);
+                        flightSystem.addFlight(newFlight);
                     }
                     else{
                         System.out.println("Wrong destination information");
@@ -329,7 +330,10 @@ public class FlightManager extends User {
                     System.out.println("Please enter new set off information");
                     String setOff = input.nextLine();
                     if(checkSetOff(setOff)){
-                        flight.setSetOff(setOff);
+                        Flight newFlight = new Flight(flight.getID(), flight.getPlane(), flight.getDestination(),
+                                setOff, flight.getDepartTime(),flight.getPricePerSeat());
+                        flightSystem.removeFlight(flight);
+                        flightSystem.addFlight(newFlight);
                     }
                     else
                         System.out.println("Wrong set off information");

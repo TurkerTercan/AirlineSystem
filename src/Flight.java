@@ -196,6 +196,12 @@ public class Flight implements Comparable {
     }
 
     /**
+     * Setter method for id
+     * @param id new ID
+     */
+    public void setID(String id){this.ID = id;}
+
+    /**
      * Setter method for destination
      * @param destination new Destination
      */
