@@ -22,6 +22,10 @@ public class FlightSystemTester {
         flight.addFlight(new Flight("2", flight.popPlane(),
                 "Erzurum", "Munih", "20/05/2021,15:30", 230.0));
 
-        flight.getFlights("Munih", "Erzurum").printQueue();
+        flight.getFlights("Munih", "Erzurum");
+        Flight[] temp = flight.getPath("Munih","Antep");
+        System.out.println(Arrays.toString(temp));
+
+
     }
 }
