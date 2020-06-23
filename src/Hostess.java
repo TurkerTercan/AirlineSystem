@@ -15,13 +15,10 @@ public class Hostess extends User{
     @Override
     public void login() {
         while (!LogedIn) {
-            System.out.println("Hostess Login");
-            System.out.println("UserName: ");
-            String uName = input.next();
             System.out.println("Password: ");
             String PWord = input.next();
 
-            if (!uName.equals(getID()) || !PWord.equals(getPassword())) {
+            if (!PWord.equals(getPassword())) {
                 System.out.println("Authentication failed please try again!!");
             }else LogedIn = !LogedIn;
         }
