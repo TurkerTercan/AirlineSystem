@@ -51,7 +51,9 @@ public class Admin extends User{
         while (choice!=0){
             switch (choice){
                 case 1:
-                    system.getUserSet().add(hireEmployee());
+                    User newUser = hireEmployee();
+                    if(newUser!=null)
+                        system.getUserSet().add(newUser);
                     break;
                 case 2:
                     removeEmployee();
@@ -84,7 +86,8 @@ public class Admin extends User{
                     System.out.print("Enter new PassWord: ");
                     PW = input.next();
                     if(!system.getUserSet().isEmpty()) {
-                        exists = system.getUserSet().find(new User(UN, "")).compareTo(new User(UN, "")) == 0;
+                        System.out.print(system.getUserSet().getSize());
+                        //exists = system.getUserSet().find(new User(UN, "")) == null;
                     }
                     if(exists){
                         System.out.println("UserName Taken please try again");

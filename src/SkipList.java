@@ -130,6 +130,10 @@ public class SkipList<E extends Comparable<E>> {
         return size == 0;
     }
 
+    int getSize(){
+        return size;
+    }
+
 
     /**
      * Method to generate a logarithmic distributed integer between 1 and maxLevel.
