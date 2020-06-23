@@ -5,14 +5,23 @@ import java.util.Queue;
  * Represents technicians of the airline system.
  */
 public class Technician extends User {
+    //Data fields
 	private Scanner input;
     private boolean LogedIn = false;
     private Queue<Plane> planeMaintance;
 
+    /**
+     * Constructor
+     * @param id
+     * @param password
+     */
     public Technician(String id, String password) {
         super(id, password);
     }
 
+    /**
+     * Login method for technician.
+     */
     @Override
     public void login() {
         while (!LogedIn) {
@@ -26,6 +35,9 @@ public class Technician extends User {
         menu();
     }
 
+    /**
+     * Menu for technician.
+     */
     @Override
     public void menu() {
         int choice = -1;
@@ -47,6 +59,9 @@ public class Technician extends User {
         }
     }
 
+    /**
+     * Maintenance confirm method for technician.
+     */
     private void maintenanceConfirm()
     {
         if(planeMaintance.size() != 0) {
@@ -56,18 +71,28 @@ public class Technician extends User {
         else {
             System.out.print("Plane maintain queue is empty!");
         }
-
     }
 
+    /**
+     * Shows maintenance queue for technician.
+     */
     private void showMaintenanceQueue() {
         System.out.print("There are planes waiting to be maintained : ");
         System.out.print(getPlaneMaintance().toString());
     }
 
+    /**
+     * Getter method for plane maintance
+     * @return plane queue
+     */
     public Queue<Plane> getPlaneMaintance() {
         return planeMaintance;
     }
 
+    /**
+     * Setter method for plane maintance
+     * @param planeMaintance
+     */
     public void setPlaneMaintance(Queue<Plane> planeMaintance) {
         this.planeMaintance = planeMaintance;
     }
