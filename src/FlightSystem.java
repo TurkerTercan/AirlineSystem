@@ -118,9 +118,6 @@ public class FlightSystem {
 
         graph.insert(new Edge(city.indexOf(setOff), city.indexOf(destination),
                 distance.get(city.indexOf(setOff)).get(city.indexOf(destination))));
- 
-        System.out.println(graph.isEdge(city.indexOf(setOff), city.indexOf(destination)));
-        System.out.println(graph.getEdge(city.indexOf(setOff), city.indexOf(destination)).getWeight());
         return true;
     }
 
@@ -144,10 +141,18 @@ public class FlightSystem {
             temp.remove(destination);
         }
         if (result) {
-            return graph.remove(new Edge(city.indexOf(setOff), city.indexOf(destination)));  
+            Edge e = graph.getEdge(city.indexOf(setOff), city.indexOf(destination));
+            return graph.remove(e);
         } else {
             return false;
         }
+    }
+
+    /**
+     * @return Returns cities that are recorded in the system
+     */
+    public ArrayList<String> getCity() {
+        return city;
     }
 
     /**
@@ -198,7 +203,12 @@ public class FlightSystem {
      * @return PriorityQueue that is contains all flights setOff to Destination
      */
     public PriorityQueue<Flight> getFlights(String setOff, String destination) {
-        return flight_map.get(setOff).get(destination);
+        Map<String,PriorityQueue<Flight>> f = flight_map.get(setOff);
+        if (f != null) {
+            return flight_map.get(setOff).get(destination);
+        } else {
+            return null;
+        }
     }
 
     /**

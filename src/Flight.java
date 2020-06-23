@@ -206,4 +206,12 @@ public class Flight implements Comparable {
      * @param plane new plane
      */
     public void setPlane(Plane plane){this.plane = plane;}
+
+    /**
+     * Getter method for plane
+     * @return Flight's plane
+     */
+    public Plane getPlane() {
+        return plane;
+    }
 }
