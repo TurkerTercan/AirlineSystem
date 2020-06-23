@@ -9,13 +9,11 @@ public class AirlineSystem {
     private SkipList<User> userSet;
     private FlightSystem flightSystem;
     private Queue<Plane> planeMaintance;
-    private Scanner scan;
 
     public AirlineSystem() throws FileNotFoundException {
         planeMaintance = new ArrayDeque<>();
         flightSystem = new FlightSystem();
         userSet = new SkipList<>();
-        scan = new Scanner(System.in);
     }
 
 
