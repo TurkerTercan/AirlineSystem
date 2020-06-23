@@ -8,8 +8,7 @@ public class Admin extends User{
     //Data fields
     private Scanner input;
     private boolean LogedIn = false;
-    private SkipList<User> users;
-    FlightSystem Fsys;
+    private AirlineSystem system;
 
     /**
      * Constructor
@@ -18,11 +17,10 @@ public class Admin extends User{
      * @param users
      * @param FSys
      */
-    public Admin(String id, String password, SkipList<User> users, FlightSystem FSys) {
+    public Admin(String id, String password, AirlineSystem system) {
         super(id, password);
         input = new Scanner(System.in);
-        this.users = users;
-        this.Fsys = FSys;
+        this.system = system;
     }
 
     /**
@@ -54,7 +52,7 @@ public class Admin extends User{
         while (choice!=0){
             switch (choice){
                 case 1:
-                    users.add(hireEmployee());
+                    system.getUserSet().add(hireEmployee());
                     break;
                 case 2:
                     removeEmployee();
@@ -86,7 +84,7 @@ public class Admin extends User{
                     UN = input.next();
                     System.out.print("Enter new PassWord: ");
                     PW = input.next();
-                    exists = users.find(new User(UN,"")).compareTo(new User(UN,"")) == 0;
+                    exists = system.getUserSet().find(new User(UN,"")).compareTo(new User(UN,"")) == 0;
                     if(exists){
                         System.out.println("UserName Taken please try again");
                     }
@@ -99,7 +97,7 @@ public class Admin extends User{
                     case 3:
                             return new Technician(UN, PW);
                     case 4:
-                            return new FlightManager(UN, PW, Fsys, users);
+                            return new FlightManager(UN, PW, system.getFlightSystem(), system.getUserSet());
                 }
             }
         }
@@ -132,8 +130,8 @@ public class Admin extends User{
                 fired = new FlightManager(UN,"",null,null);
         }
 
-        if(users.find(fired).compareTo(fired) == 0){
-            users.remove(fired);
+        if(system.getUserSet().find(fired).compareTo(fired) == 0){
+            system.getUserSet().remove(fired);
         }
     }
 
@@ -150,13 +148,13 @@ public class Admin extends User{
             while (choice != 0) {
                 switch (choice) {
                     case 1:
-                        Fsys.addPlane(new Plane(150));
+                        system.getFlightSystem().addPlane(new Plane(150));
                         break;
                     case 2:
-                        Fsys.addPlane(new Plane(250));
+                        system.getFlightSystem().addPlane(new Plane(250));
                         break;
                     case 3:
-                        Fsys.addPlane(new Plane(400));
+                        system.getFlightSystem().addPlane(new Plane(400));
                         break;
                 }
             }
