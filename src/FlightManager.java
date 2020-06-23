@@ -34,7 +34,7 @@ public class FlightManager extends User {
         while (choice!=0){
             System.out.println("\nMain menu:");
             System.out.println("Please choose an action:");
-            System.out.println("0-Up\n1-Create a flight\n2-Remove a flight\n3-Modify a flight");
+            System.out.println("0-Up\n1-Create a flight\n2-Remove a flight\n3-Modify a flight\n4-Print a flight");
             System.out.print("\nchoice:");
             choice = input.nextInt();
             input.nextLine();// Consume newline left-over
@@ -49,6 +49,8 @@ public class FlightManager extends User {
                     case 3:
                         modifyFlight();
                         break;
+                    case 4:
+                        printFlight();
             }
         }
     }
@@ -81,13 +83,7 @@ public class FlightManager extends User {
 
     /** Removes Flight */
     public void removeFlight(){
-        System.out.println("Please enter flight id");
-        String flightID = input.nextLine();
-        System.out.println("Please enter destination");
-        String dest = input.nextLine();
-        System.out.println("Please enter set off information");
-        String setOff = input.nextLine();
-        Flight flight = findFlight(flightID,setOff,dest);
+        Flight flight = getFlight();
         if(!printError(flight,new Plane("",0),new Pilot("0","0"),
                 new Hostess("0","0"),true,true)){
             flight.removeAllCrew();
@@ -97,18 +93,31 @@ public class FlightManager extends User {
 
     /** Modifies Flight */
     public void modifyFlight(){
+        Flight flight = getFlight();
+        if(!printError(flight,new Plane("",0),new Pilot("0","0"),
+                new Hostess("0","0"),true,true))
+        {
+            setFlight(flight);
+        }
+    }
+
+    /** Prints flight */
+    public void printFlight(){
+        Flight flight = getFlight();
+        System.out.println(flight.toString());
+    }
+
+    /** Takes information about flight and returns it
+     * @return The flight
+     */
+    private Flight getFlight(){
         System.out.println("Please enter flight id");
         String flightID = input.nextLine();
         System.out.println("Please enter destination");
         String dest = input.nextLine();
         System.out.println("Please enter set off information");
         String setOff = input.nextLine();
-        Flight flight = findFlight(flightID,setOff,dest);
-        if(!printError(flight,new Plane("",0),new Pilot("0","0"),
-                new Hostess("0","0"),true,true))
-        {
-            setFlight(flight);
-        }
+        return findFlight(flightID,setOff,dest);
     }
 
     /** Returns required flight
@@ -160,8 +169,7 @@ public class FlightManager extends User {
      * @param so The set off information
      * @return True if set off is exist, false otherwise
      */
-    private boolean checkSetOff(String so){return flightSystem.getCity().contains(so);
-    }
+    private boolean checkSetOff(String so){return flightSystem.getCity().contains(so); }
 
     /**
      * Displays error
@@ -293,13 +301,13 @@ public class FlightManager extends User {
                 case 1:
                     System.out.println("Please enter new id");
                     String newID = input.nextLine();
-                    Flight newFlight = new Flight(newID, tempPlane, flight.getDestination(),
-                            flight.getSetOff(), flight.getDepartTime(),0.0); // update plane later
+                    Flight newFlight = new Flight(newID, flight.getPlane(), flight.getDestination(),
+                            flight.getSetOff(), flight.getDepartTime(),flight.getPricePerSeat());
                     flightSystem.removeFlight(flight);
                     flightSystem.addFlight(newFlight);
                     break;
                 case 2:
-                    System.out.println("Please enter plane ID");
+                    System.out.println("Please enter new plane ID");
                     String planeID = input.nextLine();
                     Plane newPlane = findPlane(planeID);
                     if (newPlane != null) {
@@ -308,7 +316,7 @@ public class FlightManager extends User {
                         System.out.println("Wrong plane id");
                     break;
                 case 3:
-                    System.out.println("Please enter destination");
+                    System.out.println("Please enter new destination");
                     String dest = input.nextLine();
                     if(checkDestination(dest)){
                         flight.setDestination(dest);
@@ -318,7 +326,7 @@ public class FlightManager extends User {
                     }
                     break;
                 case 4:
-                    System.out.println("Please enter destination");
+                    System.out.println("Please enter new set off information");
                     String setOff = input.nextLine();
                     if(checkSetOff(setOff)){
                         flight.setSetOff(setOff);
