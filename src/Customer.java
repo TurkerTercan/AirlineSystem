@@ -100,7 +100,7 @@ public class Customer extends User {
         index = input.nextInt();
         Flight chosen = flights.get(index-1);
         tickets.add(new Ticket(chosen.getDepartTime(),String.valueOf(chosen.getRemainingSeats())));
-        flights.get(index-1).addNewCustomer(this);
+        chosen.addNewCustomer(this);
     }
 
     private void cancelTicket(){
