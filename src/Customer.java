@@ -92,12 +92,12 @@ public class Customer extends User {
                     System.out.println("Operation is successful");
                     break;
                 case "N":
-                    System.out.println("");
+                    System.out.println("Backing to the menu");
                     break;
                 default:
                     System.out.println("Wrong Choice!");
             }
-
+            return;
         }
         int index = 1;
 
