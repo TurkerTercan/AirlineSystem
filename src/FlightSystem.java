@@ -105,11 +105,7 @@ public class FlightSystem {
             temp = new HashMap<>();
             temp.put(destination, flight);
             flight_map.put(setOff, temp);
-            graph.insert(new Edge(city.indexOf(setOff), city.indexOf(destination),
-                    distance.get(city.indexOf(setOff)).get(city.indexOf(destination))));
-            return true;
-        }
-        if (temp.containsKey(destination)) {
+        } else if (temp.containsKey(destination)) {
             flight = temp.get(destination);
             if (flight.contains(newFlight))
                 return false;
@@ -119,8 +115,12 @@ public class FlightSystem {
             flight.add(newFlight);
             temp.put(destination, flight);
         }
+
         graph.insert(new Edge(city.indexOf(setOff), city.indexOf(destination),
                 distance.get(city.indexOf(setOff)).get(city.indexOf(destination))));
+ 
+        System.out.println(graph.isEdge(city.indexOf(setOff), city.indexOf(destination)));
+        System.out.println(graph.getEdge(city.indexOf(setOff), city.indexOf(destination)).getWeight());
         return true;
     }
 
