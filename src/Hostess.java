@@ -4,14 +4,23 @@ import java.util.Scanner;
  * Represents hostesses of the airline system.
  */
 public class Hostess extends User{
+    //Data fields
     private Scanner input;
     private boolean LogedIn = false;
     private Flight flight;
 
+    /**
+     * Constructor
+     * @param id
+     * @param password
+     */
     public Hostess(String id, String password) {
         super(id, password);
     }
 
+    /**
+     * Login method for hostess.
+     */
     @Override
     public void login() {
         while (!LogedIn) {
@@ -25,6 +34,9 @@ public class Hostess extends User{
         menu();
     }
 
+    /**
+     * Menu for hostess.
+     */
     @Override
     public void menu() {
         int choice = -1;
@@ -46,10 +58,17 @@ public class Hostess extends User{
         }
     }
 
+   /**
+     * Setter method for hostess.
+     * @param flight
+     */
     private void setFlight(Flight flight){
         this.flight = flight;
     }
 
+    /**
+     * Shows flights for hostess.
+     */
     private void showFlight(){
         System.out.print(flight.toString());
     }
