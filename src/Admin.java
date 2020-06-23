@@ -10,7 +10,7 @@ public class Admin extends User{
     private Set<User> users;
     FlightSystem Fsys;
 
-    public Admin(String id, String password, Set<User> users,FlightSystem FSys) {
+    public Admin(String id, String password, Set<User> users, FlightSystem FSys) {
         super(id, password);
         input = new Scanner(System.in);
         this.users = users;
