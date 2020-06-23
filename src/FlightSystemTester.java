@@ -19,11 +19,9 @@ public class FlightSystemTester {
 
         flight.addFlight(new Flight("2", flight.popPlane(),
                 "Erzurum", "Munih", "20/06/2020,15:30", 230.0));
+        flight.addFlight(new Flight("2", flight.popPlane(),
+                "Erzurum", "Munih", "20/05/2021,15:30", 230.0));
 
-        System.out.println(flight.getFlights("Munih", "Erzurum").peek());
-    }
-
-    private static test_init() {
-        FlightSystem flight = new FlightSystem();
+        flight.getFlights("Munih", "Erzurum").printQueue();
     }
 }
