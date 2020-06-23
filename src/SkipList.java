@@ -79,7 +79,7 @@ public class SkipList<E extends Comparable<E>> {
             return pred[0].links[0].data;
         } else {
             return null;
-        }
+       }
     }
 
     /**
@@ -128,6 +128,10 @@ public class SkipList<E extends Comparable<E>> {
 
     boolean isEmpty(){
         return size == 0;
+    }
+
+    int getSize(){
+        return size;
     }
 
 

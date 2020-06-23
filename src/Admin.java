@@ -43,15 +43,18 @@ public class Admin extends User{
      */
     @Override
     public void menu() {
-        System.out.println("\nMain menu:");
-        System.out.println("please choose an action:");
-        System.out.println("0-Up\n1-Hire an employee\n2-Remove an employee\n3-Buy a plane");
-        System.out.print("\nchoice:");
-        int choice = input.nextInt();
+        int choice = -1;
         while (choice!=0){
+            System.out.println("\nMain menu:");
+            System.out.println("please choose an action:");
+            System.out.println("0-Up\n1-Hire an employee\n2-Remove an employee\n3-Buy a plane");
+            System.out.print("\nchoice:");
+            choice = input.nextInt();
             switch (choice){
                 case 1:
-                    system.getUserSet().add(hireEmployee());
+                    User newUser = hireEmployee();
+                    if(newUser!=null)
+                        system.getUserSet().add(newUser);
                     break;
                 case 2:
                     removeEmployee();
@@ -84,13 +87,16 @@ public class Admin extends User{
                     System.out.print("Enter new PassWord: ");
                     PW = input.next();
                     if(!system.getUserSet().isEmpty()) {
-                        exists = system.getUserSet().find(new User(UN, "")).compareTo(new User(UN, "")) == 0;
+                        System.out.print(system.getUserSet().getSize());
+                        exists = system.getUserSet().find(new User(UN, "")) != null;
                     }
                     if(exists){
                         System.out.println("UserName Taken please try again");
                     }
                 }while (exists);
                 switch (choice) {
+                    case 0:
+                        break;
                     case 1:
                             return new Pilot(UN, PW);
                     case 2:
@@ -99,6 +105,9 @@ public class Admin extends User{
                             return new Technician(UN, PW);
                     case 4:
                             return new FlightManager(UN, PW, system.getFlightSystem(), system.getUserSet());
+                    default:
+                        System.out.println("Invalid Choice!!");
+                        break;
                 }
             }
         }
@@ -119,8 +128,10 @@ public class Admin extends User{
         if (choice!=0){
             System.out.print("Enter UserName: ");
             UN = input.next();
-        }
+        }else return;
         switch (choice){
+            case 0:
+                break;
             case 1:
                 fired = new Pilot(UN,"");
             case 2:
@@ -129,11 +140,22 @@ public class Admin extends User{
                 fired = new Technician(UN,"");
             case 4:
                 fired = new FlightManager(UN,"",null,null);
+            default:
+                System.out.println("Invalid Choice!!");
+                break;
+        }
+        try {
+            if(system.getUserSet().find(fired).compareTo(fired) == 0){
+                if(system.getUserSet().remove(fired)){
+                   System.out.println("Removed Employee "+ fired.getID());
+                }
+            }else {
+                System.out.println("couldn't find Employee "+ fired.getID());
+            }
+        }catch (Exception e){
+            System.out.println("Task Faild");
         }
 
-        if(system.getUserSet().find(fired).compareTo(fired) == 0){
-            system.getUserSet().remove(fired);
-        }
     }
 
     /**
@@ -146,18 +168,21 @@ public class Admin extends User{
             System.out.println("0-Up\n1-Airbus A220\tCapacity: 150\n2-Airbus A330\tCapacity: 250 \n3-Boeing 747\tCapacity: 400\n");
             System.out.print("\nchoice:");
             choice = input.nextInt();
-            while (choice != 0) {
-                switch (choice) {
-                    case 1:
-                        system.getFlightSystem().addPlane(new Plane(150));
-                        break;
-                    case 2:
-                        system.getFlightSystem().addPlane(new Plane(250));
-                        break;
-                    case 3:
-                        system.getFlightSystem().addPlane(new Plane(400));
-                        break;
-                }
+            switch (choice) {
+                case 0:
+                    break;
+                case 1:
+                    system.getFlightSystem().addPlane(new Plane(150));
+                    break;
+                case 2:
+                    system.getFlightSystem().addPlane(new Plane(250));
+                    break;
+                case 3:
+                    system.getFlightSystem().addPlane(new Plane(400));
+                    break;
+                default:
+                    System.out.println("Invalid Choice!!");
+                    break;
             }
         }
     }
