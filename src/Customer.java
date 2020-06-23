@@ -8,6 +8,7 @@ public class Customer extends User {
     private boolean LogedIn = false;
     private ArrayList<Ticket> tickets;
     private PriorityQueue<Flight> flights;
+    private SkipList<User> users;
     FlightSystem Fsys;
 
     public Customer(String id, String password,FlightSystem Fsys) {
@@ -28,6 +29,27 @@ public class Customer extends User {
             }else LogedIn = !LogedIn;
         }
         menu();
+    }
+
+    public void registration() {
+        String id;
+        String passwd;
+        boolean stand;
+        System.out.println("Customer Registration:");
+        do {
+            stand = false;
+            System.out.print("Id: ");
+            id = input.nextLine();
+            if (users.find(new User(id, "")) != null) {
+                System.out.println("There is already a user registered with this id in the system.");
+                stand = true;
+            } else {
+                System.out.print("\nPassword: ");
+                passwd = input.nextLine();
+                users.add(new User(id, passwd));
+            }
+        } while (stand);
+        System.out.println("A new customer has been added to the system.");
     }
 
     @Override
