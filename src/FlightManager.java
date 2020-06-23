@@ -89,8 +89,10 @@ public class FlightManager extends User {
         String setOff = input.nextLine();
         Flight flight = findFlight(flightID,setOff,dest);
         if(!printError(flight,new Plane("",0),new Pilot("0","0"),
-                new Hostess("0","0"),true,true))
+                new Hostess("0","0"),true,true)){
+            flight.removeAllCrew();
             flightSystem.removeFlight(flight);
+        }
     }
 
     /** Modifies Flight */
@@ -118,15 +120,19 @@ public class FlightManager extends User {
 
         Map<String, Map<String,PriorityQueue<Flight>>> map= flightSystem.getFlight_map();
         Map<String, PriorityQueue<Flight>> flights = map.get(setOff);
-        PriorityQueue<Flight> flight = flights.get(dest);
-        if(flight == null)
+        if(flights == null)
             return null;
         else{
-            for (Flight temp : flight) {
-                if (temp.getID().equals(id))
-                    return temp;
+            PriorityQueue<Flight> flight = flights.get(dest);
+            if(flight == null)
+                return null;
+            else{
+                for (Flight temp : flight) {
+                    if (temp.getID().equals(id))
+                        return temp;
+                }
+                return null;
             }
-            return null;
         }
     }
 
@@ -147,17 +153,14 @@ public class FlightManager extends User {
      * @param dest The destination
      * @return True if destination is exist, false otherwise
      */
-    private boolean checkDestination(String dest){
-        return true;
-    }
+    private boolean checkDestination(String dest){ return flightSystem.getCity().contains(dest); }
 
     /**
      * Check validity of set off information
      * @param so The set off information
      * @return True if set off is exist, false otherwise
      */
-    private boolean checkSetOff(String so){
-        return true;
+    private boolean checkSetOff(String so){return flightSystem.getCity().contains(so);
     }
 
     /**
@@ -210,6 +213,7 @@ public class FlightManager extends User {
                     Pilot pilot = findPilot(pilotID);
                     if(!printError(tempFlight,new Plane("0",0),pilot,
                             new Hostess("0","0"),true,true)){
+                        pilot.setFlight(flight);
                         flight.addCrewMember(pilot);
                     }
                     break;
@@ -219,6 +223,7 @@ public class FlightManager extends User {
                     Hostess hostess = findHostess(hostessID);
                     if(!printError(tempFlight,new Plane("0",0),new Pilot("0","0"),
                             hostess,true,true)){
+                        hostess.setFlight(flight);
                         flight.addCrewMember(hostess);
                     }
                     break;
@@ -236,8 +241,13 @@ public class FlightManager extends User {
         if(u == null)
             return null;
         else{
-            if(u instanceof Pilot)
-                return (Pilot)u;
+            if(u instanceof Pilot){
+                Pilot pilot = (Pilot)u;
+                if(pilot.getFlight() != null)
+                    return null;
+                else
+                    return pilot;
+            }
             else
                 return null;
         }
@@ -252,8 +262,13 @@ public class FlightManager extends User {
         if(u == null)
             return null;
         else{
-            if(u instanceof Hostess)
-                return (Hostess)u;
+            if(u instanceof Hostess){
+                Hostess hostess = (Hostess) u;
+                if(hostess.getFlight() != null)
+                    return null;
+                else
+                    return hostess;
+            }
             else
                 return null;
         }
@@ -347,8 +362,17 @@ public class FlightManager extends User {
                 }
                 if (!check)
                     System.out.println("Wrong id");
-                else
+                else {
+                    if(crew.get(pos) instanceof Pilot){
+                        Pilot pilot = (Pilot) crew.get(pos);
+                        pilot.setFlight(null);
+                    }
+                    else if(crew.get(pos) instanceof Hostess){
+                        Hostess hostess = (Hostess) crew.get(pos);
+                        hostess.setFlight(null);
+                    }
                     crew.remove(pos);
+                }
             }
         }
     }

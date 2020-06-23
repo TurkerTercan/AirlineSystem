@@ -70,8 +70,15 @@ public class Hostess extends User{
      * Setter method for hostess.
      * @param flight
      */
-    private void setFlight(Flight flight){
+    public void setFlight(Flight flight){
         this.flight = flight;
+    }
+
+    /**
+     * Getter method for hostess.
+     */
+    public Flight getFlight(){
+        return flight;
     }
 
     /**

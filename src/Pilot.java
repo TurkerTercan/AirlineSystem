@@ -62,8 +62,16 @@ public class Pilot extends User{
      * Setter method for pilot.
      * @param flight
      */
-    private void setFlight(Flight flight){
+    public void setFlight(Flight flight){
         this.flight = flight;
+    }
+
+
+    /**
+     * Getter method for pilot.
+     */
+    public Flight getFlight(){
+        return flight;
     }
 
     /**

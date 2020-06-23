@@ -59,8 +59,20 @@ public class Flight implements Comparable {
     public void addCrewMember(User user){
         crew.add(user);
     }
-    /** Removes crew member from the arraylist */
-    public boolean removeCrewMember(User user){return crew.remove(user);}
+
+    /** Removes all crew members */
+    public void removeAllCrew(){
+        for (User user : crew) {
+            if (user instanceof Pilot) {
+                Pilot pilot = (Pilot) user;
+                pilot.setFlight(null);
+            } else if (user instanceof Hostess) {
+                Hostess hostess = (Hostess) user;
+                hostess.setFlight(null);
+            }
+        }
+        crew.clear();
+    }
 
     /** Adds new customer in to the list */
     public void addNewCustomer(Customer customer){
