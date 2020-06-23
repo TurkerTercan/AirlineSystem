@@ -17,12 +17,15 @@ public class FlightSystemTester {
         System.out.println(flight.addFlight(new Flight("1", flight.popPlane(),
                 "Gaziantep", "Erzurum", "20/06/2020,14:30", 130.0)));
 
-        flight.addFlight(new Flight("2", flight.popPlane(),
-                "Erzurum", "Munih", "20/06/2020,15:30", 230.0));
-        flight.addFlight(new Flight("2", flight.popPlane(),
-                "Erzurum", "Munih", "20/05/2021,15:30", 230.0));
+        System.out.println(flight.addFlight(new Flight("2", flight.popPlane(),
+                "Erzurum", "Munih", "20/06/2020,15:30", 230.0)));
+        System.out.println(flight.addFlight(new Flight("2", flight.popPlane(),
+                "Erzurum", "Munih", "20/05/2021,15:30", 230.0)));
 
-        flight.getFlights("Munih", "Erzurum");
+        System.out.println(flight.addFlight(new Flight("2", flight.popPlane(),
+                "Erzurum", "Munih", "20/05/2021,15:30", 230.0)));
+
+        System.out.println(flight.getFlights("Munih", "Erzurum").peek());
 
 
 

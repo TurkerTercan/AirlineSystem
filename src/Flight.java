@@ -51,6 +51,7 @@ public class Flight implements Comparable {
         remainingSeats = plane.getCapacity();
         this.pricePerSeat = price;
         crew = new ArrayList<>();
+        customers = new ArrayList<>();
     }
 
     //Methods
