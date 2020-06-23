@@ -1,4 +1,4 @@
-public interface Login {
+public interface  Login {
     /**
      * Deneme
      */
