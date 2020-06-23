@@ -14,8 +14,8 @@ public class FlightSystemTester {
         flight.addPlane(new Plane(101));
 
         flight.ShowAllPlanes();
-        flight.addFlight(new Flight("1", flight.popPlane(),
-                "Gaziantep", "Erzurum", "20/06/2020,14:30", 130.0));
+        System.out.println(flight.addFlight(new Flight("1", flight.popPlane(),
+                "Gaziantep", "Erzurum", "20/06/2020,14:30", 130.0)));
 
         flight.addFlight(new Flight("2", flight.popPlane(),
                 "Erzurum", "Munih", "20/06/2020,15:30", 230.0));
@@ -23,8 +23,8 @@ public class FlightSystemTester {
                 "Erzurum", "Munih", "20/05/2021,15:30", 230.0));
 
         flight.getFlights("Munih", "Erzurum");
-        Flight[] temp = flight.getPath("Munih","Antep");
-        System.out.println(Arrays.toString(temp));
+
+
 
 
     }

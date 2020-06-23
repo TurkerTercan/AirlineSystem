@@ -105,6 +105,9 @@ public class FlightSystem {
             temp = new HashMap<>();
             temp.put(destination, flight);
             flight_map.put(setOff, temp);
+            graph.insert(new Edge(city.indexOf(setOff), city.indexOf(destination),
+                    distance.get(city.indexOf(setOff)).get(city.indexOf(destination))));
+            return true;
         }
         if (temp.containsKey(destination)) {
             flight = temp.get(destination);
