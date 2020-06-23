@@ -5,8 +5,16 @@ import java.util.Scanner;
  */
 public class Hostess extends User{
     //Data fields
+    /**
+     * To scan from terminal
+     */
     private Scanner input;
+    /**
+     * LogIn boolean to checks the users logedin or not
+     */
     private boolean LogedIn = false;
+
+
     private Flight flight;
 
     /**
