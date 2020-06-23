@@ -79,7 +79,7 @@ public class SkipList<E extends Comparable<E>> {
             return pred[0].links[0].data;
         } else {
             return null;
-        }
+       }
     }
 
     /**

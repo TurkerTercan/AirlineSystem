@@ -87,7 +87,7 @@ public class Admin extends User{
                     PW = input.next();
                     if(!system.getUserSet().isEmpty()) {
                         System.out.print(system.getUserSet().getSize());
-                        //exists = system.getUserSet().find(new User(UN, "")) == null;
+                        exists = system.getUserSet().find(new User(UN, "")) != null;
                     }
                     if(exists){
                         System.out.println("UserName Taken please try again");
