@@ -5,11 +5,19 @@ import java.util.Set;
  * Represents admins of the airline system.
  */
 public class Admin extends User{
+    //Data fields
     private Scanner input;
     private boolean LogedIn = false;
     private SkipList<User> users;
     FlightSystem Fsys;
 
+    /**
+     * Constructor
+     * @param id
+     * @param password
+     * @param users
+     * @param FSys
+     */
     public Admin(String id, String password, SkipList<User> users, FlightSystem FSys) {
         super(id, password);
         input = new Scanner(System.in);
@@ -17,6 +25,9 @@ public class Admin extends User{
         this.Fsys = FSys;
     }
 
+    /**
+     * Login method for Admin.
+     */
     @Override
     public void login() {
         while (!LogedIn) {
@@ -30,6 +41,9 @@ public class Admin extends User{
         menu();
     }
 
+    /**
+     * Menu for admin
+     */
     @Override
     public void menu() {
         System.out.println("\nMain menu:");
@@ -50,10 +64,12 @@ public class Admin extends User{
                     break;
             }
         }
-
-
     }
 
+    /**
+     * Admin adds pilot, hostess, technician and flight manager.
+     * @return User
+     */
     private User hireEmployee(){
         String UN = "";
         String PW = "";
@@ -85,6 +101,9 @@ public class Admin extends User{
         return null;
     }
 
+    /**
+     * Admin removes pilot, hostess, technician and flight manager.
+     */
     private void removeEmployee(){
         String UN = "";
         System.out.println("choose employee to remove:");
@@ -112,6 +131,9 @@ public class Admin extends User{
         }
     }
 
+    /**
+     * Buy plane method for admin.
+     */
     private void buyPlane(){
         int choice = -1;
         while (choice!=0) {
