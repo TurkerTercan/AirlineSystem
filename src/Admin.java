@@ -73,28 +73,38 @@ public class Admin extends User{
     private User hireEmployee(){
         String UN = "";
         String PW = "";
+        boolean exists = true;
         int choice = -1;
         while (choice!=0){
             System.out.println("\nchoose employee to hire:");
             System.out.println("0-Up\n1-Pilot\n2-Hostess\n3-Technician\n4-Flight Manager");
             System.out.print("\nchoice:");
             choice = input.nextInt();
-
-            if (choice!=0){
-                System.out.print("Enter UserName: ");
-                UN = input.next();
-                System.out.print("Enter new PassWord: ");
-                PW = input.next();
-            }
-            switch (choice){
-                case 1:
-                    return new Pilot(UN,PW);
-                case 2:
-                    return new Hostess(UN,PW);
-                case 3:
-                    return new Technician(UN,PW);
-                case 4:
-                    return new FlightManager(UN,PW,null,null);
+            while (exists) {
+                if (choice != 0) {
+                    System.out.print("Enter UserName: ");
+                    UN = input.next();
+                    System.out.print("Enter new PassWord: ");
+                    PW = input.next();
+                }
+                switch (choice) {
+                    case 1:
+                        if (!users.find(new Pilot(UN, PW)).equals(new Pilot(UN, PW))){
+                            return new Pilot(UN, PW);
+                        }
+                    case 2:
+                        if (!users.find(new Hostess(UN, PW)).equals(new Hostess(UN, PW))){
+                            return new Hostess(UN, PW);
+                        }
+                    case 3:
+                        if (!users.find(new Technician(UN, PW)).equals(new Technician(UN, PW))){
+                            return new Technician(UN, PW);
+                        }
+                    case 4:
+                        if (!users.find(new FlightManager(UN, PW,Fsys,users)).equals(new FlightManager(UN, PW,Fsys,users))) {
+                            return new FlightManager(UN, PW, Fsys, users);
+                        }
+                }
             }
         }
 
