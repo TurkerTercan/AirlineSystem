@@ -43,12 +43,13 @@ public class Admin extends User{
      */
     @Override
     public void menu() {
-        System.out.println("\nMain menu:");
-        System.out.println("please choose an action:");
-        System.out.println("0-Up\n1-Hire an employee\n2-Remove an employee\n3-Buy a plane");
-        System.out.print("\nchoice:");
-        int choice = input.nextInt();
+        int choice = -1;
         while (choice!=0){
+            System.out.println("\nMain menu:");
+            System.out.println("please choose an action:");
+            System.out.println("0-Up\n1-Hire an employee\n2-Remove an employee\n3-Buy a plane");
+            System.out.print("\nchoice:");
+            choice = input.nextInt();
             switch (choice){
                 case 1:
                     User newUser = hireEmployee();
@@ -122,7 +123,7 @@ public class Admin extends User{
         if (choice!=0){
             System.out.print("Enter UserName: ");
             UN = input.next();
-        }
+        }else return;
         switch (choice){
             case 1:
                 fired = new Pilot(UN,"");
@@ -133,10 +134,18 @@ public class Admin extends User{
             case 4:
                 fired = new FlightManager(UN,"",null,null);
         }
-
-        if(system.getUserSet().find(fired).compareTo(fired) == 0){
-            system.getUserSet().remove(fired);
+        try {
+            if(system.getUserSet().find(fired).compareTo(fired) == 0){
+                if(system.getUserSet().remove(fired)){
+                   System.out.println("Removed Employee "+ fired.getID());
+                }
+            }else {
+                System.out.println("couldn't find Employee "+ fired.getID());
+            }
+        }catch (Exception e){
+            System.out.println("Task Faild");
         }
+
     }
 
     /**
