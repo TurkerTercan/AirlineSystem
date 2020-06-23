@@ -19,4 +19,8 @@ public class FlightSystemTester {
 
 
     }
+
+    private static test_init() {
+        FlightSystem flight = new FlightSystem();
+    }
 }

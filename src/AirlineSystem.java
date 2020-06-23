@@ -57,7 +57,7 @@ public class AirlineSystem {
      * Main menu method of the AirlineSystem
      * Customers or authorized users will be logged in to system or
      * registrated to the system.
-     * @param system
+     * @param system AirlineSystem parameter to be work on it
      */
     private static void mainMenu(AirlineSystem system) {
         //Data field

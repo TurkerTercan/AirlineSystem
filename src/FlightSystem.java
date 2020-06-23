@@ -11,6 +11,8 @@ import java.util.*;
  */
 public class FlightSystem {
     //Data Fields
+    private static final int MAX_CAPACITY = 50;
+
     /** BinaryBalancedSearchTree of Planes, Planes are compared with their capacities */
     private TreeSet<Plane> availablePlanes;
 
@@ -49,7 +51,7 @@ public class FlightSystem {
         availablePlanes = new TreeSet<>();
         flight_map = new HashMap<>();
         scanFromFile();
-        graph = new ListGraph(50, true);
+        graph = new ListGraph(MAX_CAPACITY, true);
     }
 
     /**
@@ -57,13 +59,31 @@ public class FlightSystem {
      * @throws FileNotFoundException If there is no such file
      */
     private void scanFromFile() throws FileNotFoundException {
-        Scanner scanDistance = new Scanner(new File("distances.txt"));
         Scanner scanCities = new Scanner(new File("cities.txt"));
-        for (int i = 0; i < 50; i++) {
-            distance.add(new ArrayList<>());
+        Scanner scanDistance = new Scanner(new File("distances.txt"));
+        String line;
+        int city_c = 0;
+
+        while (scanCities.hasNextLine()) {
             city.add(scanCities.nextLine());
-            for (int j = 0; j < 50; j++) {
-                distance.get(i).add(scanDistance.nextInt());
+            distance.add(new ArrayList<>());   
+            city_c++;
+        }
+        for (int i = 0, j = 0; i < city_c; i++, j = 0) {
+            line = scanDistance.nextLine();
+            try {
+                Scanner sc = new Scanner(line);
+                while (sc.hasNextInt()) {
+                    distance.get(i).add(sc.nextInt());
+                    j++;
+                }
+                if (j != city.size()) {
+                    System.out.println("There should be exactly "+city.size()+" number of elements in the distance file for all cities");
+                    System.exit(0);
+                }
+            } catch (Exception e) {
+                System.out.println("Something went wrong");
+                System.exit(0);
             }
         }
     }
