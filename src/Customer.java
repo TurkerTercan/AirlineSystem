@@ -71,6 +71,34 @@ public class Customer extends User {
         String choise = input.next();
 
         flights = Fsys.getFlights(source,dest);
+        if (flights == null) {
+            System.out.println("There is no flight between " + source + " and " + dest);
+            Flight[] temp = Fsys.getPath(source,dest);
+            if (temp.length == 0) {
+                System.out.println("There is no transfer point either. Please try another");
+            }
+            System.out.println("You can transfer from your setOff to your destination with these flights");
+            for (int i = 0; i < temp.length; i++) {
+                System.out.println((i+1) + ". " + temp[i].toString());
+            }
+            System.out.println("Do you want to buy all tickets from these flights? (Y/N)");
+            String tempStr = input.nextLine();
+            switch (tempStr) {
+                case "Y":
+                    for(Flight F : temp) {
+                        F.addNewCustomer(this);
+                        tickets.add(new Ticket(F.getDepartTime(), String.valueOf(F.getRemainingSeats())));
+                    }
+                    System.out.println("Operation is successful");
+                    break;
+                case "N":
+                    System.out.println("");
+                    break;
+                default:
+                    System.out.println("Wrong Choice!");
+            }
+
+        }
         int index = 1;
 
         if(choise.matches("2")) {
