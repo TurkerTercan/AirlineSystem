@@ -4,13 +4,23 @@ import java.util.Scanner;
  * Represents pilots of the airline system.
  */
 public class Pilot extends User{
+    //Data fields
     private Scanner input;
     private boolean LogedIn = false;
     private Flight flight;
+
+    /**
+     * Constructor
+     * @param id
+     * @param password
+     */
     public Pilot(String id, String password) {
         super(id, password);
     }
 
+    /**
+     * Login method for pilot.
+     */
     @Override
     public void login() {
         while (!LogedIn) {
@@ -24,6 +34,9 @@ public class Pilot extends User{
         menu();
     }
 
+    /**
+     * Menu for pilot.
+     */
     @Override
     public void menu() {
         int choice = -1;
@@ -45,10 +58,17 @@ public class Pilot extends User{
         }
     }
 
+   /**
+     * Setter method for pilot.
+     * @param flight
+     */
     private void setFlight(Flight flight){
         this.flight = flight;
     }
 
+    /**
+     * Shows flights for pilot.
+     */
     private void showFlight(){
         System.out.print(flight.toString());
     }
