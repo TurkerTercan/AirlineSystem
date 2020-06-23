@@ -1,3 +1,6 @@
+/**
+ * Abstract class for all users it implements Login and Comparable
+ */
 public abstract class User implements Login, Comparable<User>{
     private String id;
     private String password;
