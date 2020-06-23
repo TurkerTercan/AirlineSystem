@@ -7,10 +7,10 @@ import java.util.Set;
 public class Admin extends User{
     private Scanner input;
     private boolean LogedIn = false;
-    private Set<User> users;
+    private SkipList<User> users;
     FlightSystem Fsys;
 
-    public Admin(String id, String password, Set<User> users, FlightSystem FSys) {
+    public Admin(String id, String password, SkipList<User> users, FlightSystem FSys) {
         super(id, password);
         input = new Scanner(System.in);
         this.users = users;
@@ -20,13 +20,10 @@ public class Admin extends User{
     @Override
     public void login() {
         while (!LogedIn) {
-            System.out.println("Admin Login");
-            System.out.println("UserName: ");
-            String uName = input.next();
             System.out.println("Password: ");
             String PWord = input.next();
 
-            if (!uName.equals(getID()) || !PWord.equals(getPassword())) {
+            if (!PWord.equals(getPassword())) {
                 System.out.println("Authentication failed please try again!!");
             }else LogedIn = !LogedIn;
         }
@@ -110,10 +107,8 @@ public class Admin extends User{
                 fired = new FlightManager(UN,"",null,null);
         }
 
-        for (int i=0; i<users.size(); i++){
-            if(users.contains(fired)){
-                users.remove(fired);
-            }
+        if(users.find(fired).compareTo(fired) == 0){
+            users.remove(fired);
         }
     }
 
