@@ -1,7 +1,4 @@
-/**
- * Abstract class for all users it implements Login and Comparable
- */
-public abstract class User implements Login, Comparable<User>{
+public class User implements Login, Comparable<User>{
     private String id;
     private String password;
 
@@ -23,7 +20,17 @@ public abstract class User implements Login, Comparable<User>{
         return id.compareTo(o.id);
     }
 
-    public boolean equals(User o) {
-        return (o.id.equals(this.id) && o.password.equals(this.password));
+    public boolean equals(String id) {
+        return (this.id.equals(id));
+    }
+
+    @Override
+    public void login() {
+        //To be implemented in subclasses
+    }
+
+    @Override
+    public void menu() {
+        //To be implemented in subclasses
     }
 }
