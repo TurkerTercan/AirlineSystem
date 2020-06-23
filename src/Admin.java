@@ -80,30 +80,26 @@ public class Admin extends User{
             System.out.println("0-Up\n1-Pilot\n2-Hostess\n3-Technician\n4-Flight Manager");
             System.out.print("\nchoice:");
             choice = input.nextInt();
-            while (exists) {
-                if (choice != 0) {
+            if (choice != 0) {
+                do {
                     System.out.print("Enter UserName: ");
                     UN = input.next();
                     System.out.print("Enter new PassWord: ");
                     PW = input.next();
-                }
+                    exists = users.find(new User(UN,"")).compareTo(new User(UN,"")) == 0;
+                    if(exists){
+                        System.out.println("UserName Taken please try again");
+                    }
+                }while (exists);
                 switch (choice) {
                     case 1:
-                        if (!users.find(new Pilot(UN, PW)).equals(new Pilot(UN, PW))){
                             return new Pilot(UN, PW);
-                        }
                     case 2:
-                        if (!users.find(new Hostess(UN, PW)).equals(new Hostess(UN, PW))){
                             return new Hostess(UN, PW);
-                        }
                     case 3:
-                        if (!users.find(new Technician(UN, PW)).equals(new Technician(UN, PW))){
                             return new Technician(UN, PW);
-                        }
                     case 4:
-                        if (!users.find(new FlightManager(UN, PW,Fsys,users)).equals(new FlightManager(UN, PW,Fsys,users))) {
                             return new FlightManager(UN, PW, Fsys, users);
-                        }
                 }
             }
         }
