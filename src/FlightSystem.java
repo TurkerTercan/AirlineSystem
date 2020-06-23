@@ -168,9 +168,13 @@ public class FlightSystem {
      * @return First Plane of the TreeSet
      */
     public Plane popPlane() {
-        Plane temp = availablePlanes.first();
-        availablePlanes.remove(temp);
-        return temp;
+        if (availablePlanes.size() != 0) {
+            Plane temp = availablePlanes.first();
+            availablePlanes.remove(temp);
+            return temp;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -214,7 +218,7 @@ public class FlightSystem {
     /**
      * If there is no flight between source and destination
      * Customer needs to get shortest path to get to the destination
-     * It searches graph with using Dijkstra's Shortest Path Algorithm
+     * It searches graph by using Dijkstra's Shortest Path Algorithm
      * and finds the Flights that are shortest to get to the destination
      * @param source The customer's setOff String
      * @param destination The customer's destination String

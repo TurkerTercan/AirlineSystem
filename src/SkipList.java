@@ -74,7 +74,7 @@ public class SkipList<E extends Comparable<E>> {
      */
     public E find(E target){
         SLNode<E>[] pred = search(target);
-        if(pred[0].links != null &&
+        if(pred[0].links != null && pred[0].links[0] != null &&
                 pred[0].links[0].data.compareTo(target) == 0){
             return pred[0].links[0].data;
         } else {

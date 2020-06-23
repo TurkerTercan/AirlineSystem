@@ -23,7 +23,10 @@ public class FlightSystemTester {
 
         flight.ShowAllPlanes();
         //test_addFlight(LOWER_TEST_COUNT);
-        test_removeFlight(LOWER_TEST_COUNT);
+        System.out.println("Testing adding/removing flights from/to the system");
+            test_removeFlight(LOWER_TEST_COUNT);
+        System.out.println();
+
     }
 
     private static FlightSystem test_addFlight(int test_count) throws FileNotFoundException {
@@ -49,6 +52,8 @@ public class FlightSystemTester {
 
     private static FlightSystem test_removeFlight(int test_count) throws FileNotFoundException {
         System.out.println("Removing all flights of a system that has "+test_count+" flights recorded.");
+        System.out.println("Expected Output: False if there is no such flight in the system or graph, otherwise; true.");
+
         FlightSystem system = test_addFlight(test_count);
         ArrayList<String> cities = system.getCity();
         int city_size = cities.size();
