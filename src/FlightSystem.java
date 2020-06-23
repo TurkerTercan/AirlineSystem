@@ -141,7 +141,8 @@ public class FlightSystem {
             temp.remove(destination);
         }
         if (result) {
-            return graph.remove(new Edge(city.indexOf(setOff), city.indexOf(destination)));  
+            Edge e = graph.getEdge(city.indexOf(setOff), city.indexOf(destination));
+            return graph.remove(e);
         } else {
             return false;
         }
@@ -202,7 +203,12 @@ public class FlightSystem {
      * @return PriorityQueue that is contains all flights setOff to Destination
      */
     public PriorityQueue<Flight> getFlights(String setOff, String destination) {
-        return flight_map.get(setOff).get(destination);
+        Map<String,PriorityQueue<Flight>> f = flight_map.get(setOff);
+        if (f != null) {
+            return flight_map.get(setOff).get(destination);
+        } else {
+            return null;
+        }
     }
 
     /**
