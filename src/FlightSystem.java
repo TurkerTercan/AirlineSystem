@@ -11,7 +11,6 @@ import java.util.*;
  */
 public class FlightSystem {
     //Data Fields
-
     /** BinaryBalancedSearchTree of Planes, Planes are compared with their capacities */
     private TreeSet<Plane> availablePlanes;
 

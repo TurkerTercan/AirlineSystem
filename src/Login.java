@@ -1,11 +1,11 @@
-public interface  Login {
+public interface Login {
     /**
-     * Deneme
+     * Login method to use login
      */
     void login();
 
     /**
-     * Deneme
+     *
      */
     void menu();
 }
