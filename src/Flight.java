@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * It has all necessary data fields and methods for a flight
  */
 @SuppressWarnings("rawtypes")
-public class Flight implements Comparable {
+public class Flight implements Comparable<Flight> {
     //Data fields
     /** The ID of the flight */
     private String ID;
@@ -120,7 +120,7 @@ public class Flight implements Comparable {
      * @return extraction of two calculated depart times
      */
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(Flight o) {
         //Split departTime
         String[] time1 = departTime.split("/");
         int day = Integer.parseInt(time1[0]);
@@ -133,7 +133,7 @@ public class Flight implements Comparable {
         int minute = Integer.parseInt(time3[1]);
 
         //Split parameter's departTime
-        time1 = ((Flight) o).getDepartTime().split("/");
+        time1 = o.getDepartTime().split("/");
         int o_day = Integer.parseInt(time1[0]);
         int o_month = Integer.parseInt(time1[1]);
 

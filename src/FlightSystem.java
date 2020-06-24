@@ -232,7 +232,7 @@ public class FlightSystem {
         double[] distance = new double[graph.getNumV()];
         dijkstraAlgorithm(graph, index_source, pred, distance);
         //If there no path between them
-        if (pred[index_destination] == Double.POSITIVE_INFINITY)
+        if (distance[index_destination] == Double.POSITIVE_INFINITY)
             return null;
 
         Stack<Integer> temp = new Stack<>();

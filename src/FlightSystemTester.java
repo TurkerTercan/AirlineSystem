@@ -103,11 +103,16 @@ public class FlightSystemTester {
 
         PriorityQueue<Flight> test = system.getFlights(city[0],city[city.length - 1]);
         System.out.println("There is no flight between " + city[0] + " and " + city[city.length - 1] + ": " + (test == null));
-        Flight[] array = system.getPath(city[0], city[city.length - 1]);
-        System.out.println("There is " + array.length + " transfer cities founded");
-        for (Flight f : array) {
-            System.out.println(f.toString());
+        Flight[] array = system.getPath(city[city.length - 1], city[0]);
+        if (array == null)
+            System.out.println("There is no transfer point between those cities");
+        else {
+            System.out.println("There is " + array.length + " transfer cities founded");
+            for (Flight f : array) {
+                System.out.println(f.toString());
+            }
         }
+
 
         return system;
     }
