@@ -109,7 +109,10 @@ public class FlightManager extends User {
     /** Prints flight */
     public void printFlight(){
         Flight flight = getFlight();
-        System.out.println(flight.toString());
+        if(flight == null)
+            System.out.println("Flight can not found");
+        else
+            System.out.println(flight.toString());
     }
 
     /** Takes information about flight and returns it
