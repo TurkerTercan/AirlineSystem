@@ -343,9 +343,17 @@ public class FlightManager extends User {
                         System.out.println("Wrong set off information");
                     break;
                 case 5:
-                    createCrew(flight);
+                    System.out.println("Please enter new depart time information");
+                    String dt = input.nextLine();
+                    Flight newFlight = new Flight(flight.getID(), flight.getPlane(), flight.getDestination(),
+                            flight.getSetOff(),dt,flight.getPricePerSeat());
+                    flightSystem.removeFlight(flight);
+                    flightSystem.addFlight(newFlight);
                     break;
                 case 6:
+                    createCrew(flight);
+                    break;
+                case 7:
                     removeCrew(flight);
                     break;
             }
