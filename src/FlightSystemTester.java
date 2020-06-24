@@ -92,8 +92,13 @@ public class FlightSystemTester {
         }
 
         for (int i = 0; i < city.length - 1; i++) {
-            System.out.println(system.addFlight(new Flight(String.valueOf(f_id++), new Plane(String.valueOf(p_id++), 50), city[i], city[i + 1], time_test, 500)));
+            System.out.println(system.addFlight(new Flight(String.valueOf(f_id++),
+                    new Plane(String.valueOf(p_id++), 50), city[i], city[i + 1], time_test, 500)));
         }
+
+        //System.out.println(system.addFlight(new Flight(String.valueOf(f_id++),
+         //       new Plane(String.valueOf(p_id++), 50), city[5], city[10], time_test, 500)));
+
 
 
         PriorityQueue<Flight> test = system.getFlights(city[0],city[city.length - 1]);

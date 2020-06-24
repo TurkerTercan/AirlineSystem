@@ -290,6 +290,8 @@ public class FlightSystem {
             // Remove u from vMinusS
             vMinusS.remove(u);
             //Update the distances
+            if (u == -1)
+                return;
             Iterator<Edge> edgeIter = graph.edgeIterator(u);
             while(edgeIter.hasNext()){
                 Edge edge = edgeIter.next();
