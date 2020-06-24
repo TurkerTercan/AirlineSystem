@@ -63,10 +63,10 @@ public class FlightManager extends User {
         String flightID = input.nextLine();
         System.out.println("Please enter plane id");
         String planeID = input.nextLine();
-        System.out.println("Please enter destination");
-        String dest = input.nextLine();
         System.out.println("Please enter set off zone");
         String setOff = input.nextLine();
+        System.out.println("Please enter destination");
+        String dest = input.nextLine();
         System.out.println("Please enter depart time");
         String depart = input.nextLine();
         Plane plane = findPlane(planeID);
@@ -121,10 +121,10 @@ public class FlightManager extends User {
     private Flight getFlight(){
         System.out.println("Please enter flight id");
         String flightID = input.nextLine();
-        System.out.println("Please enter destination");
-        String dest = input.nextLine();
         System.out.println("Please enter set off information");
         String setOff = input.nextLine();
+        System.out.println("Please enter destination");
+        String dest = input.nextLine();
         return findFlight(flightID,setOff,dest);
     }
 
