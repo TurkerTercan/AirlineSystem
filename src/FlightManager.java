@@ -80,7 +80,7 @@ public class FlightManager extends User {
             if(dest.equals(setOff))
                 System.out.println("Set off and destination cannot be the same");
             else {
-                Flight newFlight = new Flight(flightID, plane, dest, setOff, depart, price);
+                Flight newFlight = new Flight(flightID, plane, setOff, dest, depart, price);
                 flightSystem.addFlight(createCrew(newFlight));
             }
         }
@@ -321,8 +321,8 @@ public class FlightManager extends User {
                     System.out.println("Please enter new destination");
                     String dest = input.nextLine();
                     if(checkDestination(dest) && !dest.equals(flight.getSetOff())){
-                        Flight newFlight = new Flight(flight.getID(), flight.getPlane(), dest,
-                                flight.getSetOff(), flight.getDepartTime(),flight.getPricePerSeat());
+                        Flight newFlight = new Flight(flight.getID(), flight.getPlane(), flight.getSetOff(),
+                                flight.getDestination(), flight.getDepartTime(),flight.getPricePerSeat());
                         flightSystem.removeFlight(flight);
                         flightSystem.addFlight(newFlight);
                     }
@@ -334,8 +334,8 @@ public class FlightManager extends User {
                     System.out.println("Please enter new set off information");
                     String setOff = input.nextLine();
                     if(checkSetOff(setOff) && !setOff.equals(flight.getDestination())){
-                        Flight newFlight = new Flight(flight.getID(), flight.getPlane(), flight.getDestination(),
-                                setOff, flight.getDepartTime(),flight.getPricePerSeat());
+                        Flight newFlight = new Flight(flight.getID(), flight.getPlane(), setOff,
+                                flight.getDestination(), flight.getDepartTime(),flight.getPricePerSeat());
                         flightSystem.removeFlight(flight);
                         flightSystem.addFlight(newFlight);
                     }
@@ -345,8 +345,8 @@ public class FlightManager extends User {
                 case 5:
                     System.out.println("Please enter new depart time information");
                     String dt = input.nextLine();
-                    Flight newFlight = new Flight(flight.getID(), flight.getPlane(), flight.getDestination(),
-                            flight.getSetOff(),dt,flight.getPricePerSeat());
+                    Flight newFlight = new Flight(flight.getID(), flight.getPlane(), flight.getSetOff(),
+                            flight.getDestination(),dt,flight.getPricePerSeat());
                     flightSystem.removeFlight(flight);
                     flightSystem.addFlight(newFlight);
                     break;

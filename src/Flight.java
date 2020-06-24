@@ -42,7 +42,7 @@ public class Flight implements Comparable {
      * @param setOff Flight's set off place
      * @param departTime Flight's depart time
      */
-    public Flight( String ID, Plane plane, String destination, String setOff, String departTime, double price) {
+    public Flight( String ID, Plane plane, String setOff, String destination, String departTime, double price) {
         this.ID = ID;
         this.plane = plane;
         this.destination = destination;
