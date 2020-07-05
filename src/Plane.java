@@ -62,6 +62,6 @@ public class Plane implements Comparable<Plane>{
      */
     @Override
     public int compareTo(Plane o) {
-        return this.capacity - o.capacity;
+        return this.id.compareTo(o.id);
     }
 }

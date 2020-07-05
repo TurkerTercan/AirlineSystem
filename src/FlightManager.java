@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
 
 public class FlightManager extends User {
     private Scanner input;
@@ -403,5 +404,38 @@ public class FlightManager extends User {
             }
         }
     }
+    
+    public static class FlightManagerTester {
+        //Unique plane id that will be used for testing
+        private static int plane_id = 0;
+        
+        public static void test_getPlane(int test_count) throws FileNotFoundException {
+            System.out.println("Testing getPlane method of FlightManager for "+test_count+" times");
+            FlightSystem system = new FlightSystem();
+            FlightManager manager = new FlightManager("test", "test", system, null);
+            
+            //Adding 10 unique planes to the system
+            for (int i = 0; i < test_count; i++) {
+                system.addPlane(new Plane(String.valueOf(plane_id++), 50));
+            }
 
+            //Searching for added planes
+            for (int i = 0; i < test_count; i++) {
+                Plane temp = manager.findPlane(String.valueOf(--(plane_id)));
+                if (temp != null) {
+                    System.out.println("Plane "+temp.getId()+" has been found in the system");
+                } else {
+                    System.out.println("Plane "+plane_id+" has not been found in the system");
+                }
+            }
+        }
+
+        public static void main(String[] args) {
+            try {
+                FlightManagerTester.test_getPlane(10);
+            } catch (Exception e) {
+                System.out.println("ERROR - getPlane()");
+            }
+        }
+    }
 }
