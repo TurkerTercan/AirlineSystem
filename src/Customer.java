@@ -215,37 +215,36 @@ public class Customer extends User {
     public static class CustomerTester {
         private static final String test_city_file = "cities.txt";
         private static final String test_distances_file = "distances.txt";
-        //Unique plane id that will be used for testing
-        private static int plane_id = 0;
+        private static final  String test_flights_file = "flights.txt";
 
+        //Unique plane id that will be used for testing
         FlightSystem system;
         static Customer customer;
-        public CustomerTester() throws FileNotFoundException {
-            system = new FlightSystem(test_city_file,test_distances_file);
-            customer = new Customer("test", "1", system, null);
-        }
+        static SkipList<User> users;
 
+        public CustomerTester() throws FileNotFoundException {
+            System.out.println("Constructor!");
+            system = new FlightSystem(test_city_file,test_distances_file,test_flights_file);
+            users = new SkipList<>();
+            users.add(new User("test", "test"));
+
+            customer = new Customer("test", "test", system, users);
+        }
 
         public static void test_buyTicket() throws FileNotFoundException {
             System.out.println("Testing buy ticket method of Customer ");
-           // FlightSystem system = new FlightSystem();
-           // Customer customer = new Customer("test", "1", system, null);
             customer.buyTicket();
             customer.showTickets();
         }
 
         public static void test_cancelTicket() throws FileNotFoundException {
             System.out.println("Testing cancel ticket method of Customer ");
-         //   FlightSystem system = new FlightSystem();
-          //  Customer customer = new Customer("test", "1", system, null);
             customer.cancelTicket();
             customer.showTickets();
         }
 
         public static void test_registration() throws FileNotFoundException {
             System.out.println("Testing registration method of Customer ");
-          //  FlightSystem system = new FlightSystem();
-           // Customer customer = new Customer("test", "1", system, null);
             customer.registration();
             customer.showTickets();
         }
@@ -253,8 +252,8 @@ public class Customer extends User {
         public static void main(String[] args) throws FileNotFoundException {
             CustomerTester customerTester = new CustomerTester();
             try {
-                customerTester.test_buyTicket();
-                customerTester.test_cancelTicket();
+                //customerTester.test_buyTicket();
+                //customerTester.test_cancelTicket();
                 //customerTester.test_registration();
             } catch (Exception e) {
                 System.out.println("ERROR "+ e.getMessage());

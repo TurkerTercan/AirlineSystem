@@ -177,6 +177,9 @@ public class SkipList<E extends Comparable<E>> {
         return sc.toString();
     }
 
+    public void add(String test, String test1) {
+    }
+
     /**
      * Static class to contain data and links
      * @author Jacob / Koffman & Wolfgang
