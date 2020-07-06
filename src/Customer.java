@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
@@ -103,7 +104,7 @@ public class Customer extends User {
                 System.out.println((i+1) + ". " + temp[i].toString());
             }
             System.out.println("Do you want to buy all tickets from these flights? (Y/N)");
-            String tempStr = input.nextLine();
+            String tempStr = input.next();
             switch (tempStr) {
                 case "Y":
                     for(Flight F : temp) {
@@ -131,7 +132,7 @@ public class Customer extends User {
 
             QuickSort.sort(flights1);
             for ( Flight F : flights1 ) {
-                System.out.println( flights.getIndexOf(F) + F.toString());
+                System.out.println( flights.getIndexOf(F)+1 + F.toString());
             }
         }
 
@@ -146,9 +147,12 @@ public class Customer extends User {
         Flight chosen = flights.get(index-1);
         tickets.add(new Ticket(chosen.getDepartTime(),String.valueOf(chosen.getRemainingSeats())));
         chosen.addNewCustomer(this);
+        System.out.println("Operation is successful");
     }
 
     private void cancelTicket(){
+        System.out.println("Your Tickets : ");
+        showTickets();
         System.out.print("Please enter ticket ID:");
         String TId = input.next();
         for(Ticket T : tickets){
@@ -205,6 +209,54 @@ public class Customer extends User {
             return  "id: " + id + '\t' +
                     "deprTime: " + deprTime + '\t' +
                     "seat= " + seat + '\n';
+        }
+    }
+
+    public static class CustomerTester {
+        //Unique plane id that will be used for testing
+        private static int plane_id = 0;
+
+        FlightSystem system;
+        static Customer customer;
+        public CustomerTester() throws FileNotFoundException {
+            system = new FlightSystem();
+            customer = new Customer("test", "1", system, null);
+        }
+
+
+        public static void test_buyTicket() throws FileNotFoundException {
+            System.out.println("Testing buy ticket method of Customer ");
+           // FlightSystem system = new FlightSystem();
+           // Customer customer = new Customer("test", "1", system, null);
+            customer.buyTicket();
+            customer.showTickets();
+        }
+
+        public static void test_cancelTicket() throws FileNotFoundException {
+            System.out.println("Testing cancel ticket method of Customer ");
+         //   FlightSystem system = new FlightSystem();
+          //  Customer customer = new Customer("test", "1", system, null);
+            customer.cancelTicket();
+            customer.showTickets();
+        }
+
+        public static void test_registration() throws FileNotFoundException {
+            System.out.println("Testing registration method of Customer ");
+          //  FlightSystem system = new FlightSystem();
+           // Customer customer = new Customer("test", "1", system, null);
+            customer.registration();
+            customer.showTickets();
+        }
+
+        public static void main(String[] args) throws FileNotFoundException {
+            CustomerTester customerTester = new CustomerTester();
+            try {
+                customerTester.test_buyTicket();
+                customerTester.test_cancelTicket();
+                //customerTester.test_registration();
+            } catch (Exception e) {
+                System.out.println("ERROR "+ e.getMessage());
+            }
         }
     }
 }
