@@ -200,11 +200,13 @@ public class Admin extends User {
     }
 
     public static class AdminTester{
+        private static final String test_city_file = "cities.txt";
+        private static final String test_distances_file = "distances.txt";
         private static AirlineSystem sys;
 
         static {
             try {
-                sys = new AirlineSystem("cities.txt","distances.txt");
+                sys = new AirlineSystem(test_city_file,test_distances_file);
             } catch (FileNotFoundException e) {
                 System.out.println("Error - AirlineSystem");
             }
