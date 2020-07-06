@@ -183,22 +183,22 @@ public class AirlineSystem {
      * @param args Commandline arguments
      */
     public static void main(String[] args) {
-        try {
+        /*try {
             AirlineSystemTester tester = new AirlineSystemTester();
             AirlineSystemTester.test_AirlineSystem("AllUsers.txt");
             System.exit(1);
         } catch (Exception e) {
             System.out.println("The process has failed.");
-        }
+        }*/
 
-        /*
+
         try {
             AirlineSystem system = new AirlineSystem();
             mainMenu(system);
         } catch (Exception e) {
             System.out.println("Failed to start the system!\n" + e);
             System.exit(1);
-        }*/
+        }
     }
 
 
