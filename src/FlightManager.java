@@ -231,7 +231,6 @@ public class FlightManager extends User {
                     if(!printError(tempFlight,new Plane("0",0),pilot,
                             new Hostess("0","0"),true,true)){
                         pilot.setFlight(flight);
-                        flight.addCrewMember(pilot);
                     }
                     break;
                 case 2:
@@ -241,7 +240,6 @@ public class FlightManager extends User {
                     if(!printError(tempFlight,new Plane("0",0),new Pilot("0","0"),
                             hostess,true,true)){
                         hostess.setFlight(flight);
-                        flight.addCrewMember(hostess);
                     }
                     break;
             }

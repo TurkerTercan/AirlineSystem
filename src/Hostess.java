@@ -88,7 +88,10 @@ public class Hostess extends User{
      * Shows flights for hostess.
      */
     private void showFlight(){
-        System.out.print(flight.toString());
+        if(flight == null)
+            System.out.println("There is no flight in schedule");
+        else
+            System.out.print(flight.toString());
     }
 
     public static class HostessTester {
