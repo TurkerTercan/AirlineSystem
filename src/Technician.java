@@ -17,6 +17,7 @@ public class Technician extends User {
      */
     public Technician(String id, String password) {
         super(id, password);
+        input = new Scanner(System.in);
     }
 
     /**
