@@ -213,13 +213,15 @@ public class Customer extends User {
     }
 
     public static class CustomerTester {
+        private static final String test_city_file = "cities.txt";
+        private static final String test_distances_file = "distances.txt";
         //Unique plane id that will be used for testing
         private static int plane_id = 0;
 
         FlightSystem system;
         static Customer customer;
         public CustomerTester() throws FileNotFoundException {
-            system = new FlightSystem();
+            system = new FlightSystem(test_city_file,test_distances_file);
             customer = new Customer("test", "1", system, null);
         }
 
