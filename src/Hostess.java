@@ -24,6 +24,7 @@ public class Hostess extends User{
      */
     public Hostess(String id, String password) {
         super(id, password);
+        input = new Scanner(System.in);
     }
 
     /**

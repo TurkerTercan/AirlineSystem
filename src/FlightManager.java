@@ -158,7 +158,7 @@ public class FlightManager extends User {
      * @param id The plane id
      * @return The plane if exist, null otherwise
      */
-    private Plane findPlane(String id){
+    protected Plane findPlane(String id){
         for (Plane temp : flightSystem.getAvailablePlanes()) {
             if (temp.getId().equals(id))
                 return temp;

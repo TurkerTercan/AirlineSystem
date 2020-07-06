@@ -16,6 +16,7 @@ public class Pilot extends User{
      */
     public Pilot(String id, String password) {
         super(id, password);
+        input = new Scanner(System.in);
     }
 
     /**
