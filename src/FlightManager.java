@@ -76,6 +76,10 @@ public class FlightManager extends User {
         input.nextLine();// Consume newline left-over
         boolean checkDest = checkDestination(dest);
         boolean checkSetOff = checkSetOff(setOff);
+        if(checkDest && checkSetOff){
+            if(findFlight(flightID,setOff,dest) != null)
+                tempFlight = null;
+        }
         if(!printError(tempFlight, plane,new Pilot("0","0"),new Hostess("0","0"),
                 checkDest,checkSetOff)) {
             if(dest.equals(setOff))

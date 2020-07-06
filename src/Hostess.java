@@ -89,7 +89,7 @@ public class Hostess extends User{
      */
     private void showFlight(){
         if(flight == null)
-            System.out.println("There is no flight in schedule");
+            System.out.println("There is no flight on the schedule");
         else
             System.out.print(flight.toString());
     }
