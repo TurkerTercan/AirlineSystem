@@ -413,9 +413,13 @@ public class FlightManager extends User {
         //Unique pilot id that will be used for testing
         private static int hostess_id = 120;
 
+        private static final String test_city_file = "cities.txt";
+        private static final String test_distances_file = "distances.txt";
+        private static final String test_flights_file = "flights.txt";
+
         public static void test_getPlane(int test_count) throws FileNotFoundException {
             System.out.println("Testing getPlane method of FlightManager for "+test_count+" times");
-            FlightSystem system = new FlightSystem();
+            FlightSystem system = new FlightSystem(test_city_file, test_distances_file);
             FlightManager manager = new FlightManager("test", "test", system, null);
 
             //Adding 10 unique planes to the system
@@ -467,7 +471,7 @@ public class FlightManager extends User {
         }
 
         public static void test() throws FileNotFoundException {
-            FlightSystem fs = new FlightSystem();
+            FlightSystem fs = new FlightSystem(test_city_file, test_distances_file);
             SkipList<User> u = new SkipList<>();
             u.add(new Pilot("pilot1","asd"));
             u.add(new Pilot("pilot2","asd"));
@@ -500,7 +504,7 @@ public class FlightManager extends User {
             try {
                 FlightManagerTester.test();
             } catch (Exception e) {
-                System.out.println("ERROR - getPlane()");
+                System.out.println("ERROR");
             }
         }
     }

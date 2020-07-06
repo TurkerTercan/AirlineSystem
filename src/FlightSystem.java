@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -45,22 +46,32 @@ public class FlightSystem {
      * Instantiates all data fields and reads two txt with scanner
      * @throws FileNotFoundException If there is no such file
      */
-    public FlightSystem() throws FileNotFoundException {
+    public FlightSystem(String city_filePath, String distance_filePath) throws FileNotFoundException {
         distance = new ArrayList<>();
         city = new ArrayList<>();
         availablePlanes = new TreeSet<>();
         flight_map = new HashMap<>();
-        scanFromFile();
+        graph = new ListGraph(MAX_CAPACITY, true);
+        scanFromFile(city_filePath, distance_filePath);
+    }
+    
+    /**
+     * Basic Constructor for FlightSystem
+     * Instantiates all data fields and reads three txt with scanner
+     * @throws FileNotFoundException If there is no such file
+     */
+    public FlightSystem(String city_filePath, String distance_filePath, String flight_filePath) throws FileNotFoundException {
+        this(city_filePath, distance_filePath);
+        scanFromFile(flight_filePath);
     }
 
     /**
      * Reads txt files and stores it in ArrayLists
      * @throws FileNotFoundException If there is no such file
      */
-    private void scanFromFile() throws FileNotFoundException {
-        Scanner scanCities = new Scanner(new File("cities.txt"));
-        Scanner scanDistance = new Scanner(new File("distances.txt"));
-        Scanner scanFlights = new Scanner(new File("flights.txt"));
+    private void scanFromFile(String file_cities, String file_distances) throws FileNotFoundException {
+        Scanner scanCities = new Scanner(new File(file_cities));
+        Scanner scanDistance = new Scanner(new File(file_distances));
         String line;
         int city_c = 0;
 
@@ -85,18 +96,28 @@ public class FlightSystem {
                 System.out.println("Something went wrong");
                 System.exit(0);
             }
-        }
-        graph = new ListGraph(MAX_CAPACITY, true);
-        while(scanFlights.hasNextLine()) {
-            String id = scanFlights.next();
-            String cap = scanFlights.next();
-            String setOff = scanFlights.next();
-            String destination = scanFlights.next();
-            String time = scanFlights.next();
-            String price = scanFlights.next();
-            addFlight(new Flight(id, new Plane(Integer.parseInt(cap)), setOff, destination, time, Double.parseDouble(price)));
-        }
+        }   
+    }
 
+    /**
+     * Reads a list of flights from a file to the system
+     * @param file_flights  Path of the file that flights will be read
+     */
+    private void scanFromFile(String file_flights) {
+        try {
+            Scanner scanFlights = new Scanner(new File(file_flights));
+            while(scanFlights.hasNextLine()) {
+                String id = scanFlights.next();
+                String cap = scanFlights.next();
+                String setOff = scanFlights.next();
+                String destination = scanFlights.next();
+                String time = scanFlights.next();
+                String price = scanFlights.next();
+                addFlight(new Flight(id, new Plane(Integer.parseInt(cap)), setOff, destination, time, Double.parseDouble(price)));
+            }
+        } catch (IOException e) {
+            System.out.println("ERROR: An error occured when reading flights from the file \""+file_flights+"\"");
+        }
     }
 
     /**

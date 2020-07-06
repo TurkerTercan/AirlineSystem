@@ -11,19 +11,29 @@ public class AirlineSystem {
     private FlightSystem flightSystem;
     private Queue<Plane> planeMaintance;
 
-    public AirlineSystem() throws FileNotFoundException {
+    private AirlineSystem() throws FileNotFoundException {
         planeMaintance = new ArrayDeque<>();
-        flightSystem = new FlightSystem();
         userSet = new SkipList<>();
-
+        
         //A default administrator(id: "admin", passwd: "admin") will be added to the system right after the execution of the program.
         userSet.add(new Admin("admin", "admin", this));
     }
 
-    public AirlineSystem(String user_file) throws FileNotFoundException {
+    public AirlineSystem(String file_city, String file_distance) throws FileNotFoundException {
         this();
-        ScanUsersFromFile(user_file);
+        flightSystem = new FlightSystem(file_city, file_distance);
     }
+
+    public AirlineSystem(String file_city, String file_distance, String file_flights) throws FileNotFoundException {
+        this();
+        flightSystem = new FlightSystem(file_city, file_distance, file_flights);
+    }
+
+    public AirlineSystem(String file_city, String file_distance, String file_flight, String file_user) throws FileNotFoundException {
+        this(file_city, file_distance, file_flight);
+        ScanUsersFromFile(file_user);
+    }
+
 
     /**
      * This method reads a list of users from a specific file.
@@ -178,22 +188,22 @@ public class AirlineSystem {
      * @param args Commandline arguments
      */
     public static void main(String[] args) {
-        /*try {
+        try {
             AirlineSystemTester tester = new AirlineSystemTester();
             AirlineSystemTester.test_AirlineSystem("AllUsers.txt");
             System.exit(1);
         } catch (Exception e) {
             System.out.println("The process has failed.");
-        }*/
+        }
 
-
+        /*
         try {
-            AirlineSystem system = new AirlineSystem();
+            AirlineSystem system = new AirlineSystem("cities.txt", "distances.txt", "flights.txt", "AllUsers.txt");
             mainMenu(system);
         } catch (Exception e) {
             System.out.println("Failed to start the system!\n" + e);
             System.exit(1);
-        }
+        }*/
     }
 
 
@@ -201,10 +211,14 @@ public class AirlineSystem {
      * AirlineSystem tester class
      */
     public static class AirlineSystemTester {
+        private static final String test_city_file = "cities.txt";
+        private static final String test_distances_file = "distances.txt";
+        private static final String test_flights_file = "flights.txt";
+        private static final String test_users_file = "AllUsers.txt";
+
         private static void test_AirlineSystem(String user_file) {
             try {
-                AirlineSystem system = new AirlineSystem();
-                system.ScanUsersFromFile(user_file);
+                AirlineSystem system = new AirlineSystem(test_city_file, test_distances_file, test_flights_file, test_users_file);
 
             } catch (Exception e) {
                 //Handle Exception
