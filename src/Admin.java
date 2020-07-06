@@ -214,8 +214,11 @@ public class Admin extends User {
         private static Random rand;
         private static String[] testUserName;
 
+        private static final String test_city_file = "cities.txt";
+        private static final String test_distances_file = "distances.txt";
+
         public AdminTester() throws FileNotFoundException {
-            AirlineSystem sys = new AirlineSystem();
+            AirlineSystem sys = new AirlineSystem(test_city_file, test_distances_file);
             Random rand = new Random();
             String[] testUserName = {"aaaa","aaab","aaac","aaad","aaae","aaaf","aaag","aaah","aaai","aaaj","aaak","aaal","aaam","aaan"};
         }
