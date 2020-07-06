@@ -110,6 +110,7 @@ public class Flight implements Comparable<Flight> {
         return "Flight ID: " + ID + "\n" +
                 "Set Off: " + setOff + "\tDestination: " + destination + "\n" +
                 "Depart Time: " + departTime + "\n" +
+                "Price: " + pricePerSeat + "\n" +
                 customers.size() + " Customers, " + crew.size() + " Crew members\n";
     }
 
