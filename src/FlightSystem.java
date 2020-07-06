@@ -115,9 +115,11 @@ public class FlightSystem {
             flight.add(newFlight);
             temp.put(destination, flight);
         }
-
+        availablePlanes.remove(newFlight.getPlane());
+        
         graph.insert(new Edge(city.indexOf(setOff), city.indexOf(destination),
                 distance.get(city.indexOf(setOff)).get(city.indexOf(destination))));
+        
         return true;
     }
 
@@ -141,6 +143,7 @@ public class FlightSystem {
             temp.remove(destination);
         }
         if (result) {
+            availablePlanes.add(removed.getPlane());
             Edge e = graph.getEdge(city.indexOf(setOff), city.indexOf(destination));
             return graph.remove(e);
         } else {
