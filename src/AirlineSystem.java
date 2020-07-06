@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -13,26 +14,70 @@ public class AirlineSystem {
     public AirlineSystem() throws FileNotFoundException {
         planeMaintance = new ArrayDeque<>();
         flightSystem = new FlightSystem();
-        userSet = new SkipList<User>();
+        userSet = new SkipList<>();
 
         //A default administrator(id: "admin", passwd: "admin") will be added to the system right after the execution of the program.
         userSet.add(new Admin("admin", "admin", this));
     }
-  
+
+    public AirlineSystem(String user_file) throws FileNotFoundException {
+        planeMaintance = new ArrayDeque<>();
+        flightSystem = new FlightSystem();
+        userSet = new SkipList<>();
+        ScanUsersFromFile(user_file);
+
+        //A default administrator(id: "admin", passwd: "admin") will be added to the system right after the execution of the program.
+        userSet.add(new Admin("admin", "admin", this));
+    }
+
     /**
-     * Main method which will call mainMenu
-     * @param args Commandline arguments
+     * This method reads a list of users from a specific file.
+     * File format should be like:
+     *      user1_role user1_id user1_password
+     *      user2_role user2_id user2_password
+     * @param user_file Path of the file that the users will be read from
      */
-    public static void main(String[] args) {
+    private void ScanUsersFromFile(String user_file) {
+//      Reads users from a test file
         try {
-            AirlineSystem system = new AirlineSystem();
-            mainMenu(system);
+            String line;
+            String[] in = new String[3];
+
+//          Read a line including a user data
+            Scanner sc_line = new Scanner(new File(user_file));
+            while(sc_line.hasNextLine()) {
+                line = sc_line.nextLine();
+//              Tokenize user role, id and password data
+                Scanner sc_key = new Scanner(line);
+                for (int i = 0; sc_key.hasNext(); i++) {
+                    in[i] = sc_key.next();
+                }
+//              Add users to the system according to his/her role
+                if (in[0].equals("Admin")) {
+                    this.userSet.add(new Admin(in[1], in[2], this));
+                } else if (in[0].equals("Customer")) {
+                    this.userSet.add(new Customer(in[1], in[2], flightSystem, userSet));
+                } else if (in[0].equals("FlightManager")) {
+                    this.userSet.add(new FlightManager(in[1], in[2], flightSystem, userSet));
+                } else if (in[0].equals("Hostess")) {
+                    this.userSet.add(new Hostess(in[1], in[2]));   
+                } else if (in[0].equals("Pilot")) {
+                    this.userSet.add(new Pilot(in[1], in[2]));
+                } else if (in[0].equals("Technician")) {
+                    this.userSet.add(new Technician(in[1], in[2]));
+                } else {
+                    System.out.println("There is no such user role in the system.");
+                    System.exit(1);
+                }
+                sc_key.close();
+            }
+            sc_line.close();
         } catch (Exception e) {
-            System.out.println("Failed to start the system!\n" + e);
+            System.out.println("ERROR: Testing Airline System: "+e);
             System.exit(1);
         }
     }
-
+    
     /**
      * getter method of the userSet skiplist
      */
@@ -128,8 +173,47 @@ public class AirlineSystem {
                 }
             }
         } catch (Exception e) {
-            System.out.println("The process has failed.");
+            System.out.println("ERROR: Testing AirlineSystem: "+e);
             System.exit(1);
+        }
+    }
+    
+    /**
+     * Main method which will call mainMenu
+     * @param args Commandline arguments
+     */
+    public static void main(String[] args) {
+        try {
+            AirlineSystemTester tester = new AirlineSystemTester();
+            AirlineSystemTester.test_AirlineSystem("AllUsers.txt");
+            System.exit(1);
+        } catch (Exception e) {
+            System.out.println("The process has failed.");
+        }
+
+        /*
+        try {
+            AirlineSystem system = new AirlineSystem();
+            mainMenu(system);
+        } catch (Exception e) {
+            System.out.println("Failed to start the system!\n" + e);
+            System.exit(1);
+        }*/
+    }
+
+
+    /**
+     * AirlineSystem tester class
+     */
+    public static class AirlineSystemTester {
+        private static void test_AirlineSystem(String user_file) {
+            try {
+                AirlineSystem system = new AirlineSystem();
+                system.ScanUsersFromFile(user_file);
+
+            } catch (Exception e) {
+                //Handle Exception
+            }
         }
     }
 }

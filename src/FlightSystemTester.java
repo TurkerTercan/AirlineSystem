@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Random;
 
-
-
 public class FlightSystemTester {
     private static String time_test = "20/06/2020,14:30";
     private static final int LOWER_TEST_COUNT = 20;
@@ -24,8 +22,8 @@ public class FlightSystemTester {
         flight.ShowAllPlanes();
         //test_addFlight(LOWER_TEST_COUNT);
         //System.out.println("Testing adding/removing flights from/to the system");
-            //test_removeFlight(LOWER_TEST_COUNT);
-        test_findShortestFlights(LOWER_TEST_COUNT);
+            test_removeFlight(LOWER_TEST_COUNT);
+        //test_findShortestFlights(LOWER_TEST_COUNT);
         System.out.println();
 
     }
@@ -46,7 +44,7 @@ public class FlightSystemTester {
             String c2 = cities.get(rand.nextInt(city_size));
 
             System.out.print("\tAdding a new flight: "+c1+" -> "+c2+": ");
-            System.out.println(system.addFlight(new Flight(String.valueOf(f_id++), new Plane(String.valueOf(p_id++), 50), c2, c1, time_test, 500)));
+            System.out.println(system.addFlight(new Flight(String.valueOf(f_id++), new Plane(String.valueOf(p_id++), 50), c1, c2, time_test, 500)));
         }
         return system;
     }
@@ -70,7 +68,7 @@ public class FlightSystemTester {
                             Flight f3 = f2.peek();
                             System.out.print("\tRemoving the flight: "+f3.getSetOff()+" -> "+f3.getDestination()+": ");
                             
-                            System.out.println(system.removeFlight(new Flight(f3.getID(), new Plane(String.valueOf(p_id++), 50), f3.getDestination(), f3.getSetOff(), time_test, 500)));
+                            System.out.println(system.removeFlight(new Flight(f3.getID(), new Plane(String.valueOf(p_id++), 50), f3.getSetOff(), f3.getDestination(), time_test, 500)));
                         }
                     }
                 }
