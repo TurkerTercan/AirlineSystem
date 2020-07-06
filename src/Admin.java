@@ -63,7 +63,7 @@ public class Admin extends User {
                     removeEmployee();
                     break;
                 case 3:
-                    buyPlane();
+                    buyPlaneMenu();
                     break;
             }
         }
@@ -94,21 +94,7 @@ public class Admin extends User {
                     }
                 } while (exists);
 
-                switch (choice) {
-                    case 0:
-                        break;
-                    case 1:
-                        return hireEmployee(UN, PW, choice);
-                    case 2:
-                        return hireEmployee(UN, PW, choice);
-                    case 3:
-                        return hireEmployee(UN, PW, choice);
-                    case 4:
-                        return hireEmployee(UN, PW, choice);
-                    default:
-                        System.out.println("Invalid Choice!!");
-                        break;
-                }
+                return hireEmployee(UN, PW, choice);
             }
         }
         return null;
@@ -180,56 +166,67 @@ public class Admin extends User {
 
     }
 
-    /**
-     * Buy plane method for admin.
-     */
-    private void buyPlane(){
+    private void buyPlaneMenu(){
         int choice = -1;
         while (choice!=0) {
             System.out.println("\nchoose a plane to buy:");
             System.out.println("0-Up\n1-Airbus A220\tCapacity: 150\n2-Airbus A330\tCapacity: 250 \n3-Boeing 747\tCapacity: 400\n");
             System.out.print("\nchoice:");
             choice = input.nextInt();
-            switch (choice) {
-                case 0:
-                    break;
-                case 1:
-                    system.getFlightSystem().addPlane(new Plane(150));
-                    break;
-                case 2:
-                    system.getFlightSystem().addPlane(new Plane(250));
-                    break;
-                case 3:
-                    system.getFlightSystem().addPlane(new Plane(400));
-                    break;
-                default:
-                    System.out.println("Invalid Choice!!");
-                    break;
-            }
+            buyPlane(choice);
+        }
+    }
+
+    /**
+     * Buy plane method for admin.
+     */
+    private void buyPlane(int Type){
+        switch (Type) {
+            case 0:
+                break;
+            case 1:
+                system.getFlightSystem().addPlane(new Plane(150));
+                break;
+            case 2:
+                system.getFlightSystem().addPlane(new Plane(250));
+                break;
+            case 3:
+                system.getFlightSystem().addPlane(new Plane(400));
+                break;
+            default:
+                System.out.println("Invalid Choice!!");
+                break;
         }
     }
 
     public static class AdminTester{
         private static AirlineSystem sys;
-        private static Random rand;
-        private static String[] testUserName;
 
-        public AdminTester() throws FileNotFoundException {
-            AirlineSystem sys = new AirlineSystem();
-            Random rand = new Random();
-            String[] testUserName = {"aaaa","aaab","aaac","aaad","aaae","aaaf","aaag","aaah","aaai","aaaj","aaak","aaal","aaam","aaan"};
+        static {
+            try {
+                sys = new AirlineSystem();
+            } catch (FileNotFoundException e) {
+
+            }
         }
+
+        private static Random rand = new Random();
+        private static String[]  testUserName = new String[]{"aaaa", "aaab", "aaac", "aaad", "aaae", "aaaf", "aaag", "aaah", "aaai", "aaaj", "aaak", "aaal", "aaam", "aaan"};
+        private static Admin admin = new Admin("admin2","admin2", sys);;
+        private static FlightManager manager = new FlightManager("abc","1234",sys.getFlightSystem(),sys.getUserSet());
+
+        public AdminTester() throws FileNotFoundException { }
 
         public static void testHireEmployee() throws FileNotFoundException {
             System.out.println("Testing HireEmployee by Admin");
 
-            Admin admin = new Admin("admin2","admin2", sys);
             //adding random users to the system
             for(int i=0;i<testUserName.length;i++){
-               admin.hireEmployee(testUserName[i],"1234",rand.nextInt(4)+1);
+               User temp = admin.hireEmployee(testUserName[i],"1234",rand.nextInt(4)+1);
+               sys.getUserSet().add(temp);
             }
             //teseting if added users are found
-            for(int i=0;i<sys.getUserSet().getSize();i++) {
+            for(int i=0;i<sys.getUserSet().getSize()-1;i++) {
                 User temp = sys.getUserSet().find(new User(testUserName[i], "1234"));
                 if (temp == null) {
                     System.out.println("User " + testUserName[i] + " not found in the system");
@@ -240,25 +237,46 @@ public class Admin extends User {
         }
 
         private static void testRemoveEmployee(){
+            System.out.println("\nTesting removeEmployee by Admin");
             int i=0;
             while (!sys.getUserSet().isEmpty()){
                 if(sys.getUserSet().remove(new User(testUserName[i],"1234"))){
                     System.out.println("User "+testUserName[i]+" removed Successfully");
+                    i++;
                 }else{
                     System.out.println("User " + testUserName[i] + " not found in the system");
                 }
-                i++;
             }
         }
 
-        public static void main(String[] args){
+        private static void testBuyPlane(int testCount){
+            System.out.println("\nTesting buyPlane by Admin "+testCount+" times");
+            for (int i=0;i<testCount;i++){
+                admin.buyPlane(rand.nextInt(2)+1);
+            }
+            for (int i = 0; i < testCount; i++) {
+                Plane temp = manager.findPlane(String.valueOf(i));
+                if (temp != null) {
+                    System.out.println("Plane "+temp.getId()+" has been found in the system");
+                } else {
+                    System.out.println("Plane "+i+" has not been found in the system");
+                }
+            }
+        }
+
+        public static void main(String[] args) throws FileNotFoundException {
+
             try {
                 testHireEmployee();
             }catch (Exception e){
-                System.out.println("Error - Hire Employee");
+                System.out.println("ERROR - hireEmployee()");
             }
-            testRemoveEmployee();
-
+            try {
+                testRemoveEmployee();
+            }catch (Exception e){
+                System.out.println("ERROR - removeEmployee()");
+            }
+            testBuyPlane(10);
         }
     }
 }

@@ -127,11 +127,11 @@ public class SkipList<E extends Comparable<E>> {
     }
 
     boolean isEmpty(){
-        return size == 0;
+        return size == 1;
     }
 
     int getSize(){
-        return size;
+        return size-1;
     }
 
 
