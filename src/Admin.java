@@ -204,9 +204,9 @@ public class Admin extends User {
 
         static {
             try {
-                sys = new AirlineSystem();
+                sys = new AirlineSystem("cities.txt","distances.txt");
             } catch (FileNotFoundException e) {
-
+                System.out.println("Error - AirlineSystem");
             }
         }
 
