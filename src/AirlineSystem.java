@@ -188,7 +188,7 @@ public class AirlineSystem {
 
 
         try {
-            AirlineSystem system = new AirlineSystem();
+            AirlineSystem system = new AirlineSystem("AllUsers.txt");
             mainMenu(system);
         } catch (Exception e) {
             System.out.println("Failed to start the system!\n" + e);
