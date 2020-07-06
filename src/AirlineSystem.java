@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -18,21 +19,7 @@ public class AirlineSystem {
         //A default administrator(id: "admin", passwd: "admin") will be added to the system right after the execution of the program.
         userSet.add(new Admin("admin", "admin", this));
     }
-  
-    /**
-     * Main method which will call mainMenu
-     * @param args Commandline arguments
-     */
-    public static void main(String[] args) {
-        try {
-            AirlineSystem system = new AirlineSystem();
-            mainMenu(system);
-        } catch (Exception e) {
-            System.out.println("Failed to start the system!\n" + e);
-            System.exit(1);
-        }
-    }
-
+    
     /**
      * getter method of the userSet skiplist
      */
@@ -128,8 +115,88 @@ public class AirlineSystem {
                 }
             }
         } catch (Exception e) {
-            System.out.println("The process has failed.");
+            System.out.println("ERROR: Testing AirlineSystem: "+e);
             System.exit(1);
+        }
+    }
+    
+    /**
+     * Main method which will call mainMenu
+     * @param args Commandline arguments
+     */
+    public static void main(String[] args) {
+        try {
+            AirlineSystemTester tester = new AirlineSystemTester();
+            AirlineSystemTester.test_AirlineSystem("AllUsers.txt");
+            System.exit(1);
+        } catch (Exception e) {
+            System.out.println("The process has failed.");
+        }
+
+        /*
+        try {
+            AirlineSystem system = new AirlineSystem();
+            mainMenu(system);
+        } catch (Exception e) {
+            System.out.println("Failed to start the system!\n" + e);
+            System.exit(1);
+        }*/
+    }
+
+
+    /**
+     * AirlineSystem tester class
+     */
+    public static class AirlineSystemTester {
+        private static void test_AirlineSystem(String user_file) {
+            try {
+                AirlineSystem system = new AirlineSystem();
+                create_userSet(user_file, system);
+
+            } catch (Exception e) {
+                //Handle Exception
+            }
+        }
+
+        private static void create_userSet(String user_file, AirlineSystem system) {
+//          Reads users from a test file
+            try {
+                String line;
+                String[] in = new String[3];
+
+//              Read a line including a user data
+                Scanner sc_line = new Scanner(new File(user_file));
+                while(sc_line.hasNextLine()) {
+                    line = sc_line.nextLine();
+//                  Tokenize user role, id and password data
+                    Scanner sc_key = new Scanner(line);
+                    for (int i = 0; sc_key.hasNext(); i++) {
+                        in[i] = sc_key.next();
+                    }
+//                  Add users to the system according to his/her role
+                    if (in[0].equals("Admin")) {
+                        system.getUserSet().add(new Admin(in[1], in[2], system));
+                    } else if (in[0].equals("Customer")) {
+                        system.getUserSet().add(new Customer(in[1], in[2], system.getFlightSystem(), system.getUserSet()));
+                    } else if (in[0].equals("FlightManager")) {
+                        system.getUserSet().add(new FlightManager(in[1], in[2], system.getFlightSystem(), system.getUserSet()));
+                    } else if (in[0].equals("Hostess")) {
+                        system.getUserSet().add(new Hostess(in[1], in[2]));   
+                    } else if (in[0].equals("Pilot")) {
+                        system.getUserSet().add(new Pilot(in[1], in[2]));
+                    } else if (in[0].equals("Technician")) {
+                        system.getUserSet().add(new Technician(in[1], in[2]));
+                    } else {
+                        System.out.println("There is no such user role in the system.");
+                        System.exit(1);
+                    }
+                    sc_key.close();
+                }
+                sc_line.close();
+            } catch (Exception e) {
+                System.out.println("ERROR: Testing Airline System: "+e);
+                System.exit(1);
+            }
         }
     }
 }
