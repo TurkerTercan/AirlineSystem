@@ -19,6 +19,54 @@ public class AirlineSystem {
         //A default administrator(id: "admin", passwd: "admin") will be added to the system right after the execution of the program.
         userSet.add(new Admin("admin", "admin", this));
     }
+
+    /**
+     * This method reads a list of users from a specific file.
+     * File format should be like:
+     *      user1_role user1_id user1_password
+     *      user2_role user2_id user2_password
+     * @param user_file Path of the file that the users will be read from
+     */
+    private void ScanUsersFromFile(String user_file) {
+//      Reads users from a test file
+        try {
+            String line;
+            String[] in = new String[3];
+
+//          Read a line including a user data
+            Scanner sc_line = new Scanner(new File(user_file));
+            while(sc_line.hasNextLine()) {
+                line = sc_line.nextLine();
+//              Tokenize user role, id and password data
+                Scanner sc_key = new Scanner(line);
+                for (int i = 0; sc_key.hasNext(); i++) {
+                    in[i] = sc_key.next();
+                }
+//              Add users to the system according to his/her role
+                if (in[0].equals("Admin")) {
+                    this.userSet.add(new Admin(in[1], in[2], this));
+                } else if (in[0].equals("Customer")) {
+                    this.userSet.add(new Customer(in[1], in[2], flightSystem, userSet));
+                } else if (in[0].equals("FlightManager")) {
+                    this.userSet.add(new FlightManager(in[1], in[2], flightSystem, userSet));
+                } else if (in[0].equals("Hostess")) {
+                    this.userSet.add(new Hostess(in[1], in[2]));   
+                } else if (in[0].equals("Pilot")) {
+                    this.userSet.add(new Pilot(in[1], in[2]));
+                } else if (in[0].equals("Technician")) {
+                    this.userSet.add(new Technician(in[1], in[2]));
+                } else {
+                    System.out.println("There is no such user role in the system.");
+                    System.exit(1);
+                }
+                sc_key.close();
+            }
+            sc_line.close();
+        } catch (Exception e) {
+            System.out.println("ERROR: Testing Airline System: "+e);
+            System.exit(1);
+        }
+    }
     
     /**
      * getter method of the userSet skiplist
@@ -151,51 +199,10 @@ public class AirlineSystem {
         private static void test_AirlineSystem(String user_file) {
             try {
                 AirlineSystem system = new AirlineSystem();
-                create_userSet(user_file, system);
+                system.ScanUsersFromFile(user_file);
 
             } catch (Exception e) {
                 //Handle Exception
-            }
-        }
-
-        private static void create_userSet(String user_file, AirlineSystem system) {
-//          Reads users from a test file
-            try {
-                String line;
-                String[] in = new String[3];
-
-//              Read a line including a user data
-                Scanner sc_line = new Scanner(new File(user_file));
-                while(sc_line.hasNextLine()) {
-                    line = sc_line.nextLine();
-//                  Tokenize user role, id and password data
-                    Scanner sc_key = new Scanner(line);
-                    for (int i = 0; sc_key.hasNext(); i++) {
-                        in[i] = sc_key.next();
-                    }
-//                  Add users to the system according to his/her role
-                    if (in[0].equals("Admin")) {
-                        system.getUserSet().add(new Admin(in[1], in[2], system));
-                    } else if (in[0].equals("Customer")) {
-                        system.getUserSet().add(new Customer(in[1], in[2], system.getFlightSystem(), system.getUserSet()));
-                    } else if (in[0].equals("FlightManager")) {
-                        system.getUserSet().add(new FlightManager(in[1], in[2], system.getFlightSystem(), system.getUserSet()));
-                    } else if (in[0].equals("Hostess")) {
-                        system.getUserSet().add(new Hostess(in[1], in[2]));   
-                    } else if (in[0].equals("Pilot")) {
-                        system.getUserSet().add(new Pilot(in[1], in[2]));
-                    } else if (in[0].equals("Technician")) {
-                        system.getUserSet().add(new Technician(in[1], in[2]));
-                    } else {
-                        System.out.println("There is no such user role in the system.");
-                        System.exit(1);
-                    }
-                    sc_key.close();
-                }
-                sc_line.close();
-            } catch (Exception e) {
-                System.out.println("ERROR: Testing Airline System: "+e);
-                System.exit(1);
             }
         }
     }
