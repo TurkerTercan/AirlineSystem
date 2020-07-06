@@ -1,10 +1,12 @@
+import java.io.FileNotFoundException;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
 /**
  * Represents admins of the airline system.
  */
-public class Admin extends User{
+public class Admin extends User {
     //Data fields
     private Scanner input;
     private boolean LogedIn = false;
@@ -12,6 +14,7 @@ public class Admin extends User{
 
     /**
      * Constructor
+     *
      * @param id
      * @param password
      * @param system
@@ -33,7 +36,7 @@ public class Admin extends User{
 
             if (!PWord.equals(getPassword())) {
                 System.out.println("Authentication failed please try again!!");
-            }else LogedIn = !LogedIn;
+            } else LogedIn = !LogedIn;
         }
         menu();
     }
@@ -44,16 +47,16 @@ public class Admin extends User{
     @Override
     public void menu() {
         int choice = -1;
-        while (choice!=0){
+        while (choice != 0) {
             System.out.println("\nMain menu:");
             System.out.println("please choose an action:");
             System.out.println("0-Up\n1-Hire an employee\n2-Remove an employee\n3-Buy a plane");
             System.out.print("\nchoice:");
             choice = input.nextInt();
-            switch (choice){
+            switch (choice) {
                 case 1:
-                    User newUser = hireEmployee();
-                    if(newUser!=null)
+                    User newUser = hireEmployeeMenu();
+                    if (newUser != null)
                         system.getUserSet().add(newUser);
                     break;
                 case 2:
@@ -66,16 +69,12 @@ public class Admin extends User{
         }
     }
 
-    /**
-     * Admin adds pilot, hostess, technician and flight manager.
-     * @return User
-     */
-    private User hireEmployee(){
+    private User hireEmployeeMenu() {
         String UN = "";
         String PW = "";
         boolean exists = false;
         int choice = -1;
-        while (choice!=0){
+        while (choice != 0) {
             System.out.println("\nchoose employee to hire:");
             System.out.println("0-Up\n1-Pilot\n2-Hostess\n3-Technician\n4-Flight Manager");
             System.out.print("\nchoice:");
@@ -86,31 +85,54 @@ public class Admin extends User{
                     UN = input.next();
                     System.out.print("Enter new PassWord: ");
                     PW = input.next();
-                    if(!system.getUserSet().isEmpty()) {
+                    if (!system.getUserSet().isEmpty()) {
                         System.out.print(system.getUserSet().getSize());
                         exists = system.getUserSet().find(new User(UN, "")) != null;
                     }
-                    if(exists){
+                    if (exists) {
                         System.out.println("UserName Taken please try again");
                     }
-                }while (exists);
+                } while (exists);
+
                 switch (choice) {
                     case 0:
                         break;
                     case 1:
-                            return new Pilot(UN, PW);
+                        return hireEmployee(UN, PW, choice);
                     case 2:
-                            return new Hostess(UN, PW);
+                        return hireEmployee(UN, PW, choice);
                     case 3:
-                            return new Technician(UN, PW);
+                        return hireEmployee(UN, PW, choice);
                     case 4:
-                            return new FlightManager(UN, PW, system.getFlightSystem(), system.getUserSet());
+                        return hireEmployee(UN, PW, choice);
                     default:
                         System.out.println("Invalid Choice!!");
                         break;
                 }
             }
         }
+        return null;
+    }
+    /**
+     * Admin adds pilot, hostess, technician and flight manager.
+     * @return User
+     */
+    private User hireEmployee(String UN, String PW, int Type){
+                switch (Type) {
+                    case 0:
+                        break;
+                    case 1:
+                        return new Pilot(UN, PW);
+                    case 2:
+                        return new Hostess(UN, PW);
+                    case 3:
+                        return new Technician(UN, PW);
+                    case 4:
+                        return new FlightManager(UN, PW, system.getFlightSystem(), system.getUserSet());
+                    default:
+                        System.out.println("Invalid Choice!!");
+                        break;
+                }
 
         return null;
     }
@@ -184,6 +206,59 @@ public class Admin extends User{
                     System.out.println("Invalid Choice!!");
                     break;
             }
+        }
+    }
+
+    public static class AdminTester{
+        private static AirlineSystem sys;
+        private static Random rand;
+        private static String[] testUserName;
+
+        public AdminTester() throws FileNotFoundException {
+            AirlineSystem sys = new AirlineSystem();
+            Random rand = new Random();
+            String[] testUserName = {"aaaa","aaab","aaac","aaad","aaae","aaaf","aaag","aaah","aaai","aaaj","aaak","aaal","aaam","aaan"};
+        }
+
+        public static void testHireEmployee() throws FileNotFoundException {
+            System.out.println("Testing HireEmployee by Admin");
+
+            Admin admin = new Admin("admin2","admin2", sys);
+            //adding random users to the system
+            for(int i=0;i<testUserName.length;i++){
+               admin.hireEmployee(testUserName[i],"1234",rand.nextInt(4)+1);
+            }
+            //teseting if added users are found
+            for(int i=0;i<sys.getUserSet().getSize();i++) {
+                User temp = sys.getUserSet().find(new User(testUserName[i], "1234"));
+                if (temp == null) {
+                    System.out.println("User " + testUserName[i] + " not found in the system");
+                } else {
+                    System.out.println("User " + temp.getID() + " found in the system");
+                }
+            }
+        }
+
+        private static void testRemoveEmployee(){
+            int i=0;
+            while (!sys.getUserSet().isEmpty()){
+                if(sys.getUserSet().remove(new User(testUserName[i],"1234"))){
+                    System.out.println("User "+testUserName[i]+" removed Successfully");
+                }else{
+                    System.out.println("User " + testUserName[i] + " not found in the system");
+                }
+                i++;
+            }
+        }
+
+        public static void main(String[] args){
+            try {
+                testHireEmployee();
+            }catch (Exception e){
+                System.out.println("Error - Hire Employee");
+            }
+            testRemoveEmployee();
+
         }
     }
 }
