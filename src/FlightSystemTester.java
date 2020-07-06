@@ -8,9 +8,12 @@ public class FlightSystemTester {
     private static String time_test = "20/06/2020,14:30";
     private static final int LOWER_TEST_COUNT = 20;
 
+    private static final String test_city_file = "cities.txt";
+    private static final String test_distances_file = "distances.txt";
+    private static final String test_flights_file = "flights.txt";
     public static void main(String[] args) throws FileNotFoundException {
-        FlightSystem flight = new FlightSystem();
-        flight.addPlane(new Plane(100));
+        FlightSystem flight = new FlightSystem(test_city_file, test_distances_file);
+        /*flight.addPlane(new Plane(100));
         flight.addPlane(new Plane(150));
         flight.addPlane(new Plane(170));
         flight.addPlane(new Plane(180));
@@ -22,17 +25,17 @@ public class FlightSystemTester {
         flight.ShowAllPlanes();
         //test_addFlight(LOWER_TEST_COUNT);
         //System.out.println("Testing adding/removing flights from/to the system");
-            test_removeFlight(LOWER_TEST_COUNT);
+            //test_removeFlight(LOWER_TEST_COUNT);
         //test_findShortestFlights(LOWER_TEST_COUNT);
         System.out.println();
-
+    */
     }
 
     private static FlightSystem test_addFlight(int test_count) throws FileNotFoundException {
         System.out.println("Adding "+test_count+" flights to the system.");
         System.out.println("Expected Output: False if there is already a flight with the same properties, otherwise; true.");
         
-        FlightSystem system = new FlightSystem();
+        FlightSystem system = new FlightSystem(test_city_file, test_distances_file);
         ArrayList<String> cities = system.getCity();
         int city_size = cities.size();
         int f_id = 1;
@@ -80,7 +83,7 @@ public class FlightSystemTester {
     private static FlightSystem test_findShortestFlights(int test_count) throws FileNotFoundException {
         System.out.println("Finds shortest flights between two cities if there is not any flight between them");
         System.out.println("Excepted Output: Prints an Flight array between source to destination");
-        FlightSystem system = new FlightSystem();
+        FlightSystem system = new FlightSystem(test_city_file, test_distances_file);
         int f_id = 1;
         int p_id = 1;
         ArrayList<String> cities = system.getCity();

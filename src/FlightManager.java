@@ -262,8 +262,8 @@ public class FlightManager extends User {
                 Pilot pilot = (Pilot)u;
                 if(pilot.getFlight() != null)
                     return null;
-                else
-                    return pilot;
+                else{
+                    return pilot;}
             }
             else
                 return null;
@@ -408,12 +408,20 @@ public class FlightManager extends User {
     public static class FlightManagerTester {
         //Unique plane id that will be used for testing
         private static int plane_id = 0;
-        
+        //Unique pilot id that will be used for testing
+        private static int pilot_id = 0;
+        //Unique pilot id that will be used for testing
+        private static int hostess_id = 120;
+
+        private static final String test_city_file = "cities.txt";
+        private static final String test_distances_file = "distances.txt";
+        private static final String test_flights_file = "flights.txt";
+
         public static void test_getPlane(int test_count) throws FileNotFoundException {
             System.out.println("Testing getPlane method of FlightManager for "+test_count+" times");
-            FlightSystem system = new FlightSystem();
+            FlightSystem system = new FlightSystem(test_city_file, test_distances_file);
             FlightManager manager = new FlightManager("test", "test", system, null);
-            
+
             //Adding 10 unique planes to the system
             for (int i = 0; i < test_count; i++) {
                 system.addPlane(new Plane(String.valueOf(plane_id++), 50));
@@ -430,11 +438,73 @@ public class FlightManager extends User {
             }
         }
 
+        public static void test_findUser(int test_count) throws FileNotFoundException {
+            System.out.println("Testing findPilot method of FlightManager for " + test_count + " times");
+            SkipList<User> users = new SkipList<>();
+            FlightManager manager = new FlightManager("test", "test", null, users);
+
+            //Adding 10 unique pilot to the system
+            for (int i = 0; i < test_count; i++) {
+                manager.users.add(new Pilot(String.valueOf(pilot_id++), "test"));
+            }
+
+            //Adding 10 unique hostess to the system
+            for (int i = 0; i < test_count; i++) {
+                manager.users.add(new Hostess(String.valueOf(hostess_id++), "test"));
+            }
+
+            //Searching for added planes
+            for (int i = 0; i < test_count; i++) {
+                Pilot temp1 = manager.findPilot(String.valueOf(--(pilot_id)));
+                Hostess temp2 = manager.findHostess(String.valueOf(--(hostess_id)));
+                System.out.println(temp1);
+                System.out.println(temp2);
+
+                if (temp1 != null && temp2 != null) {
+                    System.out.println("Pilot " + temp1.getID() + " has been found in the system");
+                    System.out.println("Hostess " + temp2.getID() + " has been found in the system");
+                } else {
+                    System.out.println("Pilot " + pilot_id + " has not been found in the system");
+                    System.out.println("Hostess " + hostess_id + " has not been found in the system");
+                }
+            }
+        }
+
+        public static void test() throws FileNotFoundException {
+            FlightSystem fs = new FlightSystem(test_city_file, test_distances_file);
+            SkipList<User> u = new SkipList<>();
+            u.add(new Pilot("pilot1","asd"));
+            u.add(new Pilot("pilot2","asd"));
+            u.add(new Pilot("pilot3","asd"));
+            u.add(new Pilot("pilot4","asd"));
+            u.add(new Pilot("pilot5","asd"));
+            u.add(new Pilot("pilot6","asd"));
+            u.add(new Hostess("hostess1","asd"));
+            u.add(new Hostess("hostess2","asd"));
+            u.add(new Hostess("hostess3","asd"));
+            u.add(new Hostess("hostess4","asd"));
+            u.add(new Hostess("hostess5","asd"));
+            u.add(new Hostess("hostess6","asd"));
+            u.add(new Hostess("hostess7","asd"));
+            u.add(new Hostess("hostess8","asd"));
+            fs.addPlane(new Plane("Plane1",500));
+            fs.addPlane(new Plane("Plane2",550));
+            fs.addPlane(new Plane("Plane3",520));
+            fs.addPlane(new Plane("Plane4",500));
+            fs.addPlane(new Plane("Plane5",570));
+            fs.addPlane(new Plane("Plane6",580));
+            fs.addPlane(new Plane("Plane7",590));
+            fs.addPlane(new Plane("Plane8",511));
+            System.out.println(fs.getAvailablePlanes().size());
+            FlightManager fm = new FlightManager("deha","asdasd",fs,u);
+            fm.menu();
+        }
+
         public static void main(String[] args) {
             try {
-                FlightManagerTester.test_getPlane(10);
+                FlightManagerTester.test();
             } catch (Exception e) {
-                System.out.println("ERROR - getPlane()");
+                System.out.println("ERROR");
             }
         }
     }
