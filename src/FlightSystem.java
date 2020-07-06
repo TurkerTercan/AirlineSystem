@@ -61,6 +61,7 @@ public class FlightSystem {
     private void scanFromFile() throws FileNotFoundException {
         Scanner scanCities = new Scanner(new File("cities.txt"));
         Scanner scanDistance = new Scanner(new File("distances.txt"));
+        Scanner scanFlights = new Scanner(new File("flights.txt"));
         String line;
         int city_c = 0;
 
@@ -86,6 +87,16 @@ public class FlightSystem {
                 System.exit(0);
             }
         }
+        while(scanFlights.hasNextLine()) {
+            String id = scanFlights.next();
+            String cap = scanFlights.next();
+            String setOff = scanFlights.next();
+            String destination = scanFlights.next();
+            String time = scanFlights.next();
+            double price = scanFlights.nextDouble();
+            addFlight(new Flight(id, new Plane(Integer.parseInt(cap)), setOff, destination, time, price));
+        }
+
     }
 
     /**
