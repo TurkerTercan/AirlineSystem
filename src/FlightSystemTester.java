@@ -13,7 +13,7 @@ public class FlightSystemTester {
     private static final String test_flights_file = "flights.txt";
     public static void main(String[] args) throws FileNotFoundException {
         FlightSystem flight = new FlightSystem(test_city_file, test_distances_file);
-        /*flight.addPlane(new Plane(100));
+        flight.addPlane(new Plane(100));
         flight.addPlane(new Plane(150));
         flight.addPlane(new Plane(170));
         flight.addPlane(new Plane(180));
@@ -24,11 +24,11 @@ public class FlightSystemTester {
 
         flight.ShowAllPlanes();
         //test_addFlight(LOWER_TEST_COUNT);
-        //System.out.println("Testing adding/removing flights from/to the system");
-            //test_removeFlight(LOWER_TEST_COUNT);
-        //test_findShortestFlights(LOWER_TEST_COUNT);
+        System.out.println("Testing adding/removing flights from/to the system");
+        test_removeFlight(LOWER_TEST_COUNT);
+        test_findShortestFlights(LOWER_TEST_COUNT);
         System.out.println();
-    */
+    
     }
 
     private static FlightSystem test_addFlight(int test_count) throws FileNotFoundException {

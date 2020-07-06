@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import sun.awt.ExtendedKeyCodes;
+
 /**
  * Environment class for whole the system.
  */
@@ -145,7 +147,10 @@ public class AirlineSystem {
                                 System.out.println("There is no such registered user in the system!");
                                 System.out.println("Do you want to use customer registration(Y/N) ?");
                                     yn = scan.nextLine();
-                                if (yn.charAt(0) == 'Y' || yn.charAt(0) == 'y') {
+                                    
+                                if (yn == null || yn.length() <= 0) {
+                                    option = EXIT;
+                                } else if (yn.charAt(0) == 'Y' || yn.charAt(0) == 'y') {
                                     //Calling static registration method of the user
                                     Customer.registration();
                                 } else if (yn.charAt(0) == 'N' || yn.charAt(0) == 'n') {
@@ -188,22 +193,21 @@ public class AirlineSystem {
      * @param args Commandline arguments
      */
     public static void main(String[] args) {
-        try {
+        /*try {
             AirlineSystemTester tester = new AirlineSystemTester();
             AirlineSystemTester.test_AirlineSystem("AllUsers.txt");
             System.exit(1);
         } catch (Exception e) {
             System.out.println("The process has failed.");
-        }
+        }*/
 
-        /*
         try {
             AirlineSystem system = new AirlineSystem("cities.txt", "distances.txt", "flights.txt", "AllUsers.txt");
             mainMenu(system);
         } catch (Exception e) {
             System.out.println("Failed to start the system!\n" + e);
             System.exit(1);
-        }*/
+        }
     }
 
 
