@@ -188,22 +188,22 @@ public class AirlineSystem {
      * @param args Commandline arguments
      */
     public static void main(String[] args) {
-        /*try {
+        try {
             AirlineSystemTester tester = new AirlineSystemTester();
             AirlineSystemTester.test_AirlineSystem("AllUsers.txt");
             System.exit(1);
         } catch (Exception e) {
             System.out.println("The process has failed.");
-        }*/
+        }
 
-
+        /*
         try {
             AirlineSystem system = new AirlineSystem("cities.txt", "distances.txt", "flights.txt", "AllUsers.txt");
             mainMenu(system);
         } catch (Exception e) {
             System.out.println("Failed to start the system!\n" + e);
             System.exit(1);
-        }
+        }*/
     }
 
 
@@ -211,10 +211,14 @@ public class AirlineSystem {
      * AirlineSystem tester class
      */
     public static class AirlineSystemTester {
+        private static final String test_city_file = "cities.txt";
+        private static final String test_distances_file = "distances.txt";
+        private static final String test_flights_file = "flights.txt";
+        private static final String test_users_file = "AllUsers.txt";
+
         private static void test_AirlineSystem(String user_file) {
             try {
-                AirlineSystem system = new AirlineSystem();
-                system.ScanUsersFromFile(user_file);
+                AirlineSystem system = new AirlineSystem(test_city_file, test_distances_file, test_flights_file, test_users_file);
 
             } catch (Exception e) {
                 //Handle Exception
