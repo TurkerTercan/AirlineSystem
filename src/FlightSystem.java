@@ -51,7 +51,6 @@ public class FlightSystem {
         availablePlanes = new TreeSet<>();
         flight_map = new HashMap<>();
         scanFromFile();
-        graph = new ListGraph(MAX_CAPACITY, true);
     }
 
     /**
@@ -87,6 +86,7 @@ public class FlightSystem {
                 System.exit(0);
             }
         }
+        graph = new ListGraph(MAX_CAPACITY, true);
         while(scanFlights.hasNextLine()) {
             String id = scanFlights.next();
             String cap = scanFlights.next();
