@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-//import sun.awt.ExtendedKeyCodes;
+import sun.awt.ExtendedKeyCodes;
 /**
  * Environment class for whole the system.
  */
