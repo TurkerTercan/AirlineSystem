@@ -14,7 +14,7 @@ public class AirlineSystem {
     public AirlineSystem() throws FileNotFoundException {
         planeMaintance = new ArrayDeque<>();
         flightSystem = new FlightSystem();
-        userSet = new SkipList<User>();
+        userSet = new SkipList<>();
 
         //A default administrator(id: "admin", passwd: "admin") will be added to the system right after the execution of the program.
         userSet.add(new Admin("admin", "admin", this));

@@ -6,7 +6,7 @@ public class Plane implements Comparable<Plane>{
     /**
      * Unique identification for planes
      */
-    private int PLANE_ID = 0;
+    private static int PLANE_ID = 0;
 
     /**
      * Identification number of the plane
@@ -64,4 +64,6 @@ public class Plane implements Comparable<Plane>{
     public int compareTo(Plane o) {
         return this.id.compareTo(o.id);
     }
+
+
 }
