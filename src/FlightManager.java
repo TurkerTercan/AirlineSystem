@@ -500,7 +500,7 @@ public class FlightManager extends User {
             try {
                 FlightManagerTester.test();
             } catch (Exception e) {
-                System.out.println("ERROR - getPlane()");
+                System.out.println("ERROR");
             }
         }
     }
