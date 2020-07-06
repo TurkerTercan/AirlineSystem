@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -65,6 +66,7 @@ public class Pilot extends User{
      */
     public void setFlight(Flight flight){
         this.flight = flight;
+        flight.addCrewMember(this);
     }
 
 
@@ -80,5 +82,41 @@ public class Pilot extends User{
      */
     private void showFlight(){
         System.out.print(flight.toString());
+    }
+
+    public static class PilotTester {
+        private static final String test_city_file = "cities.txt";
+        private static final String test_distances_file = "distances.txt";
+        private static final  String test_flights_file = "flights.txt";
+
+        //Unique plane id that will be used for testing
+        static FlightSystem system;
+        static Pilot pilot;
+        static SkipList<User> users;
+
+        public PilotTester() throws FileNotFoundException {
+            system = new FlightSystem(test_city_file,test_distances_file,test_flights_file);
+            users = new SkipList<>();
+            users.add(new User("test", "test"));
+
+            pilot = new Pilot("test", "test");
+        }
+
+        public static void test_setFlight() throws FileNotFoundException {
+            System.out.println("Testing set flight method of Pilot ");
+
+            pilot.setFlight(system.getFlights("Ankara","İstanbul").peek());
+            pilot.showFlight();
+        }
+
+
+        public static void main(String[] args) throws FileNotFoundException {
+            PilotTester pilotTester = new PilotTester();
+            try {
+                pilotTester.test_setFlight();
+            } catch (Exception e) {
+                System.out.println("ERROR "+ e.getMessage());
+            }
+        }
     }
 }
