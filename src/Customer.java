@@ -223,7 +223,6 @@ public class Customer extends User {
         static SkipList<User> users;
 
         public CustomerTester() throws FileNotFoundException {
-            System.out.println("Constructor!");
             system = new FlightSystem(test_city_file,test_distances_file,test_flights_file);
             users = new SkipList<>();
             users.add(new User("test", "test"));
