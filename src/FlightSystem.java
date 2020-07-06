@@ -93,8 +93,8 @@ public class FlightSystem {
             String setOff = scanFlights.next();
             String destination = scanFlights.next();
             String time = scanFlights.next();
-            double price = scanFlights.nextDouble();
-            addFlight(new Flight(id, new Plane(Integer.parseInt(cap)), setOff, destination, time, price));
+            String price = scanFlights.next();
+            addFlight(new Flight(id, new Plane(Integer.parseInt(cap)), setOff, destination, time, Double.parseDouble(price)));
         }
 
     }
