@@ -16,6 +16,10 @@ public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > 
 
     // Methods
     // Constructor
+
+    /**
+     * Basic Constructor
+     */
     public PriorityQueue() {
         theData = new ArrayList<>();
     }

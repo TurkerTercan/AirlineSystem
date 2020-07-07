@@ -28,6 +28,14 @@ public class User implements Login, Comparable<User>{
     }
 
     /**
+     * Setter method for Password
+     * @param pass new Password
+     */
+    public void setPassword(String pass) {
+        password = pass;
+    }
+
+    /**
      * Basic constructor for User class
      * @param id User's ID
      * @param password User's Password

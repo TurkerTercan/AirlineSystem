@@ -14,10 +14,9 @@ public class Admin extends User {
 
     /**
      * Constructor
-     *
-     * @param id
-     * @param password
-     * @param system
+     * @param id Admin's identification
+     * @param password Admin's password
+     * @param system environment class
      */
     public Admin(String id, String password, AirlineSystem system) {
         super(id, password);
@@ -69,6 +68,10 @@ public class Admin extends User {
         }
     }
 
+    /**
+     * menu required to hire employees
+     * @return
+     */
     private User hireEmployeeMenu() {
         String UN = "";
         String PW = "";
@@ -86,7 +89,6 @@ public class Admin extends User {
                     System.out.print("Enter new PassWord: ");
                     PW = input.next();
                     if (!system.getUserSet().isEmpty()) {
-                        System.out.print(system.getUserSet().getSize());
                         exists = system.getUserSet().find(new User(UN, "")) != null;
                     }
                     if (exists) {
@@ -166,6 +168,9 @@ public class Admin extends User {
 
     }
 
+    /**
+     * menu required to buy aircraft
+     */
     private void buyPlaneMenu(){
         int choice = -1;
         while (choice!=0) {
@@ -199,6 +204,9 @@ public class Admin extends User {
         }
     }
 
+    /**
+     * The admin's methods are tested.
+     */
     public static class AdminTester{
         private static final String test_city_file = "cities.txt";
         private static final String test_distances_file = "distances.txt";

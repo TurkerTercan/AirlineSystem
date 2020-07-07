@@ -2,8 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-import sun.awt.ExtendedKeyCodes;
-
 /**
  * Environment class for whole the system.
  */
@@ -13,10 +11,9 @@ public class AirlineSystem {
     private FlightSystem flightSystem;
     private Queue<Plane> planeMaintance;
 
-    private AirlineSystem() throws FileNotFoundException {
+    private AirlineSystem() {
         planeMaintance = new ArrayDeque<>();
         userSet = new SkipList<>();
-        
         //A default administrator(id: "admin", passwd: "admin") will be added to the system right after the execution of the program.
         userSet.add(new Admin("admin", "admin", this));
     }
@@ -34,8 +31,39 @@ public class AirlineSystem {
     public AirlineSystem(String file_city, String file_distance, String file_flight, String file_user) throws FileNotFoundException {
         this(file_city, file_distance, file_flight);
         ScanUsersFromFile(file_user);
+        AssignCrew();
     }
 
+    private void AssignCrew() {
+        Iterator<User> itr = userSet.iterator();
+        ArrayList<Pilot> pilots = new ArrayList<>();
+        ArrayList<Hostess> hostesses = new ArrayList<>();
+        while(itr.hasNext()) {
+            User temp = itr.next();
+            if (temp.getClass() == Pilot.class)
+                pilots.add((Pilot)temp);
+            else if (temp.getClass() == Hostess.class)
+                hostesses.add((Hostess)temp);
+        }
+        int i = 0;
+        int j = 0;
+        for (String temp : flightSystem.getFlight_map().keySet()) {
+            for (String temp2 : flightSystem.getFlight_map().get(temp).keySet()) {
+                for (Flight flight : flightSystem.getFlight_map().get(temp).get(temp2)) {
+                    if (i < pilots.size())
+                        pilots.get(i++).setFlight(flight);
+                    if (i < pilots.size())
+                        pilots.get(i++).setFlight(flight);
+                    if (j < hostesses.size())
+                        hostesses.get(j++).setFlight(flight);
+                    if (j < hostesses.size())
+                        hostesses.get(j++).setFlight(flight);
+                    if (j < hostesses.size())
+                        hostesses.get(j++).setFlight(flight);
+                }
+            }
+        }
+    }
 
     /**
      * This method reads a list of users from a specific file.

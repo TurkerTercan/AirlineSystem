@@ -1,25 +1,42 @@
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Scanner;
 
+/**
+ * Customer class that represent AirlineSystem's clients
+ */
 public class Customer extends User {
+    /** Terminal Input */
     private static Scanner input;
+    /** Represent to if user logedIn */
     private boolean LogedIn = false;
-    private ArrayList<Ticket> tickets;
-    private PriorityQueue<Flight> flights;
+    /** ArrayList that holds that users all tickets */
+    private final ArrayList<Ticket> tickets;
+    /** To check if there was another user with the same name */
     private static SkipList<User> users;
+    /** To get Flights from the system */
     private static FlightSystem Fsys;
 
-    public Customer(String id, String password,FlightSystem Fsys, SkipList<User> systemUsers) {
+    /**
+     * Basic constructor
+     * 
+     * @param id          Customer's identification
+     * @param password    Customer's password
+     * @param Fsys        FlightSystem that holds flights
+     * @param systemUsers All users in the system
+     */
+    public Customer(String id, String password, FlightSystem fs, SkipList<User> systemUsers) {
         super(id, password);
         input = new Scanner(System.in);
         tickets = new ArrayList<>();
-        this.Fsys = Fsys;
+        Fsys = fs;
         users = systemUsers;
     }
 
+    /**
+     * Method to able to log in to the system
+     */
     @Override
     public void login() {
         while (!LogedIn) {
@@ -28,11 +45,15 @@ public class Customer extends User {
 
             if (!PWord.equals(getPassword())) {
                 System.out.println("Authentication failed please try again!!");
-            }else LogedIn = !LogedIn;
+            } else
+                LogedIn = !LogedIn;
         }
         menu();
     }
 
+    /**
+     * Necessary information is taken and recorded for registration
+     */
     public static void registration() {
         String id;
         String passwd;
@@ -54,13 +75,16 @@ public class Customer extends User {
         System.out.println("A new customer has been added to the system.");
     }
 
+    /**
+     * FlightManager's interface
+     */
     @Override
     public void menu() {
         int choice = -1;
         while (choice!=0){
             System.out.println("\nMain menu:");
             System.out.println("please choose an action:");
-            System.out.println("0-Up\n1-Buy a ticket\n2-Cancel Ticket\n3-Show Tickets");
+            System.out.println("0-Up\n1-Buy a ticket\n2-Cancel Ticket\n3-Show Tickets\n4-Change Password");
             System.out.print("\nchoice:");
 
             choice = input.nextInt();
@@ -76,12 +100,34 @@ public class Customer extends User {
                 case 3:
                     showTickets();
                     break;
+                case 4:
+                    changePassword();
+                    break;
                 default:
                     System.out.println("Invalid Input!!\n");
             }
         }
     }
 
+    /**
+     * Change customer's password
+     */
+    private void changePassword() {
+        System.out.println("Please enter your current password");
+        String old = input.next();
+        if (old.equals(getPassword())) {
+            System.out.println("Please enter new password");
+            String newPass = input.next();
+            setPassword(newPass);
+            System.out.println("Operation is successful!");
+            return;
+        }
+        System.out.println("Password is wrong! Try Again!");
+    }
+
+    /**
+     * Necessary information is obtained and recorded for buying a ticket
+     */
     private void buyTicket(){
         System.out.println("Please enter Setoff city:");
         String source = input.next();
@@ -91,7 +137,7 @@ public class Customer extends User {
         System.out.println("1.Sort by time\n2.Sort by price\n");
         String choise = input.next();
 
-        flights = Fsys.getFlights(source,dest);
+        PriorityQueue<Flight> flights = Fsys.getFlights(source, dest);
         if (flights == null) {
             System.out.println("There is no flight between " + source + " and " + dest);
             Flight[] temp = Fsys.getPath(source,dest);
@@ -126,7 +172,7 @@ public class Customer extends User {
         if(choise.matches("2")) {
 
             List<Flight> flights1 = new ArrayList<>();
-            for ( int i = 0; i < flights.size(); i++ ) {
+            for (int i = 0; i < flights.size(); i++ ) {
                 flights1.add(flights.get(i));
             }
 
@@ -150,6 +196,9 @@ public class Customer extends User {
         System.out.println("Operation is successful");
     }
 
+    /**
+     * Necessary information is obtained and deleted for canceling a ticket
+     */
     private void cancelTicket(){
         System.out.println("Your Tickets : ");
         showTickets();
@@ -164,6 +213,9 @@ public class Customer extends User {
         System.out.println("Couldn't Find a ticket with provided ID in your active tickets");
     }
 
+    /**
+     * Shows the customer's tickets.
+     */
     private void showTickets(){
         if(tickets.size() == 0){
             System.out.println("You don't have any purchased tickets");
@@ -175,9 +227,11 @@ public class Customer extends User {
     }
 
 
+    /**
+     * Class to represent a ticket that is the Customer bought
+     */
     private static class Ticket{
         private static int ID = 0;
-
         private String id;
         private String deprTime;
         private String seat;
@@ -200,6 +254,7 @@ public class Customer extends User {
             return id;
         }
 
+
         public String getSeat() {
             return seat;
         }
@@ -212,32 +267,35 @@ public class Customer extends User {
         }
     }
 
+    /**
+     * The customer's methods are tested.
+     */
     public static class CustomerTester {
         private static final String test_city_file = "cities.txt";
         private static final String test_distances_file = "distances.txt";
-        //Unique plane id that will be used for testing
-        private static int plane_id = 0;
+        private static final  String test_flights_file = "flights.txt";
 
+        //Unique plane id that will be used for testing
         FlightSystem system;
         static Customer customer;
-        public CustomerTester() throws FileNotFoundException {
-            system = new FlightSystem(test_city_file,test_distances_file);
-            customer = new Customer("test", "1", system, null);
-        }
+        static SkipList<User> users;
 
+        public CustomerTester() throws FileNotFoundException {
+            system = new FlightSystem(test_city_file,test_distances_file,test_flights_file);
+            users = new SkipList<>();
+            users.add(new User("test", "test"));
+
+            customer = new Customer("test", "test", system, users);
+        }
 
         public static void test_buyTicket() throws FileNotFoundException {
             System.out.println("Testing buy ticket method of Customer ");
-           // FlightSystem system = new FlightSystem();
-           // Customer customer = new Customer("test", "1", system, null);
             customer.buyTicket();
             customer.showTickets();
         }
 
         public static void test_cancelTicket() throws FileNotFoundException {
             System.out.println("Testing cancel ticket method of Customer ");
-         //   FlightSystem system = new FlightSystem();
-          //  Customer customer = new Customer("test", "1", system, null);
             customer.cancelTicket();
             customer.showTickets();
         }
@@ -251,7 +309,6 @@ public class Customer extends User {
         }
 
         public static void main(String[] args) throws FileNotFoundException {
-            CustomerTester customerTester = new CustomerTester();
             try {
                 CustomerTester.test_buyTicket();
                 CustomerTester.test_cancelTicket();

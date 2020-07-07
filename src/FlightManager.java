@@ -3,12 +3,24 @@ import java.util.Map;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
+/** Represents FlightManagers of airline system */
 public class FlightManager extends User {
+    /** Terminal Input */
     private Scanner input;
+    /** Represent to if user logedIn */
     private boolean LogedIn = false;
+    /** Reference to flightSystem */
     private FlightSystem flightSystem;
+    /** Reference to Users */
     private SkipList<User> users;
 
+    /**
+     * Basic constructor
+     * @param id FlightManager's identification
+     * @param password FlightManager's password
+     * @param flightSystem FlightSystem that holds flights
+     * @param users SkipList that holds users
+     */
     public FlightManager(String id, String password, FlightSystem flightSystem, SkipList<User> users) {
         super(id, password);
         input = new Scanner(System.in);
@@ -16,6 +28,9 @@ public class FlightManager extends User {
         this.users = users;
     }
 
+    /**
+     * Method to able to log in to the system
+     */
     @Override
     public void login() {
         while (!LogedIn) {
@@ -29,6 +44,9 @@ public class FlightManager extends User {
         menu();
     }
 
+    /**
+     * FlightManager's interface
+     */
     @Override
     public void menu() {
         int choice = 1;
@@ -76,6 +94,10 @@ public class FlightManager extends User {
         input.nextLine();// Consume newline left-over
         boolean checkDest = checkDestination(dest);
         boolean checkSetOff = checkSetOff(setOff);
+        if(checkDest && checkSetOff){
+            if(findFlight(flightID,setOff,dest) != null)
+                tempFlight = null;
+        }
         if(!printError(tempFlight, plane,new Pilot("0","0"),new Hostess("0","0"),
                 checkDest,checkSetOff)) {
             if(dest.equals(setOff))
@@ -231,7 +253,6 @@ public class FlightManager extends User {
                     if(!printError(tempFlight,new Plane("0",0),pilot,
                             new Hostess("0","0"),true,true)){
                         pilot.setFlight(flight);
-                        flight.addCrewMember(pilot);
                     }
                     break;
                 case 2:
@@ -241,7 +262,6 @@ public class FlightManager extends User {
                     if(!printError(tempFlight,new Plane("0",0),new Pilot("0","0"),
                             hostess,true,true)){
                         hostess.setFlight(flight);
-                        flight.addCrewMember(hostess);
                     }
                     break;
             }
@@ -404,7 +424,10 @@ public class FlightManager extends User {
             }
         }
     }
-    
+
+    /**
+     * The flight manager's methods are tested.
+     */
     public static class FlightManagerTester {
         //Unique plane id that will be used for testing
         private static int plane_id = 0;

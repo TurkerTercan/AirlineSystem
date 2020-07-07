@@ -12,10 +12,13 @@ import java.util.*;
  */
 public class FlightSystem {
     //Data Fields
+    /** Graph's max vertices capacity */
     private static final int MAX_CAPACITY = 50;
 
     /** BinaryBalancedSearchTree of Planes, Planes are compared with their capacities */
     private TreeSet<Plane> availablePlanes;
+    /** How many planes will be in availablePlanes when constructed */
+    private static final int START_PLANE_CAP = 20;
 
     /** Nested Flight Map of PriorityQueue. First key represents SetOff String,
      * second String represents Destination and PriorityQueue is stores all flights
@@ -53,6 +56,7 @@ public class FlightSystem {
         flight_map = new HashMap<>();
         graph = new ListGraph(MAX_CAPACITY, true);
         scanFromFile(city_filePath, distance_filePath);
+
     }
     
     /**
@@ -63,6 +67,17 @@ public class FlightSystem {
     public FlightSystem(String city_filePath, String distance_filePath, String flight_filePath) throws FileNotFoundException {
         this(city_filePath, distance_filePath);
         scanFromFile(flight_filePath);
+        addPlanesToSystem(START_PLANE_CAP);
+    }
+
+    /**
+     * Method to add planes to system
+     * @param startPlaneCap Capacity
+     */
+    private void addPlanesToSystem(int startPlaneCap) {
+        for (int i = 0; i < startPlaneCap; i++) {
+            availablePlanes.add(new Plane(150));
+        }
     }
 
     /**
@@ -113,7 +128,8 @@ public class FlightSystem {
                 String destination = scanFlights.next();
                 String time = scanFlights.next();
                 String price = scanFlights.next();
-                addFlight(new Flight(id, new Plane(Integer.parseInt(cap)), setOff, destination, time, Double.parseDouble(price)));
+                Flight temp = new Flight(id, new Plane(Integer.parseInt(cap)), setOff, destination, time, Double.parseDouble(price));
+                addFlight(temp);
             }
         } catch (IOException e) {
             System.out.println("ERROR: An error occured when reading flights from the file \""+file_flights+"\"");

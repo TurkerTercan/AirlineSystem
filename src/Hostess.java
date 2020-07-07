@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -73,6 +74,7 @@ public class Hostess extends User{
      */
     public void setFlight(Flight flight){
         this.flight = flight;
+        flight.addCrewMember(this);
     }
 
     /**
@@ -86,6 +88,45 @@ public class Hostess extends User{
      * Shows flights for hostess.
      */
     private void showFlight(){
-        System.out.print(flight.toString());
+        if(flight == null)
+            System.out.println("There is no flight on the schedule");
+        else
+            System.out.print(flight.toString());
+    }
+
+    /**
+     * The hostess's methods are tested.
+     */
+    public static class HostessTester {
+        private static final String test_city_file = "cities.txt";
+        private static final String test_distances_file = "distances.txt";
+        private static final  String test_flights_file = "flights.txt";
+
+        //Unique plane id that will be used for testing
+        static FlightSystem system;
+        static Hostess hostess;
+        static String setoff = "Ankara";
+        static String destination = "İstanbul";
+
+        public HostessTester() throws FileNotFoundException {
+            system = new FlightSystem(test_city_file,test_distances_file,test_flights_file);
+            hostess = new Hostess("test", "test");
+        }
+
+        public static void test_showFlight() throws FileNotFoundException {
+            System.out.println("Testing set flight method of Hostess ");
+            hostess.setFlight(system.getFlights(setoff,destination).peek());
+            hostess.showFlight();
+        }
+
+        public static void main(String[] args) throws FileNotFoundException {
+            Hostess.HostessTester hostessTester = new Hostess.HostessTester();
+            try {
+
+                hostessTester.test_showFlight();
+            } catch (Exception e) {
+                System.out.println("ERROR "+ e.getMessage());
+            }
+        }
     }
 }
