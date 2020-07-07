@@ -113,9 +113,8 @@ public class Hostess extends User{
             hostess = new Hostess("test", "test");
         }
 
-        public static void test_setFlight() throws FileNotFoundException {
+        public static void test_showFlight() throws FileNotFoundException {
             System.out.println("Testing set flight method of Hostess ");
-
             hostess.setFlight(system.getFlights(setoff,destination).peek());
             hostess.showFlight();
         }
@@ -123,7 +122,8 @@ public class Hostess extends User{
         public static void main(String[] args) throws FileNotFoundException {
             Hostess.HostessTester hostessTester = new Hostess.HostessTester();
             try {
-                hostessTester.test_setFlight();
+
+                hostessTester.test_showFlight();
             } catch (Exception e) {
                 System.out.println("ERROR "+ e.getMessage());
             }
