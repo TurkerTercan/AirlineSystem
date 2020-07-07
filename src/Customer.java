@@ -10,7 +10,7 @@ public class Customer extends User {
     private ArrayList<Ticket> tickets;
     private PriorityQueue<Flight> flights;
     private static SkipList<User> users;
-    FlightSystem Fsys;
+    private static FlightSystem Fsys;
 
     public Customer(String id, String password,FlightSystem Fsys, SkipList<User> systemUsers) {
         super(id, password);
@@ -48,7 +48,7 @@ public class Customer extends User {
             } else {
                 System.out.print("\nPassword: ");
                 passwd = input.nextLine();
-                users.add(new User(id, passwd));
+                users.add(new Customer(id, passwd, Fsys, users));
             }
         } while (stand);
         System.out.println("A new customer has been added to the system.");
@@ -246,15 +246,15 @@ public class Customer extends User {
             System.out.println("Testing registration method of Customer ");
           //  FlightSystem system = new FlightSystem();
            // Customer customer = new Customer("test", "1", system, null);
-            customer.registration();
+            Customer.registration();
             customer.showTickets();
         }
 
         public static void main(String[] args) throws FileNotFoundException {
             CustomerTester customerTester = new CustomerTester();
             try {
-                customerTester.test_buyTicket();
-                customerTester.test_cancelTicket();
+                CustomerTester.test_buyTicket();
+                CustomerTester.test_cancelTicket();
                 //customerTester.test_registration();
             } catch (Exception e) {
                 System.out.println("ERROR "+ e.getMessage());

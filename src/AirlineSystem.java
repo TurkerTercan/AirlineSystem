@@ -120,56 +120,52 @@ public class AirlineSystem {
         String passwd;
         String yn;
         User usr;
-        System.out.println("------Main Menu------");
-        System.out.println("1.Login");
-        System.out.println("2.Customer Registration");
-        System.out.println("3.Exit");
         try {
             Scanner scan = new Scanner(System.in);    
             //Stay in the main menu until user wants to exit
             while (option == STAND) {
+                System.out.println("------Main Menu------");
+                System.out.println("1.Login");
+                System.out.println("2.Customer Registration");
+                System.out.println("3.Exit");
                 option = scan.nextInt();
-                //Read the buffer
+//                  Read the buffer
                     scan.nextLine();
                 switch (option) {
                     case 1:
+//                      Stay in the main menu until user wants to exit  
                         option = STAND;
-                        //Stay in the login menu until user wants to exit
-                        while (option == STAND) {
-                            System.out.println("ID:");
-                            id = scan.nextLine();
-                            System.out.println("Password: ");
-                            passwd = scan.nextLine();
-                            usr = system.userSet.find(new User(id, passwd));
+                        System.out.print("ID:");
+                        id = scan.nextLine();
+                        System.out.print("Password: ");
+                        passwd = scan.nextLine();
+                        usr = system.userSet.find(new User(id, passwd));
 
-                            //If there is no such user in the system
-                            if (usr == null) {
-                                System.out.println("There is no such registered user in the system!");
-                                System.out.println("Do you want to use customer registration(Y/N) ?");
-                                    yn = scan.nextLine();
-                                    
-                                if (yn == null || yn.length() <= 0) {
-                                    option = EXIT;
-                                } else if (yn.charAt(0) == 'Y' || yn.charAt(0) == 'y') {
-                                    //Calling static registration method of the user
-                                    Customer.registration();
-                                } else if (yn.charAt(0) == 'N' || yn.charAt(0) == 'n') {
-                                    //Exit from the menu
-                                    option = EXIT;
-                                } else {
-                                    System.out.println("Invalid option.");
-                                    option = EXIT;
-                                }
+                        //If there is no such user in the system
+                        if (usr == null) {
+                            System.out.println("There is no such registered user in the system!");
+                            System.out.println("Do you want to use customer registration(Y/N) ?");
+                                yn = scan.nextLine();
+
+                            if (yn == null || yn.length() <= 0) {
+                                //Exit from the menu
+                            } else if (yn.charAt(0) == 'Y' || yn.charAt(0) == 'y') {
+                                //Calling static registration method of the user
+                                Customer.registration();
+                            } else if (yn.charAt(0) == 'N' || yn.charAt(0) == 'n') {
+                                //Exit from the menu
                             } else {
-                                //If the login is succesfull, call the user's menu
-                                usr.menu();
-                                option = STAND;
+                                System.out.println("Invalid option.");
                             }
-                        }
+                        } else {
+                            //If the login is succesfull, call the user's menu
+                            usr.menu();
+                        }                      
                         break;
                     case 2:
                         //Calling static registration method of the user
                         Customer.registration();
+                        option = STAND;
                         break;
                     case 3:
                         //Exit from the system
