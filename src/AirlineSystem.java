@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
-import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
  * Environment class for whole the system.
@@ -12,7 +11,7 @@ public class AirlineSystem {
     private FlightSystem flightSystem;
     private Queue<Plane> planeMaintance;
 
-    private AirlineSystem() throws FileNotFoundException {
+    private AirlineSystem() {
         planeMaintance = new ArrayDeque<>();
         userSet = new SkipList<>();
         //A default administrator(id: "admin", passwd: "admin") will be added to the system right after the execution of the program.

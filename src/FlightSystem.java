@@ -16,6 +16,7 @@ public class FlightSystem {
 
     /** BinaryBalancedSearchTree of Planes, Planes are compared with their capacities */
     private TreeSet<Plane> availablePlanes;
+    private static final int START_PLANE_CAP = 20;
 
     /** Nested Flight Map of PriorityQueue. First key represents SetOff String,
      * second String represents Destination and PriorityQueue is stores all flights
@@ -53,6 +54,7 @@ public class FlightSystem {
         flight_map = new HashMap<>();
         graph = new ListGraph(MAX_CAPACITY, true);
         scanFromFile(city_filePath, distance_filePath);
+
     }
     
     /**
@@ -63,6 +65,13 @@ public class FlightSystem {
     public FlightSystem(String city_filePath, String distance_filePath, String flight_filePath) throws FileNotFoundException {
         this(city_filePath, distance_filePath);
         scanFromFile(flight_filePath);
+        addPlanesToSystem(START_PLANE_CAP);
+    }
+
+    private void addPlanesToSystem(int startPlaneCap) {
+        for (int i = 0; i < startPlaneCap; i++) {
+            availablePlanes.add(new Plane(150));
+        }
     }
 
     /**
