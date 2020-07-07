@@ -12,10 +12,12 @@ import java.util.*;
  */
 public class FlightSystem {
     //Data Fields
+    /** Graph's max vertices capacity */
     private static final int MAX_CAPACITY = 50;
 
     /** BinaryBalancedSearchTree of Planes, Planes are compared with their capacities */
     private TreeSet<Plane> availablePlanes;
+    /** How many planes will be in availablePlanes when constructed */
     private static final int START_PLANE_CAP = 20;
 
     /** Nested Flight Map of PriorityQueue. First key represents SetOff String,
@@ -68,6 +70,10 @@ public class FlightSystem {
         addPlanesToSystem(START_PLANE_CAP);
     }
 
+    /**
+     * Method to add planes to system
+     * @param startPlaneCap Capacity
+     */
     private void addPlanesToSystem(int startPlaneCap) {
         for (int i = 0; i < startPlaneCap; i++) {
             availablePlanes.add(new Plane(150));
