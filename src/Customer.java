@@ -309,7 +309,7 @@ public class Customer extends User {
         }
 
         public static void main(String[] args) throws FileNotFoundException {
-                CustomerTester test = new CustomerTester();
+                new CustomerTester();
                 test_buyTicket();
                 //CustomerTester.test_cancelTicket();
                 //customerTester.test_registration();
