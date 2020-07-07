@@ -6,6 +6,7 @@ import java.util.Scanner;
  */
 public class Pilot extends User{
     //Data fields
+
     private Scanner input;
     private boolean LogedIn = false;
     private Flight flight;

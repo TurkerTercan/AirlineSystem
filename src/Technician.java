@@ -6,8 +6,11 @@ import java.util.Queue;
  */
 public class Technician extends User {
     //Data fields
+    /** Terminal Input */
 	private Scanner input;
+	/** Represent to if user logedIn */
     private boolean LogedIn = false;
+    /** A queue that stores planes need to be maintaince */
     private Queue<Plane> planeMaintance;
 
     /**

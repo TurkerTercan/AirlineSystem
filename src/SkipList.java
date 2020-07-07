@@ -38,17 +38,33 @@ public class SkipList<E extends Comparable<E>> {
      */
     private Random rand = new Random();
 
+    /**
+     * Iterator class to go through on SkipList
+     */
     private class Iter implements Iterator<E> {
+        /** The node that iterator is on */
         SLNode<E> localNode;
-        Iter() {
+
+        /**
+         * Basic constructor
+         */
+        public Iter() {
             localNode = head.links[0];
         }
 
+        /**
+         * Checks the node is null or not
+         * @return if node is null or not
+         */
         @Override
         public boolean hasNext() {
             return localNode != null;
         }
 
+        /**
+         * Goes next node and return previous' data
+         * @return previous node's data
+         */
         @Override
         public E next() {
             E temp = localNode.data;
@@ -58,6 +74,10 @@ public class SkipList<E extends Comparable<E>> {
     }
 
     //Constructor
+
+    /**
+     * Basic constructor
+     */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public SkipList(){
         size = 0;
@@ -85,6 +105,10 @@ public class SkipList<E extends Comparable<E>> {
         return pred;
     }
 
+    /**
+     * Creates an iterator and returns it
+     * @return Iterator
+     */
     public Iterator<E> iterator() {
         return new Iter();
     }
@@ -200,9 +224,6 @@ public class SkipList<E extends Comparable<E>> {
         return sc.toString();
     }
 
-    public void add(String test, String test1) {
-    }
-
     /**
      * Static class to contain data and links
      * @author Jacob / Koffman & Wolfgang
@@ -229,6 +250,10 @@ public class SkipList<E extends Comparable<E>> {
         }
     }
 
+    /**
+     * To test the implemented iterator
+     * @param args
+     */
     public static void main(String[] args) {
         SkipList<Integer> test = new SkipList<>();
         test.add(1);
