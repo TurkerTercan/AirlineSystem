@@ -69,6 +69,10 @@ public class Admin extends User {
         }
     }
 
+    /**
+     * menu required to hire employees
+     * @return
+     */
     private User hireEmployeeMenu() {
         String UN = "";
         String PW = "";
@@ -166,6 +170,9 @@ public class Admin extends User {
 
     }
 
+    /**
+     * menu required to buy aircraft
+     */
     private void buyPlaneMenu(){
         int choice = -1;
         while (choice!=0) {
@@ -199,6 +206,9 @@ public class Admin extends User {
         }
     }
 
+    /**
+     * The admin's methods are tested.
+     */
     public static class AdminTester{
         private static final String test_city_file = "cities.txt";
         private static final String test_distances_file = "distances.txt";

@@ -94,6 +94,9 @@ public class Hostess extends User{
             System.out.print(flight.toString());
     }
 
+    /**
+     * The hostess's methods are tested.
+     */
     public static class HostessTester {
         private static final String test_city_file = "cities.txt";
         private static final String test_distances_file = "distances.txt";
@@ -102,20 +105,18 @@ public class Hostess extends User{
         //Unique plane id that will be used for testing
         static FlightSystem system;
         static Hostess hostess;
-        static SkipList<User> users;
+        static String setoff = "Ankara";
+        static String destination = "İstanbul";
 
         public HostessTester() throws FileNotFoundException {
             system = new FlightSystem(test_city_file,test_distances_file,test_flights_file);
-            users = new SkipList<>();
-            users.add(new User("test", "test"));
-
             hostess = new Hostess("test", "test");
         }
 
         public static void test_setFlight() throws FileNotFoundException {
             System.out.println("Testing set flight method of Hostess ");
 
-            hostess.setFlight(system.getFlights("Ankara","İstanbul").peek());
+            hostess.setFlight(system.getFlights(setoff,destination).peek());
             hostess.showFlight();
         }
 

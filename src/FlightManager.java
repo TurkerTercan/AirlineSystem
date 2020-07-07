@@ -406,7 +406,10 @@ public class FlightManager extends User {
             }
         }
     }
-    
+
+    /**
+     * The flight manager's methods are tested.
+     */
     public static class FlightManagerTester {
         //Unique plane id that will be used for testing
         private static int plane_id = 0;
