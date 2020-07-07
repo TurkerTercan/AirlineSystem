@@ -119,9 +119,8 @@ public class Pilot extends User{
 
 
         public static void main(String[] args) throws FileNotFoundException {
-            PilotTester pilotTester = new PilotTester();
             try {
-                pilotTester.test_showFlight();
+                PilotTester.test_showFlight();
             } catch (Exception e) {
                 System.out.println("ERROR "+ e.getMessage());
             }

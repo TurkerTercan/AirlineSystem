@@ -138,10 +138,9 @@ public class Technician extends User {
             technician.maintenanceConfirm();
         }
         public static void main(String[] args) throws FileNotFoundException {
-            Technician.TechnicianTester technicianTester = new Technician.TechnicianTester();
             try {
-                technicianTester.test_showMaintenanceAirplane();
-                technicianTester.test_maintenanceConfirm();
+                TechnicianTester.test_showMaintenanceAirplane();
+                TechnicianTester.test_maintenanceConfirm();
             } catch (Exception e) {
                 System.out.println("ERROR "+ e.getMessage());
             }

@@ -1,7 +1,6 @@
 /**
  * Plane class represents a plane in our AirlineSystem
  */
-@SuppressWarnings("rawtypes")
 public class Plane implements Comparable<Plane>{
     /**
      * Unique identification for planes

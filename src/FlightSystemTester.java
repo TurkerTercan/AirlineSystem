@@ -26,10 +26,8 @@ public class FlightSystemTester {
         flight.ShowAllPlanes();
         //test_addFlight(LOWER_TEST_COUNT);
         System.out.println("Testing adding/removing flights from/to the system");
-        //test_removeFlight(LOWER_TEST_COUNT);
+        test_removeFlight(LOWER_TEST_COUNT);
         test_findShortestFlights(5);
-        //System.out.println();
-    
     }
 
     /**

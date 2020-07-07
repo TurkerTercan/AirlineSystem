@@ -4,7 +4,6 @@ import java.util.ArrayList;
  * This class represents a flight from this airline company.
  * It has all necessary data fields and methods for a flight
  */
-@SuppressWarnings("rawtypes")
 public class Flight implements Comparable<Flight> {
     //Data fields
     /** The ID of the flight */

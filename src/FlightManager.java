@@ -325,7 +325,6 @@ public class FlightManager extends User {
             System.out.print("\nchoice:");
             choice = input.nextInt();
             input.nextLine();// Consume newline left-over
-            Plane tempPlane = new Plane("0", 0);
             switch (choice) {
                 case 1:
                     System.out.println("Please enter new id");
@@ -438,7 +437,6 @@ public class FlightManager extends User {
 
         private static final String test_city_file = "cities.txt";
         private static final String test_distances_file = "distances.txt";
-        private static final String test_flights_file = "flights.txt";
 
         public static void test_getPlane(int test_count) throws FileNotFoundException {
             System.out.println("Testing getPlane method of FlightManager for "+test_count+" times");

@@ -120,10 +120,8 @@ public class Hostess extends User{
         }
 
         public static void main(String[] args) throws FileNotFoundException {
-            Hostess.HostessTester hostessTester = new Hostess.HostessTester();
             try {
-
-                hostessTester.test_showFlight();
+                HostessTester.test_showFlight();
             } catch (Exception e) {
                 System.out.println("ERROR "+ e.getMessage());
             }
