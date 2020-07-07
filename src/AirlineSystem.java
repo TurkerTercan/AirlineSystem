@@ -7,10 +7,16 @@ import java.util.*;
  */
 public class AirlineSystem {
     //Data Fields
+    /** The SkipList that holds Users */
     private SkipList<User> userSet;
+    /** A system that has all necessary methods for a create flight, remove a flight etc. */
     private FlightSystem flightSystem;
+    /** A queue that has all planes that is required to maintance */
     private Queue<Plane> planeMaintance;
 
+    /**
+     * Basic Constructor that just initializes basics and adds admin to users
+     */
     private AirlineSystem() {
         planeMaintance = new ArrayDeque<>();
         userSet = new SkipList<>();
@@ -18,22 +24,48 @@ public class AirlineSystem {
         userSet.add(new Admin("admin", "admin", this));
     }
 
+    /**
+     * Constructor with 2 txt files. With these files it constructs a FlightSystem.
+     * @param file_city txt that represents cities
+     * @param file_distance txt that represents distances
+     * @throws FileNotFoundException if any file is not found
+     */
     public AirlineSystem(String file_city, String file_distance) throws FileNotFoundException {
         this();
         flightSystem = new FlightSystem(file_city, file_distance);
     }
 
+    /**
+     * Constructor with 3 txt files. With these files it constructs a FlightSystem and also it adds all
+     * flights that is given in file_flights
+     * @param file_city txt that represents cities
+     * @param file_distance txt that represents distances
+     * @param file_flights txt that holds all flight between those given cities
+     * @throws FileNotFoundException if any file is not found
+     */
     public AirlineSystem(String file_city, String file_distance, String file_flights) throws FileNotFoundException {
         this();
         flightSystem = new FlightSystem(file_city, file_distance, file_flights);
     }
 
+    /**
+     * Constructor with 4 txt files. With these files it constructs a FlightSystem and also it adds all
+     * flights that is given in file_flights. And adds Users in the file_user to userSet.
+     * @param file_city txt that represents cities
+     * @param file_distance txt that represents distances
+     * @param file_flight txt that holds all flight between those given cities
+     * @param file_user txt that holds all users of the system
+     * @throws FileNotFoundException
+     */
     public AirlineSystem(String file_city, String file_distance, String file_flight, String file_user) throws FileNotFoundException {
         this(file_city, file_distance, file_flight);
         ScanUsersFromFile(file_user);
         AssignCrew();
     }
 
+    /**
+     * Assigns all flights to 2 pilots and 3 hostesses
+     */
     private void AssignCrew() {
         Iterator<User> itr = userSet.iterator();
         ArrayList<Pilot> pilots = new ArrayList<>();
@@ -50,16 +82,18 @@ public class AirlineSystem {
         for (String temp : flightSystem.getFlight_map().keySet()) {
             for (String temp2 : flightSystem.getFlight_map().get(temp).keySet()) {
                 for (Flight flight : flightSystem.getFlight_map().get(temp).get(temp2)) {
-                    if (i < pilots.size())
-                        pilots.get(i++).setFlight(flight);
-                    if (i < pilots.size())
-                        pilots.get(i++).setFlight(flight);
-                    if (j < hostesses.size())
-                        hostesses.get(j++).setFlight(flight);
-                    if (j < hostesses.size())
-                        hostesses.get(j++).setFlight(flight);
-                    if (j < hostesses.size())
-                        hostesses.get(j++).setFlight(flight);
+                    if (flight.getCrew().size() != 5) {
+                        if (i < pilots.size())
+                            pilots.get(i++).setFlight(flight);
+                        if (i < pilots.size())
+                            pilots.get(i++).setFlight(flight);
+                        if (j < hostesses.size())
+                            hostesses.get(j++).setFlight(flight);
+                        if (j < hostesses.size())
+                            hostesses.get(j++).setFlight(flight);
+                        if (j < hostesses.size())
+                            hostesses.get(j++).setFlight(flight);
+                    }
                 }
             }
         }
@@ -219,6 +253,13 @@ public class AirlineSystem {
     public static void main(String[] args) {
         try {
             AirlineSystem system = new AirlineSystem("cities.txt", "distances.txt", "flights.txt", "AllUsers.txt");
+            for (String temp : system.flightSystem.getFlight_map().keySet()) {
+                for (String temp2 : system.flightSystem.getFlight_map().get(temp).keySet()) {
+                    for (Flight flight : system.flightSystem.getFlight_map().get(temp).get(temp2)) {
+                        System.out.println(flight.toString());
+                    }
+                }
+            }
             mainMenu(system);
         } catch (Exception e) {
             System.out.println("Failed to start the system!\n" + e);
