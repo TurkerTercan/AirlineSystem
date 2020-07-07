@@ -63,7 +63,7 @@ public class Customer extends User {
         while (choice!=0){
             System.out.println("\nMain menu:");
             System.out.println("please choose an action:");
-            System.out.println("0-Up\n1-Buy a ticket\n2-Cancel Ticket\n3-Show Tickets");
+            System.out.println("0-Up\n1-Buy a ticket\n2-Cancel Ticket\n3-Show Tickets\n4-Change Password");
             System.out.print("\nchoice:");
 
             choice = input.nextInt();
@@ -79,10 +79,26 @@ public class Customer extends User {
                 case 3:
                     showTickets();
                     break;
+                case 4:
+                    changePassword();
+                    break;
                 default:
                     System.out.println("Invalid Input!!\n");
             }
         }
+    }
+
+    private void changePassword() {
+        System.out.println("Please enter your current password");
+        String old = input.next();
+        if (old.equals(getPassword())) {
+            System.out.println("Please enter new password");
+            String newPass = input.next();
+            setPassword(newPass);
+            System.out.println("Operation is successful!");
+            return;
+        }
+        System.out.println("Password is wrong! Try Again!");
     }
 
     /**
