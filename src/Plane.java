@@ -62,8 +62,8 @@ public class Plane implements Comparable<Plane>{
      */
     @Override
     public int compareTo(Plane o) {
-        int tempCap1 = capacity * 100 + Integer.parseInt(id);
-        int tempCap2 = o.capacity * 100 + Integer.parseInt(o.id);
+        int tempCap1 = capacity * 1000 + Integer.parseInt(id);
+        int tempCap2 = o.capacity * 1000 + Integer.parseInt(o.id);
         return tempCap1 - tempCap2;
     }
 
