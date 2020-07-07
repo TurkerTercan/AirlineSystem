@@ -7,8 +7,11 @@ import java.util.Scanner;
 public class Pilot extends User{
     //Data fields
 
+    /** Terminal Input */
     private Scanner input;
+    /** Represent to if user logged in */
     private boolean LogedIn = false;
+    /** Represents a flight that is responsible for */
     private Flight flight;
 
     /**

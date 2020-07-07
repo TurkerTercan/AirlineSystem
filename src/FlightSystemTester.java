@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Random;
 
+/** Class to test FlightSystem class */
 public class FlightSystemTester {
     private static String time_test = "20/06/2020,14:30";
     private static final int LOWER_TEST_COUNT = 20;
@@ -25,12 +26,18 @@ public class FlightSystemTester {
         flight.ShowAllPlanes();
         //test_addFlight(LOWER_TEST_COUNT);
         System.out.println("Testing adding/removing flights from/to the system");
-        test_removeFlight(LOWER_TEST_COUNT);
-        test_findShortestFlights(LOWER_TEST_COUNT);
-        System.out.println();
+        //test_removeFlight(LOWER_TEST_COUNT);
+        test_findShortestFlights(5);
+        //System.out.println();
     
     }
 
+    /**
+     * Creates flights and adds to the system
+     * @param test_count How many test flights will be created
+     * @return created FlightSystem
+     * @throws FileNotFoundException if file not found
+     */
     private static FlightSystem test_addFlight(int test_count) throws FileNotFoundException {
         System.out.println("Adding "+test_count+" flights to the system.");
         System.out.println("Expected Output: False if there is already a flight with the same properties, otherwise; true.");
@@ -52,6 +59,12 @@ public class FlightSystemTester {
         return system;
     }
 
+    /**
+     * Firstly creates flights and then, removes it
+     * @param test_count How many test flights will be created and removed
+     * @return created FlightSystem
+     * @throws FileNotFoundException if file not found
+     */
     private static FlightSystem test_removeFlight(int test_count) throws FileNotFoundException {
         System.out.println("Removing all flights of a system that has "+test_count+" flights recorded.");
         System.out.println("Expected Output: False if there is no such flight in the system or graph, otherwise; true.");
@@ -80,6 +93,12 @@ public class FlightSystemTester {
         return system;
     }
 
+    /**
+     * To test getPath method
+     * @param test_count How many transfer points will be
+     * @return Created FlightSystem
+     * @throws FileNotFoundException if file not found
+     */
     private static FlightSystem test_findShortestFlights(int test_count) throws FileNotFoundException {
         System.out.println("Finds shortest flights between two cities if there is not any flight between them");
         System.out.println("Excepted Output: Prints an Flight array between source to destination");
