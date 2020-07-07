@@ -33,6 +33,9 @@ public class Customer extends User {
         menu();
     }
 
+    /**
+     * Necessary information is taken and recorded for registration
+     */
     public static void registration() {
         String id;
         String passwd;
@@ -82,6 +85,9 @@ public class Customer extends User {
         }
     }
 
+    /**
+     * Necessary information is obtained and recorded for buying a ticket
+     */
     private void buyTicket(){
         System.out.println("Please enter Setoff city:");
         String source = input.next();
@@ -150,6 +156,9 @@ public class Customer extends User {
         System.out.println("Operation is successful");
     }
 
+    /**
+     * Necessary information is obtained and deleted for canceling a ticket
+     */
     private void cancelTicket(){
         System.out.println("Your Tickets : ");
         showTickets();
@@ -164,6 +173,9 @@ public class Customer extends User {
         System.out.println("Couldn't Find a ticket with provided ID in your active tickets");
     }
 
+    /**
+     * Shows the customer's tickets.
+     */
     private void showTickets(){
         if(tickets.size() == 0){
             System.out.println("You don't have any purchased tickets");
@@ -200,6 +212,7 @@ public class Customer extends User {
             return id;
         }
 
+
         public String getSeat() {
             return seat;
         }
@@ -212,6 +225,9 @@ public class Customer extends User {
         }
     }
 
+    /**
+     * The customer's methods are tested.
+     */
     public static class CustomerTester {
         private static final String test_city_file = "cities.txt";
         private static final String test_distances_file = "distances.txt";

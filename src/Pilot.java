@@ -87,6 +87,9 @@ public class Pilot extends User{
             System.out.print(flight.toString());
     }
 
+    /**
+     * The pilot's methods are tested.
+     */
     public static class PilotTester {
         private static final String test_city_file = "cities.txt";
         private static final String test_distances_file = "distances.txt";
@@ -95,20 +98,17 @@ public class Pilot extends User{
         //Unique plane id that will be used for testing
         static FlightSystem system;
         static Pilot pilot;
-        static SkipList<User> users;
-
+        static String setoff = "Ankara";
+        static String destination = "İstanbul";
         public PilotTester() throws FileNotFoundException {
             system = new FlightSystem(test_city_file,test_distances_file,test_flights_file);
-            users = new SkipList<>();
-            users.add(new User("test", "test"));
-
             pilot = new Pilot("test", "test");
         }
 
         public static void test_setFlight() throws FileNotFoundException {
             System.out.println("Testing set flight method of Pilot ");
 
-            pilot.setFlight(system.getFlights("Ankara","İstanbul").peek());
+            pilot.setFlight(system.getFlights(setoff,destination).peek());
             pilot.showFlight();
         }
 
