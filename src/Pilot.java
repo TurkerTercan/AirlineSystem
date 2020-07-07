@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 /**
  * Represents pilots of the airline system.
+ * He/She can see the flight that is responsible for
  */
 public class Pilot extends User{
     //Data fields

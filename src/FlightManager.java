@@ -3,12 +3,24 @@ import java.util.Map;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
+/** Represents FlightManagers of airline system */
 public class FlightManager extends User {
+    /** Terminal Input */
     private Scanner input;
+    /** Represent to if user logedIn */
     private boolean LogedIn = false;
+    /** Reference to flightSystem */
     private FlightSystem flightSystem;
+    /** Reference to Users */
     private SkipList<User> users;
 
+    /**
+     * Basic constructor
+     * @param id FlightManager's identification
+     * @param password FlightManager's password
+     * @param flightSystem FlightSystem that holds flights
+     * @param users SkipList that holds users
+     */
     public FlightManager(String id, String password, FlightSystem flightSystem, SkipList<User> users) {
         super(id, password);
         input = new Scanner(System.in);
@@ -16,6 +28,9 @@ public class FlightManager extends User {
         this.users = users;
     }
 
+    /**
+     * Method to able to log in to the system
+     */
     @Override
     public void login() {
         while (!LogedIn) {
@@ -29,6 +44,9 @@ public class FlightManager extends User {
         menu();
     }
 
+    /**
+     * FlightManager's interface
+     */
     @Override
     public void menu() {
         int choice = 1;

@@ -1,17 +1,30 @@
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Scanner;
 
+/**
+ * Customer class that represent AirlineSystem's clients
+ */
 public class Customer extends User {
+    /** Terminal Input */
     private static Scanner input;
+    /** Represent to if user logedIn */
     private boolean LogedIn = false;
-    private ArrayList<Ticket> tickets;
-    private PriorityQueue<Flight> flights;
+    /** ArrayList that holds that users all tickets */
+    private final ArrayList<Ticket> tickets;
+    /** To check if there was another user with the same name */
     private static SkipList<User> users;
-    FlightSystem Fsys;
+    /** To get Flights from the system */
+    private final FlightSystem Fsys;
 
+    /**
+     * Basic constructor
+     * @param id Customer's identification
+     * @param password Customer's password
+     * @param Fsys FlightSystem that holds flights
+     * @param systemUsers All users in the system
+     */
     public Customer(String id, String password,FlightSystem Fsys, SkipList<User> systemUsers) {
         super(id, password);
         input = new Scanner(System.in);
@@ -20,6 +33,9 @@ public class Customer extends User {
         users = systemUsers;
     }
 
+    /**
+     * Method to able to log in to the system
+     */
     @Override
     public void login() {
         while (!LogedIn) {
@@ -57,6 +73,9 @@ public class Customer extends User {
         System.out.println("A new customer has been added to the system.");
     }
 
+    /**
+     * FlightManager's interface
+     */
     @Override
     public void menu() {
         int choice = -1;
@@ -88,6 +107,9 @@ public class Customer extends User {
         }
     }
 
+    /**
+     * Change customer's password
+     */
     private void changePassword() {
         System.out.println("Please enter your current password");
         String old = input.next();
@@ -113,7 +135,7 @@ public class Customer extends User {
         System.out.println("1.Sort by time\n2.Sort by price\n");
         String choise = input.next();
 
-        flights = Fsys.getFlights(source,dest);
+        PriorityQueue<Flight> flights = Fsys.getFlights(source, dest);
         if (flights == null) {
             System.out.println("There is no flight between " + source + " and " + dest);
             Flight[] temp = Fsys.getPath(source,dest);
@@ -148,7 +170,7 @@ public class Customer extends User {
         if(choise.matches("2")) {
 
             List<Flight> flights1 = new ArrayList<>();
-            for ( int i = 0; i < flights.size(); i++ ) {
+            for (int i = 0; i < flights.size(); i++ ) {
                 flights1.add(flights.get(i));
             }
 
@@ -203,9 +225,11 @@ public class Customer extends User {
     }
 
 
+    /**
+     * Class to represent a ticket that is the Customer bought
+     */
     private static class Ticket{
         private static int ID = 0;
-
         private String id;
         private String deprTime;
         private String seat;

@@ -14,10 +14,9 @@ public class Admin extends User {
 
     /**
      * Constructor
-     *
-     * @param id
-     * @param password
-     * @param system
+     * @param id Admin's identification
+     * @param password Admin's password
+     * @param system environment class
      */
     public Admin(String id, String password, AirlineSystem system) {
         super(id, password);
