@@ -2,7 +2,6 @@ Customer mehmet 1234
 Customer ali 7890
 Customer jack 2930
 Customer alice 2232
-Customer ali 7890
 Customer mehmet01 2323
 Customer turker02 1313
 Customer delibas 3456
@@ -21,7 +20,7 @@ FlightManager selim 1111
 FlightManager fatih 2222
 FlightManager sultan 3333
 Hostess elif 9999
-Hostess turker02 3459
+Hostess turker05 3459
 Hostess ela 0101
 Hostess nur 0202
 Hostess bela 0303
