@@ -23,7 +23,7 @@ public class Customer extends User {
      * 
      * @param id          Customer's identification
      * @param password    Customer's password
-     * @param Fsys        FlightSystem that holds flights
+     * @param fs        FlightSystem that holds flights
      * @param systemUsers All users in the system
      */
     public Customer(String id, String password, FlightSystem fs, SkipList<User> systemUsers) {
@@ -141,7 +141,7 @@ public class Customer extends User {
         if (flights == null) {
             System.out.println("There is no flight between " + source + " and " + dest);
             Flight[] temp = Fsys.getPath(source,dest);
-            if (temp.length == 0) {
+            if (temp == null) {
                 System.out.println("There is no transfer point either. Please try another");
                 return;
             }
@@ -309,13 +309,11 @@ public class Customer extends User {
         }
 
         public static void main(String[] args) throws FileNotFoundException {
-            try {
-                CustomerTester.test_buyTicket();
-                CustomerTester.test_cancelTicket();
+                CustomerTester test = new CustomerTester();
+                test_buyTicket();
+                //CustomerTester.test_cancelTicket();
                 //customerTester.test_registration();
-            } catch (Exception e) {
-                System.out.println("ERROR "+ e.getMessage());
-            }
+
         }
     }
 }
