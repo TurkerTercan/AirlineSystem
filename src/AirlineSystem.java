@@ -14,7 +14,6 @@ public class AirlineSystem {
     private AirlineSystem() throws FileNotFoundException {
         planeMaintance = new ArrayDeque<>();
         userSet = new SkipList<>();
-        
         //A default administrator(id: "admin", passwd: "admin") will be added to the system right after the execution of the program.
         userSet.add(new Admin("admin", "admin", this));
     }
@@ -33,7 +32,6 @@ public class AirlineSystem {
         this(file_city, file_distance, file_flight);
         ScanUsersFromFile(file_user);
     }
-
 
     /**
      * This method reads a list of users from a specific file.

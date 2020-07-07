@@ -113,7 +113,8 @@ public class FlightSystem {
                 String destination = scanFlights.next();
                 String time = scanFlights.next();
                 String price = scanFlights.next();
-                addFlight(new Flight(id, new Plane(Integer.parseInt(cap)), setOff, destination, time, Double.parseDouble(price)));
+                Flight temp = new Flight(id, new Plane(Integer.parseInt(cap)), setOff, destination, time, Double.parseDouble(price));
+                addFlight(temp);
             }
         } catch (IOException e) {
             System.out.println("ERROR: An error occured when reading flights from the file \""+file_flights+"\"");
