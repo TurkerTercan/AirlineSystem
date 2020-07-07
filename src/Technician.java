@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Queue;
 
@@ -21,6 +23,7 @@ public class Technician extends User {
     public Technician(String id, String password) {
         super(id, password);
         input = new Scanner(System.in);
+        planeMaintance = new LinkedList<>();
     }
 
     /**
@@ -57,7 +60,7 @@ public class Technician extends User {
                     break;
 
                 case 2:
-                    getPlaneMaintance();
+                    showMaintenanceQueue();
                     break;
             }
         }
@@ -82,8 +85,12 @@ public class Technician extends User {
      */
     private void showMaintenanceQueue() {
         System.out.print("There are planes waiting to be maintained : ");
-        System.out.print(getPlaneMaintance().toString());
+        for ( Plane plane: planeMaintance ) {
+            System.out.print(plane.getId() + " ");
+        }
+        System.out.println("");
     }
+
 
     /**
      * Getter method for plane maintance
@@ -99,5 +106,45 @@ public class Technician extends User {
      */
     public void setPlaneMaintance(Queue<Plane> planeMaintance) {
         this.planeMaintance = planeMaintance;
+    }
+
+    /**
+     * The technician's methods are tested.
+     */
+    public static class TechnicianTester {
+        private static final String test_city_file = "cities.txt";
+        private static final String test_distances_file = "distances.txt";
+        private static final  String test_flights_file = "flights.txt";
+
+        //Unique plane id that will be used for testing
+        static FlightSystem system;
+        static Technician technician;
+        static String setoff = "Ankara";
+        static String destination = "İstanbul";
+
+        public TechnicianTester() throws FileNotFoundException {
+            system = new FlightSystem(test_city_file,test_distances_file,test_flights_file);
+            technician = new Technician("test", "test");
+            technician.planeMaintance.add(system.getFlights(setoff,destination).peek().getPlane());
+            technician.planeMaintance.add(system.getFlights("Londra","Tiflis").peek().getPlane());
+        }
+
+        public static void test_showMaintenanceAirplane() throws FileNotFoundException {
+            System.out.println("Testing set show maintenance airplane queue of Technician ");
+            technician.showMaintenanceQueue();
+        }
+        public static void test_maintenanceConfirm() throws FileNotFoundException {
+            System.out.println("Testing set maintenance confirm of Technician ");
+            technician.maintenanceConfirm();
+        }
+        public static void main(String[] args) throws FileNotFoundException {
+            Technician.TechnicianTester technicianTester = new Technician.TechnicianTester();
+            try {
+                technicianTester.test_showMaintenanceAirplane();
+                technicianTester.test_maintenanceConfirm();
+            } catch (Exception e) {
+                System.out.println("ERROR "+ e.getMessage());
+            }
+        }
     }
 }

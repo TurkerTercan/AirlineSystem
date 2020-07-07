@@ -103,14 +103,14 @@ public class Pilot extends User{
         //Unique plane id that will be used for testing
         static FlightSystem system;
         static Pilot pilot;
-        static String setoff = "Ankara";
-        static String destination = "İstanbul";
+        static String setoff = "Londra";
+        static String destination = "Tiflis";
         public PilotTester() throws FileNotFoundException {
             system = new FlightSystem(test_city_file,test_distances_file,test_flights_file);
             pilot = new Pilot("test", "test");
         }
 
-        public static void test_setFlight() throws FileNotFoundException {
+        public static void test_showFlight() throws FileNotFoundException {
             System.out.println("Testing set flight method of Pilot ");
 
             pilot.setFlight(system.getFlights(setoff,destination).peek());
@@ -121,7 +121,7 @@ public class Pilot extends User{
         public static void main(String[] args) throws FileNotFoundException {
             PilotTester pilotTester = new PilotTester();
             try {
-                pilotTester.test_setFlight();
+                pilotTester.test_showFlight();
             } catch (Exception e) {
                 System.out.println("ERROR "+ e.getMessage());
             }
