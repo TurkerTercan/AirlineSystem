@@ -90,7 +90,6 @@ public class Admin extends User {
                     System.out.print("Enter new PassWord: ");
                     PW = input.next();
                     if (!system.getUserSet().isEmpty()) {
-                        System.out.print(system.getUserSet().getSize());
                         exists = system.getUserSet().find(new User(UN, "")) != null;
                     }
                     if (exists) {
