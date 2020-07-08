@@ -253,13 +253,6 @@ public class AirlineSystem {
     public static void main(String[] args) {
         try {
             AirlineSystem system = new AirlineSystem("cities.txt", "distances.txt", "flights.txt", "AllUsers.txt");
-            for (String temp : system.flightSystem.getFlight_map().keySet()) {
-                for (String temp2 : system.flightSystem.getFlight_map().get(temp).keySet()) {
-                    for (Flight flight : system.flightSystem.getFlight_map().get(temp).get(temp2)) {
-                        System.out.println(flight.toString());
-                    }
-                }
-            }
             mainMenu(system);
         } catch (Exception e) {
             System.out.println("Failed to start the system!\n" + e);
