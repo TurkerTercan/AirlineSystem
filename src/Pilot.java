@@ -71,7 +71,8 @@ public class Pilot extends User{
      */
     public void setFlight(Flight flight){
         this.flight = flight;
-        flight.addCrewMember(this);
+        if(flight != null)
+            flight.addCrewMember(this);
     }
 
 

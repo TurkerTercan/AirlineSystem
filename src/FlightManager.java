@@ -94,25 +94,26 @@ public class FlightManager extends User {
         input.nextLine();// Consume newline left-over
         boolean checkDest = checkDestination(dest);
         boolean checkSetOff = checkSetOff(setOff);
+        boolean checkEq = dest.equals(setOff);
+        boolean checkDep = checkDepartTime(depart);
+        boolean checkPrice = price < 0;
         if(checkDest && checkSetOff){
             if(findFlight(flightID,setOff,dest) != null)
                 tempFlight = null;
         }
+        if(checkEq)
+            System.out.println("Set off and destination cannot be the same");
+        if(!checkDep)
+            System.out.println("Wrong depart time information");
+        if(checkPrice)
+            System.out.println("Flight price cannot be negative");
         if(!printError(tempFlight, plane,new Pilot("0","0"),new Hostess("0","0"),
-                checkDest,checkSetOff)) {
-            if(dest.equals(setOff))
-                System.out.println("Set off and destination cannot be the same");
-            else if(!checkDepartTime(depart)){
-                System.out.println("Wrong depart time information");
-            }
-            else if(price < 0)
-                System.out.println("Flight price cannot be negative");
-            else{
+                checkDest,checkSetOff) && !checkEq && checkDep && !checkPrice) {
+
                 Flight newFlight = new Flight(flightID, plane, setOff, dest, depart, price);
                 System.out.println("Flight has been created");
                 if(flightSystem.addFlight(createCrew(newFlight)))
                     System.out.println("New flight has been added to the system.");
-            }
         }
     }
 
