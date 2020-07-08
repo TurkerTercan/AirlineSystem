@@ -79,6 +79,8 @@ public class FlightManager extends User {
         System.out.println("Please enter flight id");
         String flightID = input.nextLine();
         System.out.println("Please enter plane id");
+        System.out.println("Available Plane IDs : " +  flightSystem.getAvailablePlanes().first().getId() + " - "
+                + flightSystem.getAvailablePlanes().last().getId());
         String planeID = input.nextLine();
         System.out.println("Please enter set off zone");
         String setOff = input.nextLine();
