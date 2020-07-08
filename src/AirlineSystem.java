@@ -55,7 +55,7 @@ public class AirlineSystem {
      * @param file_distance txt that represents distances
      * @param file_flight txt that holds all flight between those given cities
      * @param file_user txt that holds all users of the system
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if file not found
      */
     public AirlineSystem(String file_city, String file_distance, String file_flight, String file_user) throws FileNotFoundException {
         this(file_city, file_distance, file_flight);
@@ -149,6 +149,7 @@ public class AirlineSystem {
     
     /**
      * getter method of the userSet skiplist
+     * @return SkipList of users
      */
     public SkipList<User> getUserSet() {
         return userSet;
@@ -156,6 +157,7 @@ public class AirlineSystem {
 
     /**
      * getter method of the flightSystem
+     * @return FlightSysten
      */
     public FlightSystem getFlightSystem() {
         return flightSystem;

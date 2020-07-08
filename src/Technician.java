@@ -20,6 +20,7 @@ public class Technician extends User {
      * Constructor
      * @param id Technician's identification
      * @param password Technician's password
+     * @param sys FlightSystem
      */
     public Technician(String id, String password, FlightSystem sys) {
         super(id, password);

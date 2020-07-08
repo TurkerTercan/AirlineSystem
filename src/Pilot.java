@@ -19,8 +19,8 @@ public class Pilot extends User{
 
     /**
      * Constructor
-     * @param id
-     * @param password
+     * @param id Pilot's identification
+     * @param password Pilot's password
      */
     public Pilot(String id, String password) {
         super(id, password);
@@ -80,6 +80,7 @@ public class Pilot extends User{
 
     /**
      * Getter method for pilot.
+     * @return flight
      */
     public Flight getFlight(){
         return flight;

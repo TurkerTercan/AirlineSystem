@@ -162,6 +162,7 @@ public class FlightManager extends User {
 
     /** Returns required flight
      * @param id The flight id
+     * @param setOff The setoff information
      * @param dest The destination information
      * @return The flight if exist, null otherwise
      */
@@ -246,6 +247,7 @@ public class FlightManager extends User {
 
     /**
      * Displays error
+     * @param flight The flight
      * @param plane The plane
      * @param pilot The pilot
      * @param hostess The hostess

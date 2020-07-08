@@ -30,6 +30,7 @@ public interface Graph {
     /**
      * Removes an existing edge from the graph
      * @param edge Edge to be removed
+     * @return operation is successful or not
      */
     boolean remove(Edge edge);
     

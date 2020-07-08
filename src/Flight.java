@@ -40,6 +40,7 @@ public class Flight implements Comparable<Flight> {
      * @param destination Flight's destination place
      * @param setOff Flight's set off place
      * @param departTime Flight's depart time
+     * @param price Flight's price per seat
      */
     public Flight( String ID, Plane plane, String setOff, String destination, String departTime, double price) {
         this.ID = ID;
@@ -54,7 +55,11 @@ public class Flight implements Comparable<Flight> {
     }
 
     //Methods
-    /** Adds new crew member in to the arraylist */
+
+    /**
+     * Adds new crew member in to the arraylist
+     * @param user new User
+     */
     public void addCrewMember(User user){
         crew.add(user);
     }
@@ -73,7 +78,10 @@ public class Flight implements Comparable<Flight> {
         crew.clear();
     }
 
-    /** Adds new customer in to the list */
+    /**
+     * Adds new customer in to the list
+     * @param customer new Customer
+     */
     public void addNewCustomer(Customer customer){
         if (remainingSeats == 0) {
             System.err.println("this flight is full");
@@ -83,7 +91,10 @@ public class Flight implements Comparable<Flight> {
         remainingSeats--;
     }
 
-    /** Getter method for depart time */
+    /**
+     * Getter method for depart time
+     * @return departTime
+     */
     public String getDepartTime() {
         return departTime;
     }

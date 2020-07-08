@@ -69,7 +69,7 @@ public class Admin extends User {
 
     /**
      * menu required to hire employees
-     * @return
+     * @return created User
      */
     private User hireEmployeeMenu() {
         String UN = "";
@@ -102,6 +102,9 @@ public class Admin extends User {
     }
     /**
      * Admin adds pilot, hostess, technician and flight manager.
+     * @param UN User Name
+     * @param PW password
+     * @param Type Class type
      * @return User
      */
     private User hireEmployee(String UN, String PW, int Type){

@@ -22,8 +22,8 @@ public class Hostess extends User{
 
     /**
      * Constructor
-     * @param id
-     * @param password
+     * @param id Hostess' identification
+     * @param password Hostess' password
      */
     public Hostess(String id, String password) {
         super(id, password);
@@ -72,7 +72,7 @@ public class Hostess extends User{
 
    /**
      * Setter method for hostess.
-     * @param flight
+     * @param flight The flight will be modified
      */
     public void setFlight(Flight flight){
         this.flight = flight;
@@ -82,6 +82,7 @@ public class Hostess extends User{
 
     /**
      * Getter method for hostess.
+     * @return flight
      */
     public Flight getFlight(){
         return flight;

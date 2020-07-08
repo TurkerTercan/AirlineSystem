@@ -113,9 +113,9 @@ public class PriorityQueue<E> extends AbstractQueue <E>  implements Queue < E > 
         return result;
     }
 
-    /** Compare two items using either a Comparator object�s compare method
+    /** Compare two items using either a Comparator object's compare method
      or their natural ordering using method compareTo.
-     pre: If comparator is null, left and right implement Comparable<E>.
+     pre: If comparator is null, left and right implement Comparable
      @return Negative int if left less than right,
      0 if left equals right,
      positive int if left > right
