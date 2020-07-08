@@ -80,15 +80,15 @@ public class FlightManager extends User {
         Flight tempFlight = new Flight("",new Plane("",0),"","","",0.0); //for only check
         System.out.println("Please enter flight id");
         String flightID = input.nextLine();
-        System.out.println("Please enter plane id");
-        String planeID = input.nextLine();
+        //System.out.println("Please enter plane id");
+        //String planeID = input.nextLine();
         System.out.println("Please enter set off zone");
         String setOff = input.nextLine();
         System.out.println("Please enter destination");
         String dest = input.nextLine();
         System.out.println("Please enter depart time");
         String depart = input.nextLine();
-        Plane plane = findPlane(planeID);
+        Plane plane = flightSystem.popPlane();
         System.out.println("Please enter price");
         double price = input.nextDouble();
         input.nextLine();// Consume newline left-over
