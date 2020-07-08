@@ -102,9 +102,16 @@ public class FlightManager extends User {
                 checkDest,checkSetOff)) {
             if(dest.equals(setOff))
                 System.out.println("Set off and destination cannot be the same");
-            else {
+            else if(!checkDepartTime(depart)){
+                System.out.println("Wrong depart time information");
+            }
+            else if(price < 0)
+                System.out.println("Flight price cannot be negative");
+            else{
                 Flight newFlight = new Flight(flightID, plane, setOff, dest, depart, price);
-                flightSystem.addFlight(createCrew(newFlight));
+                System.out.println("Flight has been created");
+                if(flightSystem.addFlight(createCrew(newFlight)))
+                    System.out.println("New flight has been added to the system.");
             }
         }
     }
@@ -115,7 +122,8 @@ public class FlightManager extends User {
         if(!printError(flight,new Plane("",0),new Pilot("0","0"),
                 new Hostess("0","0"),true,true)){
             flight.removeAllCrew();
-            flightSystem.removeFlight(flight);
+            if(flightSystem.removeFlight(flight))
+                System.out.println("Flight has been removed from the system.");
         }
     }
 
@@ -201,6 +209,39 @@ public class FlightManager extends User {
      * @return True if set off is exist, false otherwise
      */
     private boolean checkSetOff(String so){return flightSystem.getCity().contains(so); }
+
+    /**
+     * Check validity of depart time information
+     * @param dt The depart time information
+     * @return True if set off is exist, false otherwise
+     */
+    private boolean checkDepartTime(String dt){
+        if(dt.length() != 16)
+            return false;
+        else if(dt.charAt(2) == '/' && dt.charAt(5) == '/' && dt.charAt(10) == ',' && dt.charAt(13) == ':'){
+            //Split parameter's departTime
+            String [] time1 = dt.split("/");
+            int day = Integer.parseInt(time1[0]);
+            int month = Integer.parseInt(time1[1]);
+            String [] time2 = time1[2].split(",");
+            int year = Integer.parseInt(time2[0]);
+            String [] time3 = time2[1].split(":");
+            int hour = Integer.parseInt(time3[0]);
+            int minute = Integer.parseInt(time3[1]);
+
+            if(day < 0 || day > 31)
+                return false;
+            else if(month < 0 || month > 12)
+                return false;
+            else if(year < 0)
+                return false;
+            else if(hour < 0 || hour > 24)
+                return false;
+            else return minute >= 0 && minute <= 59;
+        }
+        else
+            return false;
+    }
 
     /**
      * Displays error
@@ -320,8 +361,8 @@ public class FlightManager extends User {
         while (choice != 0) {
             System.out.println("\nSet flight menu:");
             System.out.println("Please choose an action:");
-            System.out.println("0-Up\n1-Set id\n2-set plane\n3-set destination\n4-set set off information\n" +
-                    "5-set departTime\n6- add crew\n7- remove crew");
+            System.out.println("0-Up\n1-set id\n2-set plane\n3-set destination\n4-set set off information\n" +
+                    "5-set departTime\n6-set price\n7-add crew\n8-remove crew");
             System.out.print("\nchoice:");
             choice = input.nextInt();
             input.nextLine();// Consume newline left-over
@@ -330,6 +371,7 @@ public class FlightManager extends User {
                     System.out.println("Please enter new id");
                     String newID = input.nextLine();
                     flight.setID(newID);
+                    System.out.println("Flight ID has been updated");
                     break;
                 case 2:
                     System.out.println("Please enter new plane ID");
@@ -337,6 +379,7 @@ public class FlightManager extends User {
                     Plane newPlane = findPlane(planeID);
                     if (newPlane != null) {
                         flight.setPlane(newPlane);
+                        System.out.println("Plane has been updated");
                     } else
                         System.out.println("Wrong plane id");
                     break;
@@ -348,6 +391,7 @@ public class FlightManager extends User {
                                 flight.getDestination(), flight.getDepartTime(),flight.getPricePerSeat());
                         flightSystem.removeFlight(flight);
                         flightSystem.addFlight(newFlight);
+                        System.out.println("Destination has been updated");
                     }
                     else{
                         System.out.println("Wrong destination information");
@@ -361,6 +405,7 @@ public class FlightManager extends User {
                                 flight.getDestination(), flight.getDepartTime(),flight.getPricePerSeat());
                         flightSystem.removeFlight(flight);
                         flightSystem.addFlight(newFlight);
+                        System.out.println("Set off information has been updated");
                     }
                     else
                         System.out.println("Wrong set off information");
@@ -368,15 +413,31 @@ public class FlightManager extends User {
                 case 5:
                     System.out.println("Please enter new depart time information");
                     String dt = input.nextLine();
-                    Flight newFlight = new Flight(flight.getID(), flight.getPlane(), flight.getSetOff(),
-                            flight.getDestination(),dt,flight.getPricePerSeat());
-                    flightSystem.removeFlight(flight);
-                    flightSystem.addFlight(newFlight);
+                    if(!checkDepartTime(dt)) {
+                        System.out.println("Wrong depart time information");
+                    }
+                    else {
+                        Flight newFlight = new Flight(flight.getID(), flight.getPlane(), flight.getSetOff(),
+                                flight.getDestination(), dt, flight.getPricePerSeat());
+                        flightSystem.removeFlight(flight);
+                        flightSystem.addFlight(newFlight);
+                        System.out.println("Depart time has been updated");
+                    }
                     break;
                 case 6:
-                    createCrew(flight);
+                    System.out.println("Please enter new price");
+                    double price= input.nextDouble();
+                    if(price < 0)
+                        System.out.println("Flight price cannot be negative");
+                    else {
+                        flight.setPricePerSeat(price);
+                        System.out.println("Price has been updated");
+                    }
                     break;
                 case 7:
+                    createCrew(flight);
+                    break;
+                case 8:
                     removeCrew(flight);
                     break;
             }
@@ -491,6 +552,27 @@ public class FlightManager extends User {
             }
         }
 
+        public static void test_checkDep() {
+            FlightManager manager = new FlightManager("asd","asd",null,null);
+            String dt1 = "06/07/2020,12:30";
+            String dt2 = "06/7/2020,13:30";
+            String dt3 = "06/07/2020, 12:30";
+            String dt4 = "34/07/2020,12:30";
+            String dt5 = "03/13/2020,12:30";
+            String dt6 = "03/07/202,12:30";
+            String dt7 = "04/07/2020,26:30";
+            String dt8 = "02/07/2020,12:60";
+
+            System.out.println(manager.checkDepartTime(dt1));
+            System.out.println(manager.checkDepartTime(dt2));
+            System.out.println(manager.checkDepartTime(dt3));
+            System.out.println(manager.checkDepartTime(dt4));
+            System.out.println(manager.checkDepartTime(dt5));
+            System.out.println(manager.checkDepartTime(dt6));
+            System.out.println(manager.checkDepartTime(dt7));
+            System.out.println(manager.checkDepartTime(dt8));
+
+        }
         public static void test() throws FileNotFoundException {
             FlightSystem fs = new FlightSystem(test_city_file, test_distances_file);
             SkipList<User> u = new SkipList<>();
@@ -523,7 +605,7 @@ public class FlightManager extends User {
 
         public static void main(String[] args) {
             try {
-                FlightManagerTester.test();
+                FlightManagerTester.test_checkDep();
             } catch (Exception e) {
                 System.out.println("ERROR");
             }

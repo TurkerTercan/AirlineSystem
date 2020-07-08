@@ -220,6 +220,12 @@ public class Flight implements Comparable<Flight> {
     public void setDepartTime(String departTime){this.departTime = departTime;}
 
     /**
+     * Setter method for pricePerSeat
+     * @param pricePerSeat new pricePerSeat
+     */
+    public void setPricePerSeat(double pricePerSeat){this.pricePerSeat = pricePerSeat;}
+
+    /**
      * Setter method for Plane
      * @param plane new plane
      */
