@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.io.FileNotFoundException;
 
 /** Represents FlightManagers of airline system */
@@ -499,10 +497,11 @@ public class FlightManager extends User {
 
         private static final String test_city_file = "cities.txt";
         private static final String test_distances_file = "distances.txt";
+        private static final Queue<Plane> test_queue = new LinkedList<>();
 
         public static void test_getPlane(int test_count) throws FileNotFoundException {
             System.out.println("Testing getPlane method of FlightManager for "+test_count+" times");
-            FlightSystem system = new FlightSystem(test_city_file, test_distances_file);
+            FlightSystem system = new FlightSystem(test_city_file, test_distances_file, test_queue);
             FlightManager manager = new FlightManager("test", "test", system, null);
 
             //Adding 10 unique planes to the system
@@ -575,7 +574,7 @@ public class FlightManager extends User {
 
         }
         public static void test() throws FileNotFoundException {
-            FlightSystem fs = new FlightSystem(test_city_file, test_distances_file);
+            FlightSystem fs = new FlightSystem(test_city_file, test_distances_file, test_queue);
             SkipList<User> u = new SkipList<>();
             u.add(new Pilot("pilot1","asd"));
             u.add(new Pilot("pilot2","asd"));

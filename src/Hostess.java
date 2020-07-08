@@ -1,4 +1,6 @@
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 /**
@@ -101,7 +103,8 @@ public class Hostess extends User{
     public static class HostessTester {
         private static final String test_city_file = "cities.txt";
         private static final String test_distances_file = "distances.txt";
-        private static final  String test_flights_file = "flights.txt";
+        private static final String test_flights_file = "flights.txt";
+        private static final Queue<Plane> test_queue = new LinkedList<>();
 
         //Unique plane id that will be used for testing
         static FlightSystem system;
@@ -110,7 +113,7 @@ public class Hostess extends User{
         static String destination = "İstanbul";
 
         public HostessTester() throws FileNotFoundException {
-            system = new FlightSystem(test_city_file,test_distances_file,test_flights_file);
+            system = new FlightSystem(test_city_file,test_distances_file,test_queue,test_flights_file);
             hostess = new Hostess("test", "test");
         }
 
@@ -122,6 +125,7 @@ public class Hostess extends User{
 
         public static void main(String[] args) throws FileNotFoundException {
             try {
+                new HostessTester();
                 HostessTester.test_showFlight();
             } catch (Exception e) {
                 System.out.println("ERROR "+ e.getMessage());

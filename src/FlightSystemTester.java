@@ -1,8 +1,5 @@
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /** Class to test FlightSystem class */
 public class FlightSystemTester {
@@ -12,8 +9,10 @@ public class FlightSystemTester {
     private static final String test_city_file = "cities.txt";
     private static final String test_distances_file = "distances.txt";
     private static final String test_flights_file = "flights.txt";
+    private static final Queue<Plane> test_queue = new LinkedList<>();
+
     public static void main(String[] args) throws FileNotFoundException {
-        FlightSystem flight = new FlightSystem(test_city_file, test_distances_file);
+        FlightSystem flight = new FlightSystem(test_city_file, test_distances_file,test_queue);
         flight.addPlane(new Plane(100));
         flight.addPlane(new Plane(150));
         flight.addPlane(new Plane(170));
@@ -40,7 +39,7 @@ public class FlightSystemTester {
         System.out.println("Adding "+test_count+" flights to the system.");
         System.out.println("Expected Output: False if there is already a flight with the same properties, otherwise; true.");
         
-        FlightSystem system = new FlightSystem(test_city_file, test_distances_file);
+        FlightSystem system = new FlightSystem(test_city_file, test_distances_file, test_queue);
         ArrayList<String> cities = system.getCity();
         int city_size = cities.size();
         int f_id = 1;
@@ -100,7 +99,7 @@ public class FlightSystemTester {
     private static FlightSystem test_findShortestFlights(int test_count) throws FileNotFoundException {
         System.out.println("Finds shortest flights between two cities if there is not any flight between them");
         System.out.println("Excepted Output: Prints an Flight array between source to destination");
-        FlightSystem system = new FlightSystem(test_city_file, test_distances_file);
+        FlightSystem system = new FlightSystem(test_city_file, test_distances_file, test_queue);
         int f_id = 1;
         int p_id = 1;
         ArrayList<String> cities = system.getCity();

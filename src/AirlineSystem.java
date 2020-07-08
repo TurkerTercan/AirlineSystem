@@ -32,7 +32,7 @@ public class AirlineSystem {
      */
     public AirlineSystem(String file_city, String file_distance) throws FileNotFoundException {
         this();
-        flightSystem = new FlightSystem(file_city, file_distance);
+        flightSystem = new FlightSystem(file_city, file_distance, planeMaintance);
     }
 
     /**
@@ -45,7 +45,7 @@ public class AirlineSystem {
      */
     public AirlineSystem(String file_city, String file_distance, String file_flights) throws FileNotFoundException {
         this();
-        flightSystem = new FlightSystem(file_city, file_distance, file_flights);
+        flightSystem = new FlightSystem(file_city, file_distance, planeMaintance, file_flights);
     }
 
     /**
@@ -133,7 +133,7 @@ public class AirlineSystem {
                 } else if (in[0].equals("Pilot")) {
                     this.userSet.add(new Pilot(in[1], in[2]));
                 } else if (in[0].equals("Technician")) {
-                    this.userSet.add(new Technician(in[1], in[2]));
+                    this.userSet.add(new Technician(in[1], in[2], flightSystem));
                 } else {
                     System.out.println("There is no such user role in the system.");
                     System.exit(1);
@@ -161,12 +161,8 @@ public class AirlineSystem {
         return flightSystem;
     }
 
-    /**
-     * getter method of the plane maintance queue
-     */
-    public Queue<Plane> getPlaneMaintance() {
-        return planeMaintance;
-    }
+
+
     /**
      * Main menu method of the AirlineSystem
      * Customers or authorized users will be logged in to system or

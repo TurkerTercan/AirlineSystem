@@ -113,7 +113,7 @@ public class Admin extends User {
                     case 2:
                         return new Hostess(UN, PW);
                     case 3:
-                        return new Technician(UN, PW);
+                        return new Technician(UN, PW, system.getFlightSystem());
                     case 4:
                         return new FlightManager(UN, PW, system.getFlightSystem(), system.getUserSet());
                     default:
@@ -146,7 +146,7 @@ public class Admin extends User {
             case 2:
                 fired = new Hostess(UN,"");
             case 3:
-                fired = new Technician(UN,"");
+                fired = new Technician(UN,"", null);
             case 4:
                 fired = new FlightManager(UN,"",null,null);
             default:

@@ -44,18 +44,24 @@ public class FlightSystem {
      */
     private ArrayList<String> city;
 
+    /** A queue that has all planes that is required to maintance */
+    private Queue<Plane> planeMaintance;
+
     /**
      * Basic Constructor for FlightSystem
      * Instantiates all data fields and reads two txt with scanner
      * @throws FileNotFoundException If there is no such file
      */
-    public FlightSystem(String city_filePath, String distance_filePath) throws FileNotFoundException {
+    public FlightSystem(String city_filePath, String distance_filePath, Queue<Plane> maintance) throws FileNotFoundException {
         distance = new ArrayList<>();
         city = new ArrayList<>();
         availablePlanes = new TreeSet<>();
         flight_map = new HashMap<>();
         graph = new ListGraph(MAX_CAPACITY, true);
         scanFromFile(city_filePath, distance_filePath);
+        planeMaintance = maintance;
+        if (planeMaintance == null)
+            planeMaintance = new LinkedList<>();
 
     }
     
@@ -64,18 +70,17 @@ public class FlightSystem {
      * Instantiates all data fields and reads three txt with scanner
      * @throws FileNotFoundException If there is no such file
      */
-    public FlightSystem(String city_filePath, String distance_filePath, String flight_filePath) throws FileNotFoundException {
-        this(city_filePath, distance_filePath);
+    public FlightSystem(String city_filePath, String distance_filePath, Queue<Plane> maintance, String flight_filePath) throws FileNotFoundException {
+        this(city_filePath, distance_filePath, maintance);
         scanFromFile(flight_filePath);
-        addPlanesToSystem(START_PLANE_CAP);
+        addPlanesToSystem();
     }
 
     /**
      * Method to add planes to system
-     * @param startPlaneCap Capacity
      */
-    private void addPlanesToSystem(int startPlaneCap) {
-        for (int i = 0; i < startPlaneCap; i++) {
+    private void addPlanesToSystem() {
+        for (int i = 0; i < FlightSystem.START_PLANE_CAP; i++) {
             availablePlanes.add(new Plane(150));
         }
     }
@@ -164,6 +169,7 @@ public class FlightSystem {
             temp.put(destination, flight);
         }
         availablePlanes.remove(newFlight.getPlane());
+        planeMaintance.offer(newFlight.getPlane());
         
         graph.insert(new Edge(city.indexOf(setOff), city.indexOf(destination),
                 distance.get(city.indexOf(setOff)).get(city.indexOf(destination))));
@@ -191,7 +197,8 @@ public class FlightSystem {
             temp.remove(destination);
         }
         if (result) {
-            availablePlanes.add(removed.getPlane());
+            if (!planeMaintance.contains(removed.getPlane()))
+                availablePlanes.add(removed.getPlane());
             Edge e = graph.getEdge(city.indexOf(setOff), city.indexOf(destination));
             return graph.remove(e);
         } else {
@@ -249,6 +256,14 @@ public class FlightSystem {
      */
     public Map<String,Map<String, PriorityQueue<Flight>>> getFlight_map() {
         return flight_map;
+    }
+
+    /**
+     * Getter method for planeMaintance
+     * @return planeMaintance
+     */
+    public Queue<Plane> getPlaneMaintance() {
+        return planeMaintance;
     }
 
     /**

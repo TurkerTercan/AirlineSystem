@@ -1,4 +1,6 @@
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 /**
@@ -100,6 +102,7 @@ public class Pilot extends User{
         private static final String test_city_file = "cities.txt";
         private static final String test_distances_file = "distances.txt";
         private static final  String test_flights_file = "flights.txt";
+        private static final Queue<Plane> test_queue = new LinkedList<>();
 
         //Unique plane id that will be used for testing
         static FlightSystem system;
@@ -107,11 +110,11 @@ public class Pilot extends User{
         static String setoff = "Londra";
         static String destination = "Tiflis";
         public PilotTester() throws FileNotFoundException {
-            system = new FlightSystem(test_city_file,test_distances_file,test_flights_file);
+            system = new FlightSystem(test_city_file,test_distances_file,test_queue,test_flights_file);
             pilot = new Pilot("test", "test");
         }
 
-        public static void test_showFlight() throws FileNotFoundException {
+        public static void test_showFlight(){
             System.out.println("Testing set flight method of Pilot ");
 
             pilot.setFlight(system.getFlights(setoff,destination).peek());
@@ -119,8 +122,9 @@ public class Pilot extends User{
         }
 
 
-        public static void main(String[] args) throws FileNotFoundException {
+        public static void main(String[] args){
             try {
+                new PilotTester();
                 PilotTester.test_showFlight();
             } catch (Exception e) {
                 System.out.println("ERROR "+ e.getMessage());

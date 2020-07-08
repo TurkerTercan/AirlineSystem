@@ -14,16 +14,18 @@ public class Technician extends User {
     private boolean LogedIn = false;
     /** A queue that stores planes need to be maintaince */
     private Queue<Plane> planeMaintance;
+    private FlightSystem system;
 
     /**
      * Constructor
-     * @param id
-     * @param password
+     * @param id Technician's identification
+     * @param password Technician's password
      */
-    public Technician(String id, String password) {
+    public Technician(String id, String password, FlightSystem sys) {
         super(id, password);
         input = new Scanner(System.in);
-        planeMaintance = new LinkedList<>();
+        system = sys;
+        planeMaintance = system.getPlaneMaintance();
     }
 
     /**
@@ -73,10 +75,12 @@ public class Technician extends User {
     {
         if(planeMaintance.size() != 0) {
             Plane maintain = planeMaintance.poll();
-            System.out.print("Plane " + maintain.getId() +" is maintained!");
+            System.out.println("Plane " + maintain.getId() +" is maintained!");
+            system.addPlane(maintain);
+            System.out.println("Successfully added to available planes");
         }
         else {
-            System.out.print("Plane maintain queue is empty!");
+            System.out.println("Plane maintain queue is empty!");
         }
     }
 
@@ -91,30 +95,14 @@ public class Technician extends User {
         System.out.println("");
     }
 
-
-    /**
-     * Getter method for plane maintance
-     * @return plane queue
-     */
-    public Queue<Plane> getPlaneMaintance() {
-        return planeMaintance;
-    }
-
-    /**
-     * Setter method for plane maintance
-     * @param planeMaintance
-     */
-    public void setPlaneMaintance(Queue<Plane> planeMaintance) {
-        this.planeMaintance = planeMaintance;
-    }
-
     /**
      * The technician's methods are tested.
      */
     public static class TechnicianTester {
         private static final String test_city_file = "cities.txt";
         private static final String test_distances_file = "distances.txt";
-        private static final  String test_flights_file = "flights.txt";
+        private static final String test_flights_file = "flights.txt";
+        private static final Queue<Plane> test_queue = new LinkedList<>();
 
         //Unique plane id that will be used for testing
         static FlightSystem system;
@@ -123,22 +111,23 @@ public class Technician extends User {
         static String destination = "İstanbul";
 
         public TechnicianTester() throws FileNotFoundException {
-            system = new FlightSystem(test_city_file,test_distances_file,test_flights_file);
-            technician = new Technician("test", "test");
+            system = new FlightSystem(test_city_file,test_distances_file, test_queue,test_flights_file);
+            technician = new Technician("test", "test", system);
             technician.planeMaintance.add(system.getFlights(setoff,destination).peek().getPlane());
             technician.planeMaintance.add(system.getFlights("Londra","Tiflis").peek().getPlane());
         }
 
-        public static void test_showMaintenanceAirplane() throws FileNotFoundException {
+        public static void test_showMaintenanceAirplane() {
             System.out.println("Testing set show maintenance airplane queue of Technician ");
             technician.showMaintenanceQueue();
         }
-        public static void test_maintenanceConfirm() throws FileNotFoundException {
+        public static void test_maintenanceConfirm() {
             System.out.println("Testing set maintenance confirm of Technician ");
             technician.maintenanceConfirm();
         }
-        public static void main(String[] args) throws FileNotFoundException {
+        public static void main(String[] args) {
             try {
+                new TechnicianTester();
                 TechnicianTester.test_showMaintenanceAirplane();
                 TechnicianTester.test_maintenanceConfirm();
             } catch (Exception e) {
