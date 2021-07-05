@@ -2,7 +2,7 @@
 1 150 Ankara İstanbul 06/07/2020,15:00 130.0
 2 150 Ankara Antalya 06/07/2020,15:30 130.0
 3 150 Ankara Gaziantep 06/07/2020,16:30 130.0
-16 350 Ankara Madrid 06/07/2020,14:30 250.5
+16 350 Ankara Madrid 06/07/2020,14:30 255.5
 4 150 İstanbul Ankara 06/07/2020,15:30 130.0
 5 150 İstanbul İzmir 06/07/2020,12:30 200.0
 6 150 İstanbul Antalya 06/07/2020,11:30 150.0
